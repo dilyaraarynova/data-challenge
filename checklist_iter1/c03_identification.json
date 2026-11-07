@@ -17,17 +17,18 @@
   "weight": 20,
   "official_rule": "Yes: identity verification was confirmed before disclosing data or performing a protected action. N/A: the request did not require identification. If verification was required and is not confirmed in the chat, answer No.",
   "na_gate": {
-    "question": "Did the dialogue NOT involve disclosing the client's personal/account data or performing a protected action?",
-    "na_if": true,
+    "question": "Did the operator disclose the client's account-specific data, or perform/initiate an action on the client's account on their behalf?",
+    "na_if": false,
+    "note": "Identification is required only when the OPERATOR accesses the account: reveals balance, positions, restrictions, request status, personal data, or executes/initiates an action. Explaining where in the app the client can do something themselves (navigation, general procedure) does not require identification, even if the topic is a withdrawal or a change of details.",
     "requires_identification_examples": {
-      "disclosure": [
+      "operator discloses": [
         "balance",
         "positions / portfolio",
         "orders and transaction history",
         "personal data on file",
         "status of the client's specific request or withdrawal"
       ],
-      "protected_actions": [
+      "operator performs": [
         "withdrawal or transfer",
         "changing phone/email/bank details",
         "blocking/unblocking",
