@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0",
+  "criterion_id": "c05_empathy",
+  "order": 5,
+  "section": {
+    "id": "conduct_closing",
+    "name_ru": "Ведение и завершение диалога"
+  },
+  "name_ru": "Эмпатия и клиентоориентированность",
+  "name_en": "Empathy and client focus",
+  "answer_type": "yes_no",
+  "allowed_answers": [
+    "yes",
+    "no"
+  ],
+  "weight": 15,
+  "official_rule": "Yes: operator is polite and, if the client expressed dissatisfaction or described an inconvenience, responded to the specific problem.",
+  "na_gate": null,
+  "conditions": [
+    {
+      "id": "polite",
+      "question": "Are all operator messages polite (no rudeness, sarcasm, blaming the client, dismissive tone)?"
+    },
+    {
+      "id": "client_dissatisfied",
+      "question": "Did the client express dissatisfaction or describe an inconvenience?",
+      "role": "trigger"
+    },
+    {
+      "id": "reacted_to_problem",
+      "question": "Did the operator respond to the client's specific problem (acknowledged it concretely and/or acted on it), not just a generic template apology?",
+      "applies_if": "client_dissatisfied"
+    }
+  ],
+  "decision": {
+    "yes_if": "polite AND (NOT client_dissatisfied OR reacted_to_problem)",
+    "else": "no"
+  },
+  "scoring": {
+    "yes": 15,
+    "no": 0
+  },
+  "evidence": {
+    "format": "message index + timestamp + short quote",
+    "for_false_condition": "cite the message where the condition was expected to be met",
+    "for_na": "state the N/A reason and cite the message that proves it"
+  },
+  "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
+}

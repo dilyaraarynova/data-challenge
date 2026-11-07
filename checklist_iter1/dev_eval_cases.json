@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "purpose": "DEV-set cases for testing prompts. Never sent to the model.",
+  "cases": {
+    "c01_contact": {
+      "p1-ru-014": "'Привет, где именно ищете?' — no name",
+      "p1-kz-008": "'Сәлем. Қай сайтқа кірдіңіз?' — no name",
+      "p1-en-015": "no greeting, no name",
+      "p4-ru-005": "greeting, no name",
+      "p4-ru-002": "name, but no greeting"
+    },
+    "c03_identification": {
+      "p1-ru-002": "operator mentions identification, no confirmation event",
+      "p1-kz-015": "same",
+      "p4-ru-003": "voice: operator says 'Далее' after masked data, no explicit confirmation",
+      "p4-ru-004": "voice: verification explicitly fails"
+    }
+  },
+  "dev_stats": {
+    "c06_reply_gaps_agent_chat": "median ≈36s, p90 ≈50s, max 132s; 9 gaps >60s, 1 gap >120s (p1-ru-028, warned)"
+  }
+}

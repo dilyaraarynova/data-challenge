@@ -1,0 +1,51 @@
+{
+  "schema_version": "2.0",
+  "criterion_id": "c02_needs",
+  "order": 2,
+  "section": {
+    "id": "opening",
+    "name_ru": "Начало и понимание запроса"
+  },
+  "name_ru": "Выявление потребности",
+  "name_en": "Identifying the need",
+  "answer_type": "yes_no_na",
+  "allowed_answers": [
+    "yes",
+    "no",
+    "na"
+  ],
+  "weight": 15,
+  "official_rule": "Yes: operator used the details already known and clarified what was missing before answering. N/A: the data needed for an answer was sufficient from the start.",
+  "na_gate": {
+    "question": "Did the client's messages (and the bot exchange) before the operator's first substantive answer already contain everything needed to answer correctly?",
+    "na_if": true,
+    "note": "Evaluated first. N/A wins even if the operator re-asked something unnecessary; that friction goes to c06."
+  },
+  "conditions": [
+    {
+      "id": "used_known_details",
+      "question": "Did the operator avoid re-asking information already given by the client, the bot, or the system?"
+    },
+    {
+      "id": "clarified_before_answer",
+      "question": "If information needed for a correct answer was missing, did the operator ASK for it before giving the substantive answer?",
+      "note": "Judge the asking, not whether the client supplied it. If the operator asked and the client did not provide it, this is still true; an unresolved gap is judged in c04 (completeness), not here. False only if the operator answered without asking, or asked only after answering."
+    }
+  ],
+  "decision": {
+    "na_if": "na_gate",
+    "yes_if": "used_known_details AND clarified_before_answer",
+    "else": "no"
+  },
+  "scoring": {
+    "yes": 15,
+    "no": 0,
+    "na": "excluded, weight redistributed"
+  },
+  "evidence": {
+    "format": "message index + timestamp + short quote",
+    "for_false_condition": "cite the message where the condition was expected to be met",
+    "for_na": "state the N/A reason and cite the message that proves it"
+  },
+  "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
+}

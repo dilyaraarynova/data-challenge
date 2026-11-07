@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "criterion_id": "c04_consultation",
+  "order": 4,
+  "section": {
+    "id": "security_resolution",
+    "name_ru": "Безопасность и решение"
+  },
+  "name_ru": "Корректная и полная консультация",
+  "name_en": "Correct and complete consultation",
+  "answer_type": "scale_na",
+  "weight": 20,
+  "scale": {
+    "min": 0,
+    "max": 20,
+    "allowed_steps": [
+      0,
+      5,
+      10,
+      15,
+      20
+    ],
+    "step_descriptions": {
+      "20": "All material questions closed or a correct next step given.",
+      "15": "Main question resolved, a secondary detail missed.",
+      "10": "Part of the request closed, a material question left open.",
+      "5": "A general hint exists, but the client still does not understand how to act.",
+      "0": "No substantive answer, or the key recommendation is wrong."
+    }
+  },
+  "na": {
+    "allowed": true,
+    "gate_question": "Did the chat end before the client formulated a request?",
+    "na_if": "Yes — e.g. client only greeted and left, or disconnected before stating the question.",
+    "evaluate_first": true
+  },
+  "preparation_step": {
+    "key": "list_client_questions",
+    "instruction": "Before the gates, list every question/request the client raised and tag each as 'main', 'material' or 'secondary'. Gates below are evaluated against this list."
+  },
+  "subcriteria": [
+    {
+      "id": "4.1",
+      "key": "substantive_answer",
+      "question": "Did the operator give a substantive answer to the main question or a concrete next step (where to go, what to submit, who will contact and when)?",
+      "pass_if": "Yes.",
+      "fail_if": "Only template phrases, deflection, or no answer.",
+      "on_fail_score": 0
+    },
+    {
+      "id": "4.2",
+      "key": "key_recommendation_correct",
+      "question": "Is the key recommendation factually and procedurally correct (not contradicting company process, product facts or the client's situation)?",
+      "pass_if": "No error in the key recommendation.",
+      "fail_if": "The core advice is wrong or misleading.",
+      "on_fail_score": 0
+    },
+    {
+      "id": "4.3",
+      "key": "client_can_act",
+      "question": "After the answer, does the client know concretely what to do next?",
+      "pass_if": "Actionable: steps, location in app, documents, timeline or an explicit next step.",
+      "fail_if": "Only a vague hint; client still asks 'so what should I do?' or the steps are missing.",
+      "on_fail_score": 5
+    },
+    {
+      "id": "4.4",
+      "key": "all_material_questions_closed",
+      "question": "Were ALL questions tagged 'main' or 'material' answered or given a correct next step?",
+      "pass_if": "None left open.",
+      "fail_if": "At least one material question remains unanswered.",
+      "on_fail_score": 10
+    },
+    {
+      "id": "4.5",
+      "key": "secondary_details_covered",
+      "question": "Were secondary details covered (fees, deadlines, limits, caveats relevant to the answer)?",
+      "pass_if": "Nothing relevant missed.",
+      "fail_if": "A secondary but useful detail was omitted.",
+      "on_fail_score": 15
+    }
+  ],
+  "decision_logic": {
+    "type": "na_gate_then_ordered_gates",
+    "description": "Evaluate 4.1 → 4.5 in order. The first failed gate sets the score via on_fail_score. If all pass, score = 20.",
+    "all_pass_score": 20
+  },
+  "scoring": {
+    "formula": "points = step / 20 * weight",
+    "step_to_points_before_na_redistribution": {
+      "20": 20,
+      "15": 15,
+      "10": 10,
+      "5": 5,
+      "0": 0
+    }
+  },
+  "evidence": {
+    "required": true,
+    "format": "message index + timestamp + short quote",
+    "on_missing_action": "point to the dialogue span where the action was expected",
+    "on_na": "state which N/A condition is met and cite the message that proves it",
+    "per_gate": "Cite the message for the gate that determined the score."
+  },
+  "boundary_with_c06": "c04 judges whether the request was solved correctly and fully; clarity and order of communication belong to c06."
+}

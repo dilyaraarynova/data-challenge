@@ -1,0 +1,75 @@
+{
+  "schema_version": "2.0",
+  "criterion_id": "c03_identification",
+  "order": 3,
+  "section": {
+    "id": "security_resolution",
+    "name_ru": "Безопасность и решение"
+  },
+  "name_ru": "Идентификация",
+  "name_en": "Identity verification",
+  "answer_type": "yes_no_na",
+  "allowed_answers": [
+    "yes",
+    "no",
+    "na"
+  ],
+  "weight": 20,
+  "official_rule": "Yes: identity verification was confirmed before disclosing data or performing a protected action. N/A: the request did not require identification. If verification was required and is not confirmed in the chat, answer No.",
+  "na_gate": {
+    "question": "Did the dialogue NOT involve disclosing the client's personal/account data or performing a protected action?",
+    "na_if": true,
+    "requires_identification_examples": {
+      "disclosure": [
+        "balance",
+        "positions / portfolio",
+        "orders and transaction history",
+        "personal data on file",
+        "status of the client's specific request or withdrawal"
+      ],
+      "protected_actions": [
+        "withdrawal or transfer",
+        "changing phone/email/bank details",
+        "blocking/unblocking",
+        "placing or cancelling orders",
+        "reissuing documents"
+      ],
+      "examples_note": "Team-defined list for the LLM prompt; edit in the UI if the organisers' policy differs."
+    }
+  },
+  "conditions": [
+    {
+      "id": "verification_initiated",
+      "question": "Did the operator request verification, or does a system event show a verification procedure?"
+    },
+    {
+      "id": "verification_confirmed",
+      "question": "Is successful verification explicitly confirmed (system event or explicit operator confirmation)?",
+      "note": "Requested but never confirmed, or failed and the operator continued → false. Confirmation = a system verification event or an explicit operator statement; an operator merely continuing after the client gives data is not confirmation (team decision, matters for voice calls)."
+    },
+    {
+      "id": "confirmed_before_disclosure",
+      "question": "Did the confirmation come before the FIRST disclosure of protected data or the first protected action (even a partial one)?"
+    }
+  ],
+  "decision": {
+    "na_if": "na_gate",
+    "yes_if": "verification_initiated AND verification_confirmed AND confirmed_before_disclosure",
+    "else": "no"
+  },
+  "scoring": {
+    "yes": 20,
+    "no": 0,
+    "na": "excluded, weight redistributed"
+  },
+  "evidence": {
+    "format": "message index + timestamp + short quote",
+    "for_false_condition": "cite the message where the condition was expected to be met",
+    "for_na": "state the N/A reason and cite the message that proves it",
+    "for_no": "cite the first message where protected data was disclosed or the protected action happened"
+  },
+  "related": {
+    "c08_gross_errors": "Disclosure of confidential data may also trigger flag 8.3."
+  },
+  "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
+}

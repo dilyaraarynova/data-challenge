@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0",
+  "criterion_id": "c08_gross_errors",
+  "order": 8,
+  "section": {
+    "id": "gross_violations",
+    "name_ru": "Грубые нарушения"
+  },
+  "name_ru": "Грубые ошибки",
+  "name_en": "Gross errors",
+  "answer_type": "flag",
+  "allowed_answers": [
+    "yes",
+    "no"
+  ],
+  "weight": 0,
+  "official_rule": "Yes: insult of the client, offer of a paid service bypassing the company, or disclosure of confidential information. No: none of the three detected.",
+  "affects_score": false,
+  "na_gate": null,
+  "scope": "All operator messages in the dialogue.",
+  "conditions": [
+    {
+      "id": "insult",
+      "question": "Did the operator insult, mock or humiliate the client?"
+    },
+    {
+      "id": "bypass_paid_offer",
+      "question": "Did the operator offer a service bypassing the company (money to the operator personally, personal number for paid consultation)?",
+      "note": "The offer itself is enough."
+    },
+    {
+      "id": "confidential_disclosure",
+      "question": "Did the operator disclose confidential information (other clients' data, internal company info, the client's protected data to an unverified person)?"
+    }
+  ],
+  "decision": {
+    "yes_if": "insult OR bypass_paid_offer OR confidential_disclosure",
+    "else": "no"
+  },
+  "display": "Shown as a separate red flag next to the total; does not change the numeric score.",
+  "evidence": {
+    "format": "message index + timestamp + short quote",
+    "for_false_condition": "cite the message where the condition was expected to be met",
+    "for_na": "state the N/A reason and cite the message that proves it",
+    "required_for_yes": true,
+    "for_no": "state that all operator messages were checked"
+  },
+  "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
+}

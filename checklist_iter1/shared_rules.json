@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Rules about the data format and scoring scope. Prepended to every criterion prompt, so criterion files stay pure checklist content and can be swapped.",
+  "rules": [
+    "Only operator messages are scored. The operator sees the full client–bot exchange, so bot and system messages are known context (details already given, verification events, chat closure).",
+    "Tokens in square brackets such as '[Имя скрыто]' or '[Персональные данные скрыты]' are masked real content: treat them as present, never as missing or as an error.",
+    "For channel 'voice call' the transcript is speech-recognition output: misheard words, garbled phrases and fragmented turns are transcription artefacts, not operator mistakes.",
+    "System messages may be in RU, KZ or EN; interpret them by meaning.",
+    "Cite evidence by message index [i] and timestamp with a short quote."
+  ],
+  "preprocessing_in_code": [
+    "Parse both timestamp formats (MM:SS for chats; ISO-8601 with 7-digit fractions for voice — truncate to 6).",
+    "Index messages as '[i] timestamp speaker: text'.",
+    "Drop the constant bot boilerplate (AIM greeting, privacy notice).",
+    "Merge consecutive same-speaker fragments in voice calls, keeping original indices.",
+    "Compute mid-dialogue operator reply gaps and pass them as hints for c06."
+  ]
+}
