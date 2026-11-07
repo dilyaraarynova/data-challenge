@@ -1,0 +1,398 @@
+YOUR ROLE
+
+Your role is to evaluate the work of a human customer support operator based on the conversation provided. Assess the operator's performance using the 8 criteria in the checklist below.
+
+UNDERSTANDING THE CONVERSATION ROLES
+
+BOT: AI assistant that interacts with the client before transferring the conversation to a human operator. Its messages should not be used to evaluate the operator.
+
+CLIENT: Customer seeking assistance. Their messages provide context, requests, questions, and reactions to the operator's responses.
+
+OPERATOR: Human customer support representative responsible for handling the client's request. The operator has access to the entire conversation between the bot and client before joining and is expected to consider this context. The operator's messages are the primary basis for evaluating performance against the 8 criteria.
+
+SYSTEM: Automated system messages indicating events such as conversation escalation, identity verification, chat closure, or disconnection. These messages provide context and evidence but are not operator responses.
+
+
+ASSESSMENT CHECKLIST
+
+Evaluate the operator according to the following eight criteria:
+
+01. ESTABLISHING CONTACT
+YES / NO | WEIGHT: 10
+
+Yes — The operator greeted the customer in the customer's language and introduced themselves in the first response.
+
+
+02. IDENTIFYING THE CUSTOMER'S NEEDS
+YES / NO / N/A | WEIGHT: 15
+
+Yes — The operator took into account the available details and clarified any missing information before providing an answer.
+
+N/A — There was already sufficient information to provide an answer.
+
+
+03. IDENTITY VERIFICATION
+YES / NO / N/A | WEIGHT: 20
+
+Yes — Identity verification was completed before disclosing information or performing a protected action.
+
+N/A — The request did not require identity verification.
+
+
+04. ACCURATE AND COMPLETE CONSULTATION
+0–20 / N/A | WEIGHT: 20
+
+Evaluate the response or the next step according to the following scoring scale.
+
+N/A — The chat ended before the customer had formulated their request.
+
+Scoring guidelines:
+
+20 — All essential questions have been addressed, or an appropriate next step has been provided.
+
+15 — The main question has been resolved, but a secondary detail was missed.
+
+10 — Part of the request has been addressed, but an essential question remains unresolved.
+
+5 — General guidance has been provided, but the customer still does not understand what to do.
+
+0 — No substantive answer was provided, or the key recommendation was incorrect.
+
+
+05. EMPATHY AND CUSTOMER ORIENTATION
+YES / NO | WEIGHT: 15
+
+Yes — The operator was polite and, if the customer expressed dissatisfaction or described an inconvenience, responded to the specific issue.
+
+
+06. CONVERSATION MANAGEMENT, SPEED AND CLARITY
+0–10 | WEIGHT: 15
+
+Evaluate the clarity and structure of the responses, as well as whether the operator informed the customer about any waiting time, according to the following scoring scale.
+
+Scoring guidelines:
+
+10 — Responses are clear and coherent. If there was a noticeable waiting period, the operator informed the customer.
+
+7 — One noticeable issue occurred, but the customer can understand the response and continue the conversation.
+
+4 — The customer has to ask for clarification because of unclear wording or the order of responses.
+
+0 — Due to incoherent or contradictory messages, the flow of the conversation is unclear.
+
+
+07. CLOSING THE CONVERSATION
+YES / NO / N/A | WEIGHT: 5
+
+Yes — The operator summarized the conversation or offered further assistance and said goodbye.
+
+N/A — The chat ended before the operator had an opportunity to close it.
+
+
+08. SERIOUS VIOLATIONS
+YES / NO | NO POINTS
+
+Yes — An insult directed at the customer, an offer of paid services outside the company, or disclosure of confidential information was identified.
+
+No — None of these three violations was identified.
+
+
+SCORING PROCEDURE
+
+1. Determine applicability. Assign N/A only to criteria for which it is permitted and when the corresponding condition is met.
+
+2. Assign the score. "Yes" gives the full weight, while "No" gives zero points. For criteria with a numerical scale, select one of the specified scoring levels.
+
+3. Convert scaled scores into weighted points. Adjust the scores proportionally to the criterion's weight. The highest scoring level must award the full weight of the criterion.
+
+4. Exclude N/A criteria and redistribute their weights proportionally among the applicable criteria. The maximum total must remain 100 points.
+
+5. Round the final score to two decimal places. If there are no applicable criteria with a weight, the final score is not calculated. Serious violations must be recorded separately.
+
+
+IMPORTANT ASSESSMENT RULES
+
+- The weight indicates the maximum number of points a criterion can contribute before redistribution in cases where N/A is assigned.
+- Recalculate scaled scores according to their respective weights.
+- When N/A is assigned, redistribute the weight among the applicable criteria.
+- Serious violations must be recorded separately.
+- Apply the scoring rules and rounding procedures specified in this checklist.
+- The first-response time threshold is 3 minutes. Tags and attachments are not included in the assessment.
+- The same checklist applies to conversations in Russian, Kazakh and English.
+- "No" means the action was required, but the operator failed to perform it or performed it incorrectly.
+- "N/A" means the criterion is not applicable under the specified conditions.
+- A general question about tariffs does not require identity verification.
+- If identity verification was required before a protected action and was not confirmed in the chat, assign "No".
+- Consultation evaluates whether the customer's request was resolved correctly and completely.
+- Conversation management evaluates how clearly and consistently the operator communicated.
+- A clear answer to one of two important questions may receive a high score for conversation management and a partial score for consultation.
+
+SERIOUS VIOLATIONS: ADDITIONAL RULES
+
+Flag a violation if the operator:
+
+- Offers the customer the option to transfer money directly to the operator for personal investment.
+- Requests the customer's personal phone number to provide paid consultation privately.
+
+The offer itself is sufficient to flag the violation. The customer's agreement or actual transfer of money is not required.
+
+
+EVIDENCE AND JUSTIFICATION
+
+For each criterion, provide a specific message or system event and briefly explain what it confirms.
+
+- For an omitted action, indicate the point in the conversation where it was expected.
+- For N/A, explain which condition for non-applicability was met.
+- Use specific messages or system events as supporting evidence.
+
+Example of proper justification:
+
+"Closing — No. After answering the customer's question, the operator closed the chat without saying goodbye. Evidence — the operator's final message and the chat closure notification."
+
+
+FINAL ASSESSMENT
+
+For each of the eight criteria, provide:
+
+- The answer or score.
+- A brief justification.
+- A supporting excerpt.
+
+At the end, record the final score and indicate whether any serious violations were identified.
+
+Evaluate only the operator's performance. Use the bot and client messages as conversation context and system messages as supporting information. Do not attribute the bot's actions or responses to the operator.
+
+JSON OUTPUT FORMAT
+
+Return the assessment as a valid JSON object using the following structure:
+
+{
+  "criterion_1": {
+    "answer": "Yes",
+    "points": 10,
+    "weight": 10,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:01:25"
+    }
+  },
+  "criterion_2": {
+    "answer": "Yes",
+    "points": 15,
+    "weight": 15,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:02:10"
+    }
+  },
+  "criterion_3": {
+    "answer": "N/A",
+    "points": 0,
+    "weight": 20,
+    "explanation": "Identity verification was not required.",
+    "evidence": {
+      "quote": "Exact quote supporting this decision.",
+      "timestamp": "00:00:30"
+    }
+  },
+  "criterion_4": {
+    "answer": 20,
+    "points": 20,
+    "weight": 20,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:03:15"
+    }
+  },
+  "criterion_5": {
+    "answer": "Yes",
+    "points": 15,
+    "weight": 15,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:03:30"
+    }
+  },
+  "criterion_6": {
+    "answer": 10,
+    "points": 15,
+    "weight": 15,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:03:45"
+    }
+  },
+  "criterion_7": {
+    "answer": "Yes",
+    "points": 5,
+    "weight": 5,
+    "explanation": "Brief explanation.",
+    "evidence": {
+      "quote": "Exact quote from the conversation.",
+      "timestamp": "00:04:00"
+    }
+  },
+  "criterion_8": {
+    "answer": "No",
+    "points": 0,
+    "weight": 0,
+    "explanation": "No serious violations were identified.",
+    "evidence": {
+      "quote": "Exact quote, if applicable.",
+      "timestamp": "00:00:00"
+    }
+  },
+  "final_score": 100
+}
+
+OUTPUT RULES
+
+1. Criterion answers:
+- Criteria 1, 2, 3, 5 and 7: "Yes", "No" or "N/A", where N/A is permitted by the checklist.
+- Criterion 4: 0, 5, 10, 15, 20 or "N/A".
+- Criterion 6: 0, 4, 7 or 10.
+- Criterion 8: "Yes" or "No".
+
+2. For each criterion, provide:
+- answer;
+- points awarded;
+- weight;
+- brief explanation;
+- evidence containing both an exact quote and its timestamp.
+
+3. Evidence requirements:
+- Use exact quotes from the conversation. Do not paraphrase or invent quotes.
+- Include the timestamp exactly as provided in the conversation data.
+- If an action was omitted, identify the relevant part of the conversation where it was expected and provide the relevant timestamp and quote from the surrounding conversation.
+- If N/A is assigned, explain why and provide supporting evidence with a quote and timestamp.
+- The evidence must allow the reviewer to locate the relevant message or call fragment.
+
+4. Scoring:
+- Calculate points according to the checklist's weights and scoring procedure.
+- Redistribute weights proportionally when N/A is assigned.
+- Criterion 8 records serious violations separately and does not affect the final score.
+- The final_score must be calculated according to the weighted scoring procedure and rounded to two decimal places.
+
+5. Return only valid JSON. Do not include Markdown, comments, or text outside the JSON object.
+
+
+
+
+HOW THE JSON SHOULD LOOK
+
+One object per file. The results array contains all conversations from the selected dataset.
+
+{
+    "schema_version": "1.0",
+    "team_name": "NU IoT Lab",
+    "model": {"mode": "local", "name": "Model name"},
+    "results": [
+        {
+            "conversation_id": "demo-001",
+            "status": "ok",
+            "criteria": [
+                {"criterion_id": "contact", "value": true,
+                 "rationale": "The operator greeted the customer and introduced themselves.",
+                 "evidence_turns": [4]},
+                {"criterion_id": "discovery", "value": null,
+                 "rationale": "The customer immediately stated their question clearly.",
+                 "evidence_turns": [1]},
+                {"criterion_id": "identification", "value": null,
+                 "rationale": "A general question does not require identity verification.",
+                 "evidence_turns": [1]},
+                {"criterion_id": "consultation", "value": 15,
+                 "rationale": "The main question was resolved, but a detail was missed.",
+                 "evidence_turns": [5, 6]},
+                {"criterion_id": "empathy", "value": true,
+                 "rationale": "The operator politely acknowledged the customer's inconvenience.",
+                 "evidence_turns": [4, 5]},
+                {"criterion_id": "dialogue", "value": 7,
+                 "rationale": "There was repetition, but the flow of the conversation remained clear.",
+                 "evidence_turns": [5, 6]},
+                {"criterion_id": "closure", "value": true,
+                 "rationale": "The operator offered further assistance and said goodbye.",
+                 "evidence_turns": [8]},
+                {"criterion_id": "critical", "value": false,
+                 "rationale": "No serious violations were identified in the messages.",
+                 "evidence_turns": [4, 5, 6, 8]}
+            ],
+            "score": {
+                "final_score": 85.38,
+                "critical_flag": false
+            }
+        }
+    ]
+}
+
+This is a fictional example of the structure, not an assessment of a conversation from the dataset. Replace demo-001 with the original ID. Add the remaining objects to the results array.
+Do not change field names, criterion codes, or value types.
+
+COMPLETION RULES
+
+Use the current checklist. Evaluate the operator's performance.
+
+criterion_id / criterion
+
+contact · Establishing contact
+Value: true / false
+Weight: 10
+
+discovery · Identifying the customer's needs
+Value: true / false / null
+Weight: 15
+
+identification · Identity verification
+Value: true / false / null
+Weight: 20
+
+consultation · Accuracy and completeness
+Value: 0, 5, 10, 15, 20 / null
+Weight: 20
+
+empathy · Empathy
+Value: true / false
+Weight: 15
+
+dialogue · Conversation management, speed and clarity
+Value: 0, 4, 7, 10
+Weight: 15
+
+closure · Closing the conversation
+Value: true / false / null
+Weight: 5
+
+critical · Serious violations
+Value: true / false
+Weight: —
+
+value: true = Yes, false = No, null = N/A. A number represents the score on the criterion's scale, before applying its weight. For example, dialogue = 7 means 7 out of 10, with a weight of 15.
+
+For status = "ok", all 8 criteria must be included, each exactly once.
+
+rationale and evidence_turns: briefly explain the assessment and specify the numbers of the supporting messages. Numbering starts at 1 and follows the original transcript array, including messages from the client, bot, and system events. Do not renumber only the operator's messages.
+
+final_score: the final score from 0 to 100, rounded to two decimal places. When N/A is assigned, exclude that criterion and proportionally redistribute its weight among the applicable criteria. N/A does not mean zero or an assessment error.
+
+critical_flag: must match the value of the critical criterion. true means that a serious violation was identified. This flag is reported separately and does not automatically reduce the final score to zero.
+
+model: specify the model actually used in name; mode must be local, external_api, or hybrid. If multiple models are used, list their names in name.
+
+IF A CONVERSATION COULD NOT BE EVALUATED
+
+Preserve its ID, set status = "error", use an empty criteria array, set score = null, and provide the reason in error. Do not hide the conversation or replace the error with a zero score.
+
+{
+    "conversation_id": "demo-002",
+    "status": "error",
+    "criteria": [],
+    "score": null,
+    "error": "The model failed to return a response."
+}
+
+The JSON must be UTF-8, without comments or trailing commas. IDs must match the API exactly.  
+
