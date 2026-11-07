@@ -19,7 +19,7 @@
   "na_gate": {
     "question": "Did the client's messages (and the bot exchange) before the operator's first substantive answer already contain everything needed to answer correctly?",
     "na_if": true,
-    "note": "Evaluated first. N/A wins even if the operator re-asked something unnecessary; that friction goes to c06."
+    "note": "Evaluated first. N/A wins even if the operator re-asked something unnecessary; that friction goes to c06. Known details include those from a previous contact that the operator explicitly references in this conversation (e.g. a callback: 'мы с вами ранее разговаривали'). If the request is a continuation and nothing new had to be clarified, the gate is met."
   },
   "conditions": [
     {

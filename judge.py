@@ -98,6 +98,26 @@ def parse_ts(ts):
         return ts, 0.0
 
 
+HOLD_END = re.compile(r"больше не находится на удержании|no longer on hold|taken off hold|завершил разговор", re.I)
+HOLD_START = re.compile(r"находится на удержании|(?:is|placed) on hold", re.I)
+
+
+def mark_hold_segments(msgs):
+    """Voice calls only: everything said between the 'client on hold' event and the 'no longer on hold' event is
+    the operator consulting colleagues; the client did not hear it. Mark those non-system messages as
+    speaker='internal' (system events stay) so they are never scored as communication with the client.
+    A hold ends at the hold-end event or, if the client hangs up while on hold, at the hang-up event."""
+    on_hold = False
+    for m in msgs:
+        if m["speaker"] == "system":
+            if HOLD_END.search(m["text"]):
+                on_hold = False
+            elif HOLD_START.search(m["text"]):
+                on_hold = True
+        elif on_hold:
+            m["speaker"] = "internal"
+
+
 def build_messages_list(record, boiler):
     """Drop bot boilerplate, merge same-speaker voice fragments. `idx` = ORIGINAL 1-based turn numbers."""
     msgs = []
@@ -107,6 +127,7 @@ def build_messages_list(record, boiler):
         disp, sec = parse_ts(m["timestamp"])
         msgs.append({"idx": [i + 1], "ts": disp, "sec": sec, "speaker": m["speaker"], "text": m["text"]})
     if record["channel"] == "voice call":
+        mark_hold_segments(msgs)
         merged = []
         for m in msgs:
             if merged and merged[-1]["speaker"] == m["speaker"]:

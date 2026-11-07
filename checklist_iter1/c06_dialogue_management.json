@@ -57,8 +57,7 @@
       "pass_if": "No such re-ask.",
       "fail_if": "At least one re-ask attributable to the operator.",
       "severity": "major",
-      "note": "Re-asks caused by the client's own inattention do not count.",
-      "voice_rule": "In voice calls, a client 're-ask' caused by audio/ASR problems ('Как?', 'Алло?') is not attributable to the operator's wording."
+      "note": "Re-asks caused by the client's own inattention do not count."
     },
     {
       "id": "6.3",
@@ -83,9 +82,7 @@
       "question": "Are operator messages free of noticeable spelling/grammar errors, typos, or wrong-language fragments?",
       "pass_if": "No noticeable errors.",
       "fail_if": "Noticeable errors (count each distinct message as one lapse).",
-      "severity": "lapse",
-      "note": "Only spelling, grammar and wrong-language errors. Vague or unclear wording is judged in 6.2, not here. A single missing comma or minor punctuation slip is not a noticeable lapse.",
-      "voice_rule": "Not evaluated on voice calls: spelling/grammar there reflect ASR, not the operator. 6.5 auto-passes for channel 'voice call'."
+      "severity": "lapse"
     }
   ],
   "decision_logic": {
@@ -131,5 +128,39 @@
     "on_missing_action": "point to the dialogue span where the action was expected",
     "on_na": "state which N/A condition is met and cite the message that proves it"
   },
-  "boundary_with_c04": "A clear answer to only one of two important questions can score high here and partial in c04."
+  "boundary_with_c04": "A clear answer to only one of two important questions can score high here and partial in c04.",
+  "channel_overrides": {
+    "voice call": {
+      "source": "Organisers' clarification: for calls, judge logical flow, clarity of explanations, absence of inappropriate expressions, correct verbal phrasing and pause management; with audio, also tempo, diction and intelligibility.",
+      "subcriteria_overrides": {
+        "6.2": {
+          "note": "A re-ask caused by audio/ASR problems ('Алло?', 'Как?') is not attributable to the operator's phrasing."
+        },
+        "6.4": {
+          "key": "pause_management",
+          "question": "Did the operator manage pauses: announce holds and checks before them, thank the client after, and avoid long unexplained silences?",
+          "applies_if": "a hold event, an announced check, or a long silence between turns"
+        },
+        "6.5": {
+          "key": "speech_correctness",
+          "question": "Is the operator's speech appropriate and correctly phrased at the level of meaning — no inappropriate, slang or dismissive expressions, no confusing or incorrect formulations?",
+          "note": "Judge what the operator said, not how ASR spelled it. Misrecognised words, broken punctuation and fragmented turns are transcription artefacts, never lapses."
+        }
+      },
+      "optional_audio_checks": {
+        "status": "only if audio is processed",
+        "items": [
+          {
+            "key": "speech_tempo",
+            "how": "words per second of operator turns from timestamps or audio; flag outliers"
+          },
+          {
+            "key": "intelligibility",
+            "how": "ASR confidence or audio model on operator segments; low confidence on operator speech, not the client's, is a signal"
+          }
+        ],
+        "scoring_rule": "Each failed audio check counts as one lapse in the 6.3–6.5 lapse count."
+      }
+    }
+  }
 }
