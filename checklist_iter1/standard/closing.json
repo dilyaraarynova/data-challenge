@@ -1,0 +1,63 @@
+{
+  "schema_version": "2.0",
+  "criterion_id": "closing",
+  "order": 7,
+  "section": {
+    "id": "conduct_closing",
+    "name_ru": "Ведение и завершение диалога"
+  },
+  "name_ru": "Завершение",
+  "name_en": "Closing",
+  "answer_type": "yes_no_na",
+  "allowed_answers": [
+    "yes",
+    "no",
+    "na"
+  ],
+  "weight": 5,
+  "enabled": true,
+  "official_rule": "Yes: operator summarised or offered further help AND said goodbye. N/A: chat broke off before it could be closed.",
+  "na_gate": {
+    "question": "Did the CLIENT end the conversation (left the chat, connection lost, hung up) before the operator had a turn to close it?",
+    "na_if": true,
+    "rules": [
+      "N/A: a client-side termination event follows the client's last message, and there is no operator message between that client message and the event.",
+      "Not N/A: the operator or the system on the operator's side closed the chat ('Оператор закрыл чат', 'Agent closed the chat', 'Агент вышел из разговора').",
+      "Not N/A: the operator had a turn after the client's last message and did not close properly — the opportunity existed.",
+      "If the operator had already completed the closing before the client left, score normally (Yes is possible).",
+      "Voice calls: the end-of-call event is logged before the last transcribed utterance(s) because of ASR latency. Preprocessing moves it to the end of the transcript, so 'who spoke last' is read from the transcript as given."
+    ],
+    "hint_from_code": "Seconds between the client's last message and the termination event. A long gap means the operator had time to respond; treat it as an opportunity, not as N/A. Not computed for voice calls (event timestamp is unreliable there).",
+    "termination_events": {
+      "client_side": "client left the chat / connection to the client lost / client ended the call (any language)",
+      "operator_side": "operator or agent closed the chat / left the conversation (any language)"
+    }
+  },
+  "conditions": [
+    {
+      "id": "summary_or_help",
+      "question": "In the final part, did the operator summarise the outcome OR offer further help?"
+    },
+    {
+      "id": "farewell",
+      "question": "Did the operator say goodbye?"
+    }
+  ],
+  "decision": {
+    "na_if": "na_gate",
+    "yes_if": "summary_or_help AND farewell",
+    "else": "no"
+  },
+  "scoring": {
+    "yes": 5,
+    "no": 0,
+    "na": "excluded, weight redistributed"
+  },
+  "evidence": {
+    "format": "message index + timestamp + short quote",
+    "for_false_condition": "cite the message where the condition was expected to be met",
+    "for_na": "state the N/A reason and cite the message that proves it",
+    "for_no": "cite the operator's last message and the system closure event"
+  },
+  "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
+}

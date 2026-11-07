@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "criterion_id": "c07_closing",
+  "criterion_id": "closing",
   "order": 7,
   "section": {
     "id": "conduct_closing",
@@ -15,6 +15,7 @@
     "na"
   ],
   "weight": 5,
+  "enabled": true,
   "official_rule": "Yes: operator summarised or offered further help AND said goodbye. N/A: chat broke off before it could be closed.",
   "na_gate": {
     "question": "Did the CLIENT end the conversation (left the chat, connection lost, hung up) before the operator had a turn to close it?",

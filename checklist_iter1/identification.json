@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "criterion_id": "c03_identification",
+  "criterion_id": "identification",
   "order": 3,
   "section": {
     "id": "security_resolution",
@@ -15,6 +15,7 @@
     "na"
   ],
   "weight": 20,
+  "enabled": true,
   "official_rule": "Yes: identity verification was confirmed before disclosing data or performing a protected action. N/A: the request did not require identification. If verification was required and is not confirmed in the chat, answer No.",
   "na_gate": {
     "question": "Did the operator disclose the client's account-specific data, or perform/initiate an action on the client's account on their behalf?",
@@ -70,7 +71,7 @@
     "for_no": "cite the first message where protected data was disclosed or the protected action happened"
   },
   "related": {
-    "c08_gross_errors": "Disclosure of confidential data may also trigger flag 8.3."
+    "gross_errors": "Disclosure of confidential data may also trigger flag 8.3."
   },
   "output_note": "Model returns true/false + evidence for each condition (and for the N/A gate if present). The final answer is computed in code from `decision`."
 }

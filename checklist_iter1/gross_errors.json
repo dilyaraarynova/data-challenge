@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "criterion_id": "c08_gross_errors",
+  "criterion_id": "gross_errors",
   "order": 8,
   "section": {
     "id": "gross_violations",
@@ -14,6 +14,7 @@
     "no"
   ],
   "weight": 0,
+  "enabled": true,
   "official_rule": "Yes: insult of the client, offer of a paid service bypassing the company, or disclosure of confidential information. No: none of the three detected.",
   "affects_score": false,
   "na_gate": null,

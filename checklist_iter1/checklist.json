@@ -1,0 +1,143 @@
+{
+  "purpose": "Checklist metadata for the web UI: name, categories (also empty ones) and version history. A version = signature of what the judge sees; evaluations reference it.",
+  "name": "Чек-лист качества",
+  "version": 1,
+  "saved_at": null,
+  "sections": [
+    {
+      "id": "opening",
+      "name_ru": "Начало и понимание запроса"
+    },
+    {
+      "id": "security_resolution",
+      "name_ru": "Безопасность и решение"
+    },
+    {
+      "id": "conduct_closing",
+      "name_ru": "Ведение и завершение диалога"
+    },
+    {
+      "id": "gross_violations",
+      "name_ru": "Грубые нарушения"
+    }
+  ],
+  "history": [
+    {
+      "version": 1,
+      "sig": "d581be7fdfa3d01a",
+      "saved_at": null,
+      "snapshot": {
+        "name": "Чек-лист качества",
+        "version": 1,
+        "saved_at": null,
+        "sections": [
+          {
+            "id": "opening",
+            "name": "Начало и понимание запроса"
+          },
+          {
+            "id": "security_resolution",
+            "name": "Безопасность и решение"
+          },
+          {
+            "id": "conduct_closing",
+            "name": "Ведение и завершение диалога"
+          },
+          {
+            "id": "gross_violations",
+            "name": "Грубые нарушения"
+          }
+        ],
+        "criteria": [
+          {
+            "id": "contact",
+            "name": "Установление контакта",
+            "section": "opening",
+            "weight": 10,
+            "answer_type": "yes_no",
+            "na_allowed": false,
+            "include": true
+          },
+          {
+            "id": "needs",
+            "name": "Выявление потребности",
+            "section": "opening",
+            "weight": 15,
+            "answer_type": "yes_no_na",
+            "na_allowed": true,
+            "include": true
+          },
+          {
+            "id": "identification",
+            "name": "Идентификация",
+            "section": "security_resolution",
+            "weight": 20,
+            "answer_type": "yes_no_na",
+            "na_allowed": true,
+            "include": true
+          },
+          {
+            "id": "consultation",
+            "name": "Корректная и полная консультация",
+            "section": "security_resolution",
+            "weight": 20,
+            "answer_type": "scale_na",
+            "na_allowed": true,
+            "include": true,
+            "scale_steps": [
+              0,
+              5,
+              10,
+              15,
+              20
+            ],
+            "scale_max": 20
+          },
+          {
+            "id": "empathy",
+            "name": "Эмпатия и клиентоориентированность",
+            "section": "conduct_closing",
+            "weight": 15,
+            "answer_type": "yes_no",
+            "na_allowed": false,
+            "include": true
+          },
+          {
+            "id": "dialogue_management",
+            "name": "Управление диалогом, скорость и грамотность",
+            "section": "conduct_closing",
+            "weight": 15,
+            "answer_type": "scale",
+            "na_allowed": false,
+            "include": true,
+            "scale_steps": [
+              0,
+              4,
+              7,
+              10
+            ],
+            "scale_max": 10
+          },
+          {
+            "id": "closing",
+            "name": "Завершение",
+            "section": "conduct_closing",
+            "weight": 5,
+            "answer_type": "yes_no_na",
+            "na_allowed": true,
+            "include": true
+          },
+          {
+            "id": "gross_errors",
+            "name": "Грубые ошибки",
+            "section": "gross_violations",
+            "weight": 0,
+            "answer_type": "flag",
+            "na_allowed": false,
+            "include": true
+          }
+        ]
+      }
+    }
+  ]
+}

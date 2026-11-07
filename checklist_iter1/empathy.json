@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "criterion_id": "c05_empathy",
+  "criterion_id": "empathy",
   "order": 5,
   "section": {
     "id": "conduct_closing",
@@ -14,6 +14,7 @@
     "no"
   ],
   "weight": 15,
+  "enabled": true,
   "official_rule": "Yes: operator is polite and, if the client expressed dissatisfaction or described an inconvenience, responded to the specific problem.",
   "na_gate": null,
   "conditions": [

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "criterion_id": "c04_consultation",
+  "criterion_id": "consultation",
   "order": 4,
   "section": {
     "id": "security_resolution",
@@ -10,6 +10,8 @@
   "name_en": "Correct and complete consultation",
   "answer_type": "scale_na",
   "weight": 20,
+  "enabled": true,
+  "official_rule": "20: all material questions closed, 15: a secondary detail missed, 10: a material question left open, 5: only a general hint, 0: no answer. N/A: the chat ended before the client formulated a request.",
   "scale": {
     "min": 0,
     "max": 20,
@@ -41,6 +43,7 @@
   "subcriteria": [
     {
       "id": "4.1",
+      "label_ru": "Есть ответ по существу",
       "key": "substantive_answer",
       "question": "Did the operator give a substantive answer to the main question or a concrete next step (where to go, what to submit, who will contact and when)?",
       "pass_if": "Yes.",
@@ -49,6 +52,7 @@
     },
     {
       "id": "4.2",
+      "label_ru": "Ключевая рекомендация верна",
       "key": "key_recommendation_correct",
       "question": "Is the key recommendation factually and procedurally correct (not contradicting company process, product facts or the client's situation)?",
       "pass_if": "No error in the key recommendation.",
@@ -57,6 +61,7 @@
     },
     {
       "id": "4.3",
+      "label_ru": "Клиент понимает, что делать дальше",
       "key": "client_can_act",
       "question": "After the answer, does the client know concretely what to do next?",
       "pass_if": "Actionable: steps, location in app, documents, timeline or an explicit next step.",
@@ -65,6 +70,7 @@
     },
     {
       "id": "4.4",
+      "label_ru": "Закрыты все существенные вопросы",
       "key": "all_material_questions_closed",
       "question": "Were ALL questions tagged 'main' or 'material' answered or given a correct next step?",
       "pass_if": "None left open.",
@@ -73,6 +79,7 @@
     },
     {
       "id": "4.5",
+      "label_ru": "Учтены второстепенные детали",
       "key": "secondary_details_covered",
       "question": "Were secondary details covered (fees, deadlines, limits, caveats relevant to the answer)?",
       "pass_if": "Nothing relevant missed.",
@@ -102,5 +109,5 @@
     "on_na": "state which N/A condition is met and cite the message that proves it",
     "per_gate": "Cite the message for the gate that determined the score."
   },
-  "boundary_with_c06": "c04 judges whether the request was solved correctly and fully; clarity and order of communication belong to c06."
+  "boundary_with_c06": "consultation judges whether the request was solved correctly and fully; clarity and order of communication belong to dialogue_management."
 }

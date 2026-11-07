@@ -1,13 +1,13 @@
 {
   "criteria": [
-    "c01_contact",
-    "c02_needs",
-    "c03_identification",
-    "c04_consultation",
-    "c05_empathy",
-    "c06_dialogue_management",
-    "c07_closing",
-    "c08_gross_errors"
+    "contact",
+    "needs",
+    "identification",
+    "consultation",
+    "empathy",
+    "dialogue_management",
+    "closing",
+    "gross_errors"
   ],
   "runs": {
     "deepseek/deepseek-v4.1-flash-1017": {
@@ -24,9 +24,12 @@
         "p1-en-014": 35.5,
         "p4-ru-001": 70.77,
         "p4-ru-002": 65.0,
-        "p4-ru-003": 55.0,
         "p4-ru-004": 70.0,
-        "p4-ru-005": 70.0
+        "p4-ru-005": 70.0,
+        "p1-ru-001": 92.31,
+        "p4-ru-003": 85.26,
+        "p1-en-005": 92.31,
+        "p1-en-008": 69.23
       },
       "results": [
         {
@@ -39,7 +42,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-ru-010",
           "raw": {
             "conditions": {
@@ -92,7 +95,7 @@
             "used_known_details": true,
             "clarified_before_answer": true
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-ru-010",
           "raw": {
             "conditions": {
@@ -147,7 +150,7 @@
             "verification_confirmed": true,
             "confirmed_before_disclosure": true
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-ru-010",
           "raw": {
             "na_gate": {
@@ -213,7 +216,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-ru-010",
           "raw": {
             "client_questions": [
@@ -312,7 +315,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-ru-010",
           "raw": {
             "conditions": {
@@ -369,7 +372,7 @@
             "6.4": true,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-ru-010",
           "raw": {
             "subcriteria": {
@@ -445,7 +448,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-ru-010",
           "raw": {
             "na_gate": {
@@ -499,7 +502,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-ru-010",
           "raw": {
             "conditions": {
@@ -555,7 +558,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-kz-003",
           "raw": {
             "conditions": {
@@ -608,7 +611,7 @@
             "used_known_details": true,
             "clarified_before_answer": true
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-kz-003",
           "raw": {
             "na_gate": {
@@ -662,7 +665,7 @@
             "verification_confirmed": true,
             "confirmed_before_disclosure": true
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-kz-003",
           "raw": {
             "na_gate": {
@@ -728,7 +731,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-kz-003",
           "raw": {
             "client_questions": [
@@ -827,7 +830,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-kz-003",
           "raw": {
             "conditions": {
@@ -883,7 +886,7 @@
             "6.4": true,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-kz-003",
           "raw": {
             "subcriteria": {
@@ -958,7 +961,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-kz-003",
           "raw": {
             "na_gate": {
@@ -1012,7 +1015,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-kz-003",
           "raw": {
             "conditions": {
@@ -1067,7 +1070,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-en-006",
           "raw": {
             "conditions": {
@@ -1120,7 +1123,7 @@
             "used_known_details": true,
             "clarified_before_answer": false
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-en-006",
           "raw": {
             "na_gate": {
@@ -1174,7 +1177,7 @@
             "verification_confirmed": true,
             "confirmed_before_disclosure": true
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-en-006",
           "raw": {
             "na_gate": {
@@ -1240,7 +1243,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-en-006",
           "raw": {
             "client_questions": [
@@ -1347,7 +1350,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-en-006",
           "raw": {
             "conditions": {
@@ -1404,7 +1407,7 @@
             "6.4": null,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-en-006",
           "raw": {
             "subcriteria": {
@@ -1475,7 +1478,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-en-006",
           "raw": {
             "conditions": {
@@ -1529,7 +1532,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-en-006",
           "raw": {
             "conditions": {
@@ -1585,7 +1588,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-ru-005",
           "raw": {
             "conditions": {
@@ -1638,7 +1641,7 @@
             "used_known_details": true,
             "clarified_before_answer": false
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-ru-005",
           "raw": {
             "na_gate": {
@@ -1687,7 +1690,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-ru-005",
           "raw": {
             "na_gate": {
@@ -1752,7 +1755,7 @@
             "4.4": false,
             "4.5": null
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-ru-005",
           "raw": {
             "client_questions": [
@@ -1847,7 +1850,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-ru-005",
           "raw": {
             "conditions": {
@@ -1903,7 +1906,7 @@
             "6.4": null,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-ru-005",
           "raw": {
             "subcriteria": {
@@ -1971,7 +1974,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-ru-005",
           "raw": {
             "na_gate": {
@@ -2025,7 +2028,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-ru-005",
           "raw": {
             "conditions": {
@@ -2080,7 +2083,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-kz-005",
           "raw": {
             "conditions": {
@@ -2129,7 +2132,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-kz-005",
           "raw": {
             "conditions": {
@@ -2178,7 +2181,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-kz-005",
           "raw": {
             "conditions": {
@@ -2243,7 +2246,7 @@
             "4.4": true,
             "4.5": true
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-kz-005",
           "raw": {
             "client_questions": [
@@ -2335,7 +2338,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-kz-005",
           "raw": {
             "conditions": {
@@ -2392,7 +2395,7 @@
             "6.4": null,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-kz-005",
           "raw": {
             "subcriteria": {
@@ -2460,7 +2463,7 @@
             "summary_or_help": false,
             "farewell": false
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-kz-005",
           "raw": {
             "na_gate": {
@@ -2514,7 +2517,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-kz-005",
           "raw": {
             "conditions": {
@@ -2570,7 +2573,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -2619,7 +2622,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -2673,7 +2676,7 @@
             "verification_confirmed": false,
             "confirmed_before_disclosure": false
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -2738,7 +2741,7 @@
             "4.4": false,
             "4.5": null
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-en-007",
           "raw": {
             "client_questions": [
@@ -2841,7 +2844,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": false
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -2898,7 +2901,7 @@
             "6.4": null,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-en-007",
           "raw": {
             "subcriteria": {
@@ -2966,7 +2969,7 @@
             "summary_or_help": false,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -3020,7 +3023,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-en-007",
           "raw": {
             "conditions": {
@@ -3075,7 +3078,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-ru-029",
           "raw": {
             "conditions": {
@@ -3124,7 +3127,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-ru-029",
           "raw": {
             "na_gate": {
@@ -3173,7 +3176,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-ru-029",
           "raw": {
             "conditions": {
@@ -3238,7 +3241,7 @@
             "4.4": true,
             "4.5": true
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-ru-029",
           "raw": {
             "client_questions": [
@@ -3334,7 +3337,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-ru-029",
           "raw": {
             "conditions": {
@@ -3390,7 +3393,7 @@
             "6.4": null,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-ru-029",
           "raw": {
             "subcriteria": {
@@ -3458,7 +3461,7 @@
             "summary_or_help": false,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-ru-029",
           "raw": {
             "na_gate": {
@@ -3512,7 +3515,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-ru-029",
           "raw": {
             "conditions": {
@@ -3566,7 +3569,7 @@
             "client_language": false,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-kz-013",
           "raw": {
             "conditions": {
@@ -3615,7 +3618,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-kz-013",
           "raw": {
             "conditions": {
@@ -3664,7 +3667,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-kz-013",
           "raw": {
             "conditions": {
@@ -3729,7 +3732,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-kz-013",
           "raw": {
             "client_questions": [
@@ -3824,7 +3827,7 @@
             "client_dissatisfied": false,
             "reacted_to_problem": false
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-kz-013",
           "raw": {
             "conditions": {
@@ -3881,7 +3884,7 @@
             "6.4": null,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-kz-013",
           "raw": {
             "subcriteria": {
@@ -3951,7 +3954,7 @@
             "summary_or_help": true,
             "farewell": false
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-kz-013",
           "raw": {
             "na_gate": {
@@ -4005,7 +4008,7 @@
             "bypass_paid_offer": true,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-kz-013",
           "raw": {
             "conditions": {
@@ -4059,7 +4062,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p1-en-014",
           "raw": {
             "conditions": {
@@ -4112,7 +4115,7 @@
             "used_known_details": true,
             "clarified_before_answer": false
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p1-en-014",
           "raw": {
             "na_gate": {
@@ -4166,7 +4169,7 @@
             "verification_confirmed": false,
             "confirmed_before_disclosure": false
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p1-en-014",
           "raw": {
             "na_gate": {
@@ -4232,7 +4235,7 @@
             "4.4": null,
             "4.5": null
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p1-en-014",
           "raw": {
             "client_questions": [
@@ -4327,7 +4330,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p1-en-014",
           "raw": {
             "conditions": {
@@ -4384,7 +4387,7 @@
             "6.4": true,
             "6.5": true
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p1-en-014",
           "raw": {
             "subcriteria": {
@@ -4456,7 +4459,7 @@
             "summary_or_help": false,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p1-en-014",
           "raw": {
             "conditions": {
@@ -4510,7 +4513,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": true
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p1-en-014",
           "raw": {
             "conditions": {
@@ -4564,7 +4567,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p4-ru-001",
           "raw": {
             "conditions": {
@@ -4613,7 +4616,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p4-ru-001",
           "raw": {
             "na_gate": {
@@ -4662,7 +4665,7 @@
           "step": null,
           "answer": "na",
           "points": null,
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p4-ru-001",
           "raw": {
             "na_gate": {
@@ -4729,7 +4732,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p4-ru-001",
           "raw": {
             "client_questions": [
@@ -4838,7 +4841,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p4-ru-001",
           "raw": {
             "conditions": {
@@ -4895,7 +4898,7 @@
             "6.4": null,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p4-ru-001",
           "raw": {
             "subcriteria": {
@@ -4966,7 +4969,7 @@
             "summary_or_help": true,
             "farewell": false
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p4-ru-001",
           "raw": {
             "conditions": {
@@ -5020,7 +5023,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p4-ru-001",
           "raw": {
             "conditions": {
@@ -5077,7 +5080,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p4-ru-002",
           "raw": {
             "conditions": {
@@ -5130,7 +5133,7 @@
             "used_known_details": true,
             "clarified_before_answer": true
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p4-ru-002",
           "raw": {
             "na_gate": {
@@ -5185,7 +5188,7 @@
             "verification_confirmed": true,
             "confirmed_before_disclosure": false
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p4-ru-002",
           "raw": {
             "na_gate": {
@@ -5250,7 +5253,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p4-ru-002",
           "raw": {
             "client_questions": [
@@ -5349,7 +5352,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p4-ru-002",
           "raw": {
             "conditions": {
@@ -5406,7 +5409,7 @@
             "6.4": true,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p4-ru-002",
           "raw": {
             "subcriteria": {
@@ -5482,7 +5485,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p4-ru-002",
           "raw": {
             "na_gate": {
@@ -5537,7 +5540,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p4-ru-002",
           "raw": {
             "conditions": {
@@ -5619,528 +5622,7 @@
             "client_language": true,
             "introduced_self": true
           },
-          "criterion": "c01_contact",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "conditions": {
-              "greeted": {
-                "value": true,
-                "explanation": "Первая реплика оператора содержит приветствие «Здравствуйте». Приветствие бота [3-4] не учитывается.",
-                "evidence": {
-                  "index": 13,
-                  "timestamp": "15:50:21",
-                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
-                }
-              },
-              "client_language": {
-                "value": true,
-                "explanation": "Клиент общается на русском, системное событие фиксирует смену языка диалога на ru-RU; приветствие оператора также на русском.",
-                "evidence": {
-                  "index": 13,
-                  "timestamp": "15:50:21",
-                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
-                }
-              },
-              "introduced_self": {
-                "value": true,
-                "explanation": "Оператор называет своё имя в первой же реплике (имя скрыто маской), отдельно от названия компании.",
-                "evidence": {
-                  "index": 13,
-                  "timestamp": "15:50:21",
-                  "quote": "меня зовут [Имя скрыто]"
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 2723,
-            "completion": 436
-          },
-          "evidence_warnings": [],
-          "value": true,
-          "rationale": "Первая реплика оператора содержит приветствие «Здравствуйте». Приветствие бота [3-4] не учитывается. Клиент общается на русском, системное событие фиксирует смену языка диалога на ru-RU; приветствие оператора также на русском. Оператор называет своё имя в первой же реплике (имя скрыто маской), отдельно от названия компании.",
-          "evidence_turns": [
-            13
-          ]
-        },
-        {
-          "weight": 15,
-          "step": null,
-          "answer": "no",
-          "points": 0,
-          "conditions": {
-            "used_known_details": true,
-            "clarified_before_answer": false
-          },
-          "criterion": "c02_needs",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "na_gate": {
-              "value": false,
-              "explanation": "До первого содержательного ответа оператора [27] в диалоге не было данных, достаточных для проверки конкретного поручения: клиент описал проблему, но идентификация и номер поручения не были подтверждены. Оператор запросил идентификацию только позже [38-40].",
-              "evidence": {
-                "index": 38,
-                "timestamp": "15:52:40",
-                "quote": "Давайте проведем идентификацию, вы можете продиктовать ваши фамилия, имя, отчество."
-              }
-            },
-            "conditions": {
-              "used_known_details": {
-                "value": true,
-                "explanation": "Оператор не переспрашивал уже известную суть обращения и в ответе [27] опирался на сообщённые клиентом сведения о поручении, находящемся в обработке.",
-                "evidence": {
-                  "index": 27,
-                  "timestamp": "15:51:42",
-                  "quote": "проверка данного поручения будет заниматься профильный отдел"
-                }
-              },
-              "clarified_before_answer": {
-                "value": false,
-                "explanation": "Оператор дал содержательный ответ [27] о том, что поручение в обработке и его проверит профильный отдел, до запроса идентификации и номера поручения; идентификацию он запросил только позже [38-40].",
-                "evidence": {
-                  "index": 27,
-                  "timestamp": "15:51:42",
-                  "quote": "Данная обработка проверка данного поручения будет заниматься профильный отдел, но уже завтра рабочее время."
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 2723,
-            "completion": 2172
-          },
-          "evidence_warnings": [],
-          "value": false,
-          "rationale": "Оператор дал содержательный ответ [27] о том, что поручение в обработке и его проверит профильный отдел, до запроса идентификации и номера поручения; идентификацию он запросил только позже [38-40].",
-          "evidence_turns": [
-            27
-          ]
-        },
-        {
-          "weight": 20,
-          "step": null,
-          "answer": "no",
-          "points": 0,
-          "conditions": {
-            "verification_initiated": true,
-            "verification_confirmed": true,
-            "confirmed_before_disclosure": false
-          },
-          "criterion": "c03_identification",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "conditions": {
-              "confirmed_before_disclosure": {
-                "evidence": {
-                  "index": 27,
-                  "quote": "Данная обработка проверка данного поручения будет заниматься профильный отдел, но уже завтра рабочее время.",
-                  "timestamp": "15:51:42"
-                },
-                "explanation": "Первое раскрытие статуса конкретного торгового поручения клиента произошло на [27] до запроса и подтверждения идентификации.",
-                "value": false
-              },
-              "verification_confirmed": {
-                "evidence": {
-                  "index": 65,
-                  "quote": "идентификацию успешно проеданная",
-                  "timestamp": "15:54:43"
-                },
-                "explanation": "Оператор явно подтвердил успешное прохождение идентификации.",
-                "value": true
-              },
-              "verification_initiated": {
-                "evidence": {
-                  "index": 38,
-                  "quote": "Давайте проведем идентификацию, вы можете продиктовать ваши фамилия, имя, отчество.",
-                  "timestamp": "15:52:40"
-                },
-                "explanation": "Оператор запросил ФИО и код из СМС для проведения идентификации.",
-                "value": true
-              }
-            },
-            "na_gate": {
-              "evidence": {
-                "index": 27,
-                "quote": "Данная обработка проверка данного поручения будет заниматься профильный отдел, но уже завтра рабочее время.",
-                "timestamp": "15:51:42"
-              },
-              "explanation": "Диалог касался статуса конкретного торгового поручения клиента и его брокерского счёта, то есть раскрытия защищённых данных; условие N/A не выполняется.",
-              "value": false
-            }
-          },
-          "usage": {
-            "prompt": 2962,
-            "completion": 1685
-          },
-          "evidence_warnings": [],
-          "value": false,
-          "rationale": "Первое раскрытие статуса конкретного торгового поручения клиента произошло на [27] до запроса и подтверждения идентификации.",
-          "evidence_turns": [
-            27
-          ]
-        },
-        {
-          "weight": 20,
-          "step": 15,
-          "answer": "15",
-          "points": 15.0,
-          "passed": {
-            "4.1": true,
-            "4.2": true,
-            "4.3": true,
-            "4.4": true,
-            "4.5": false
-          },
-          "criterion": "c04_consultation",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "client_questions": [
-              {
-                "text": "Почему торговое поручение на покупку акций через мобильное приложение почти час находится в обработке и не исполняется?",
-                "tag": "main"
-              },
-              {
-                "text": "Можно ли уточнить статус поручения и что делать, чтобы оно исполнилось (клиент не за компьютером, только мобильное приложение)?",
-                "tag": "material"
-              },
-              {
-                "text": "Когда оператор предоставит обратную связь / позвонит ли он сам?",
-                "tag": "secondary"
-              },
-              {
-                "text": "Беспокойство о том, что акции «прыгают», пока поручение не исполнено",
-                "tag": "secondary"
-              }
-            ],
-            "na_gate": {
-              "value": false,
-              "explanation": "Клиент сформулировал запрос: торговое поручение долго находится в обработке, он хочет понять причину и что делать.",
-              "evidence": {
-                "index": 14,
-                "timestamp": "15:50:24",
-                "quote": "Продам торговые по поручения. На покупку акций мэра вот там... оно что то уже почти час находится в обработке"
-              }
-            },
-            "subcriteria": {
-              "4.1": {
-                "passed": true,
-                "explanation": "Оператор провёл идентификацию, подтвердил, что поручение принято и находится в обработке, и дал конкретный следующий шаг: направит обращение в технический/профильный отдел и перезвонит клиенту.",
-                "evidence": {
-                  "index": 70,
-                  "timestamp": "15:55:07",
-                  "quote": "Давайте щас я сейчас направлю технический отдел... Данное поручение, как только они ответят, я предоставлю вам обратную связь. Позвоню вам."
-                }
-              },
-              "4.2": {
-                "passed": true,
-                "explanation": "Ключевая рекомендация корректна: статус поручения проверен по счёту, обращение передаётся в профильный/технический отдел, обещан обратный звонок — это не противоречит процессу.",
-                "evidence": {
-                  "index": 65,
-                  "timestamp": "15:54:43",
-                  "quote": "идентификацию успешно... на данный момент там вот имеется поручение и поручение принято"
-                }
-              },
-              "4.3": {
-                "passed": true,
-                "explanation": "Клиенту понятно, что делать: от него дополнительных действий не требуется, оператор сам перезвонит в согласованное время; клиент это подтвердил.",
-                "evidence": {
-                  "index": 72,
-                  "timestamp": "15:55:25",
-                  "quote": "Хорошо вы сами да позвоните, да?"
-                }
-              },
-              "4.4": {
-                "passed": true,
-                "explanation": "Основной и материальный вопросы закрыты: статус поручения подтверждён, обозначен следующий шаг — проверка техническим отделом и обратный звонок.",
-                "evidence": {
-                  "index": 68,
-                  "timestamp": "15:54:52",
-                  "quote": "Но данное поручение все еще находится в обработке."
-                }
-              },
-              "4.5": {
-                "passed": false,
-                "explanation": "Второстепенный, но значимый для клиента момент остался без ответа: он переживает, что «акции прыгают», пока поручение не исполнено, — оператор не пояснил, по какой цене и когда может исполниться поручение и не влияет ли задержка на цену.",
-                "evidence": {
-                  "index": 69,
-                  "timestamp": "15:55:04",
-                  "quote": "Ну что то они долго просто акции же прыгают. Вот что то они долго там."
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 3576,
-            "completion": 105807
-          },
-          "evidence_warnings": [],
-          "value": 15,
-          "rationale": "Второстепенный, но значимый для клиента момент остался без ответа: он переживает, что «акции прыгают», пока поручение не исполнено, — оператор не пояснил, по какой цене и когда может исполниться поручение и не влияет ли задержка на цену.",
-          "evidence_turns": [
-            69
-          ]
-        },
-        {
-          "weight": 15,
-          "step": null,
-          "answer": "yes",
-          "points": 15,
-          "conditions": {
-            "polite": true,
-            "client_dissatisfied": true,
-            "reacted_to_problem": true
-          },
-          "criterion": "c05_empathy",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "conditions": {
-              "polite": {
-                "value": true,
-                "explanation": "Все реплики оператора вежливые, доброжелательные, без грубости или обвинений в адрес клиента; оператор даже извиняется за перебивание.",
-                "evidence": {
-                  "index": 22,
-                  "timestamp": "15:51:12",
-                  "quote": "Приятно познакомиться в юрию. Прошу причин, что перебил вас."
-                }
-              },
-              "client_dissatisfied": {
-                "value": true,
-                "explanation": "Клиент сообщает о неудобстве: торговое поручение почти час висит в обработке и не исполняется, что его беспокоит.",
-                "evidence": {
-                  "index": 14,
-                  "timestamp": "15:50:24",
-                  "quote": "уже почти час находится в обработке, и я у себя не вижу, что оно исполнено"
-                }
-              },
-              "reacted_to_problem": {
-                "value": true,
-                "explanation": "Оператор конкретно отреагировал: провёл идентификацию, проверил поручение, подтвердил его статус и инициировал обращение в технический отдел с обещанием перезвонить.",
-                "evidence": {
-                  "index": 70,
-                  "timestamp": "15:55:07",
-                  "quote": "я сейчас направлю технический отдел техно о том, чтобы провели вашу брокерский счёт. Данное поручение, как только они ответят, я предоставлю вам обратную связь."
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 2613,
-            "completion": 642
-          },
-          "evidence_warnings": [],
-          "value": true,
-          "rationale": "Все реплики оператора вежливые, доброжелательные, без грубости или обвинений в адрес клиента; оператор даже извиняется за перебивание. Оператор конкретно отреагировал: провёл идентификацию, проверил поручение, подтвердил его статус и инициировал обращение в технический отдел с обещанием перезвонить.",
-          "evidence_turns": [
-            22,
-            70,
-            71
-          ]
-        },
-        {
-          "weight": 15,
-          "step": 10,
-          "answer": "10",
-          "points": 15.0,
-          "passed": {
-            "6.1": true,
-            "6.2": true,
-            "6.3": true,
-            "6.4": true,
-            "6.5": null
-          },
-          "criterion": "c06_dialogue_management",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "subcriteria": {
-              "6.1": {
-                "passed": true,
-                "explanation": "Реплики оператора, несмотря на искажения распознавания речи, выстраиваются в понятную линию: уточнение проблемы, идентификация, проверка статуса поручения, эскалация в профильный/технический отдел и обещание обратной связи. Противоречий, из-за которых ход диалога стал бы непонятным, нет.",
-                "evidence": {
-                  "index": 68,
-                  "timestamp": "15:54:52",
-                  "quote": "Но данное поручение все еще находится в обработке."
-                }
-              },
-              "6.2": {
-                "passed": true,
-                "explanation": "Уточнение клиента «Код, что имеете в виду?» и вставки «Алло» связаны с качеством аудио/распознавания речи в голосовом канале, а не с формулировками оператора; по правилу для voice call такие переспросы оператору не вменяются.",
-                "evidence": {
-                  "index": 50,
-                  "timestamp": "15:53:45",
-                  "quote": "Код, что имеете в виду? Счёт номер счёта моего. Алло."
-                }
-              },
-              "6.3": {
-                "passed": true,
-                "explanation": "Оператор последовательно отвечает на вопросы: сначала поясняет статус поручения, затем проводит идентификацию, проверяет счёт и на вопрос клиента о звонке прямо подтверждает, что перезвонит сам. Пропущенных вопросов не видно.",
-                "evidence": {
-                  "index": 73,
-                  "timestamp": "15:55:36",
-                  "quote": "Да я сам вам поз перезвоню"
-                }
-              },
-              "6.4": {
-                "applies": true,
-                "passed": true,
-                "explanation": "Оператор перед проверкой информации предупредил клиента, что посмотрит данные, и далее проговаривал необходимость минуты на идентификацию, то есть ожидание было озвучено.",
-                "evidence": {
-                  "index": 31,
-                  "timestamp": "15:52:09",
-                  "quote": "Так хорошо давайте. Давайте я сейчас посмотрю."
-                }
-              },
-              "6.5": {
-                "passed": true,
-                "explanation": "Канал voice call: орфография и грамматика в транскрипте отражают распознавание речи, а не ошибки оператора, поэтому пункт оценивается как автоматически пройденный.",
-                "evidence": {
-                  "index": 13,
-                  "timestamp": "15:50:21",
-                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 3604,
-            "completion": 2588
-          },
-          "evidence_warnings": [],
-          "value": 10,
-          "rationale": "Реплики оператора, несмотря на искажения распознавания речи, выстраиваются в понятную линию: уточнение проблемы, идентификация, проверка статуса поручения, эскалация в профильный/технический отдел и обещание обратной связи. Противоречий, из-за которых ход диалога стал бы непонятным, нет. Уточнение клиента «Код, что имеете в виду?» и вставки «Алло» связаны с качеством аудио/распознавания речи в голосовом канале, а не с формулировками оператора; по правилу для voice call такие переспросы оператору не вменяются. Оператор последовательно отвечает на вопросы: сначала поясняет статус поручения, зат…",
-          "evidence_turns": [
-            31,
-            32,
-            50,
-            51,
-            52,
-            53,
-            68,
-            73
-          ]
-        },
-        {
-          "weight": 5,
-          "step": null,
-          "answer": "no",
-          "points": 0,
-          "conditions": {
-            "summary_or_help": true,
-            "farewell": false
-          },
-          "criterion": "c07_closing",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "na_gate": {
-              "value": false,
-              "explanation": "Оператор завершил консультацию и обозначил дальнейшие действия, после чего клиент сам завершил разговор. У оператора была возможность попрощаться, поэтому N/A не применяется.",
-              "evidence": {
-                "index": 75,
-                "timestamp": "15:55:42",
-                "quote": "я предоставлю вам обратно здесь до 00:00."
-              }
-            },
-            "conditions": {
-              "summary_or_help": {
-                "value": true,
-                "explanation": "В финальной части оператор сообщил, что направит запрос в технический отдел и позвонит клиенту после получения ответа, то есть предложил дальнейшую помощь.",
-                "evidence": {
-                  "index": 75,
-                  "timestamp": "15:55:42",
-                  "quote": "Ответа от профильного, отдела я предоставлю вам обратно здесь до 00:00."
-                }
-              },
-              "farewell": {
-                "value": false,
-                "explanation": "Оператор не попрощался: его последняя реплика содержит только обещание обратной связи, после чего клиент завершил разговор.",
-                "evidence": {
-                  "index": 75,
-                  "timestamp": "15:55:42",
-                  "quote": "Аршак только получим. Ответа от профильного, отдела я предоставлю вам обратно здесь до 00:00."
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 2640,
-            "completion": 775
-          },
-          "evidence_warnings": [],
-          "value": false,
-          "rationale": "Оператор не попрощался: его последняя реплика содержит только обещание обратной связи, после чего клиент завершил разговор.",
-          "evidence_turns": [
-            75,
-            76
-          ]
-        },
-        {
-          "weight": 0,
-          "step": null,
-          "answer": "no",
-          "points": null,
-          "conditions": {
-            "insult": false,
-            "bypass_paid_offer": false,
-            "confidential_disclosure": false
-          },
-          "criterion": "c08_gross_errors",
-          "conversation_id": "p4-ru-003",
-          "raw": {
-            "conditions": {
-              "insult": {
-                "value": false,
-                "explanation": "Оператор на протяжении всего диалога общался вежливо и корректно, извинился за перебивание; оскорблений, насмешек или унижения клиента нет.",
-                "evidence": {
-                  "index": 22,
-                  "timestamp": "15:51:12",
-                  "quote": "Прошу причин, что перебил вас. Подскажите, пожалуйста, случайно не мы разговаривали буквально полчаса назад."
-                }
-              },
-              "bypass_paid_offer": {
-                "value": false,
-                "explanation": "Оператор не предлагал платных услуг в обход компании, не просил переводить деньги лично и не давал личных контактов для платных консультаций; работа велась в рамках регламента поддержки.",
-                "evidence": {
-                  "index": 70,
-                  "timestamp": "15:55:07",
-                  "quote": "Давайте щас я сейчас направлю технический отдел техно о том, чтобы провели вашу брокерский счёт."
-                }
-              },
-              "confidential_disclosure": {
-                "value": false,
-                "explanation": "Перед раскрытием данных счёта оператор провёл идентификацию по ФИО и коду из СМС; данные других клиентов и внутренняя конфиденциальная информация не разглашались.",
-                "evidence": {
-                  "index": 65,
-                  "timestamp": "15:54:43",
-                  "quote": "Так да, идентификацию успешно проеданная [Имя скрыто]. Лежу, на данный момент там вот имеется поручение и поручение принято."
-                }
-              }
-            }
-          },
-          "usage": {
-            "prompt": 3052,
-            "completion": 577
-          },
-          "evidence_warnings": [],
-          "value": false,
-          "rationale": "Оператор на протяжении всего диалога общался вежливо и корректно, извинился за перебивание; оскорблений, насмешек или унижения клиента нет. Оператор не предлагал платных услуг в обход компании, не просил переводить деньги лично и не давал личных контактов для платных консультаций; работа велась в рамках регламента поддержки. Перед раскрытием данных счёта оператор провёл идентификацию по ФИО и коду из СМС; данные других клиентов и внутренняя конфиденциальная информация не разглашались.",
-          "evidence_turns": [
-            22,
-            65,
-            66,
-            70,
-            71
-          ]
-        },
-        {
-          "weight": 10,
-          "step": null,
-          "answer": "yes",
-          "points": 10,
-          "conditions": {
-            "greeted": true,
-            "client_language": true,
-            "introduced_self": true
-          },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p4-ru-004",
           "raw": {
             "conditions": {
@@ -6193,7 +5675,7 @@
             "used_known_details": true,
             "clarified_before_answer": true
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p4-ru-004",
           "raw": {
             "na_gate": {
@@ -6248,7 +5730,7 @@
             "verification_confirmed": true,
             "confirmed_before_disclosure": false
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p4-ru-004",
           "raw": {
             "na_gate": {
@@ -6314,7 +5796,7 @@
             "4.4": true,
             "4.5": false
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p4-ru-004",
           "raw": {
             "client_questions": [
@@ -6413,7 +5895,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p4-ru-004",
           "raw": {
             "conditions": {
@@ -6470,7 +5952,7 @@
             "6.4": null,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p4-ru-004",
           "raw": {
             "subcriteria": {
@@ -6540,7 +6022,7 @@
             "summary_or_help": true,
             "farewell": false
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p4-ru-004",
           "raw": {
             "na_gate": {
@@ -6594,7 +6076,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p4-ru-004",
           "raw": {
             "conditions": {
@@ -6651,7 +6133,7 @@
             "client_language": true,
             "introduced_self": false
           },
-          "criterion": "c01_contact",
+          "criterion": "contact",
           "conversation_id": "p4-ru-005",
           "raw": {
             "conditions": {
@@ -6705,7 +6187,7 @@
             "used_known_details": true,
             "clarified_before_answer": true
           },
-          "criterion": "c02_needs",
+          "criterion": "needs",
           "conversation_id": "p4-ru-005",
           "raw": {
             "conditions": {
@@ -6759,7 +6241,7 @@
             "verification_confirmed": false,
             "confirmed_before_disclosure": false
           },
-          "criterion": "c03_identification",
+          "criterion": "identification",
           "conversation_id": "p4-ru-005",
           "raw": {
             "conditions": {
@@ -6828,7 +6310,7 @@
             "4.4": true,
             "4.5": true
           },
-          "criterion": "c04_consultation",
+          "criterion": "consultation",
           "conversation_id": "p4-ru-005",
           "raw": {
             "client_questions": [
@@ -6939,7 +6421,7 @@
             "client_dissatisfied": true,
             "reacted_to_problem": true
           },
-          "criterion": "c05_empathy",
+          "criterion": "empathy",
           "conversation_id": "p4-ru-005",
           "raw": {
             "conditions": {
@@ -6999,7 +6481,7 @@
             "6.4": true,
             "6.5": null
           },
-          "criterion": "c06_dialogue_management",
+          "criterion": "dialogue_management",
           "conversation_id": "p4-ru-005",
           "raw": {
             "subcriteria": {
@@ -7075,7 +6557,7 @@
             "summary_or_help": true,
             "farewell": true
           },
-          "criterion": "c07_closing",
+          "criterion": "closing",
           "conversation_id": "p4-ru-005",
           "raw": {
             "na_gate": {
@@ -7130,7 +6612,7 @@
             "bypass_paid_offer": false,
             "confidential_disclosure": false
           },
-          "criterion": "c08_gross_errors",
+          "criterion": "gross_errors",
           "conversation_id": "p4-ru-005",
           "raw": {
             "conditions": {
@@ -7178,8 +6660,2194 @@
             45,
             46
           ]
+        },
+        {
+          "weight": 10,
+          "step": null,
+          "answer": "yes",
+          "points": 10,
+          "conditions": {
+            "greeted": true,
+            "client_language": true,
+            "introduced_self": true
+          },
+          "criterion": "contact",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "conditions": {
+              "greeted": {
+                "value": true,
+                "explanation": "Первое сообщение оператора [10] начинается с приветствия «Здравствуйте!».",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "Здравствуйте! Меня зовут Алина."
+                }
+              },
+              "client_language": {
+                "value": true,
+                "explanation": "Клиент пишет на русском языке, приветствие оператора также на русском.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "Здравствуйте! Меня зовут Алина."
+                }
+              },
+              "introduced_self": {
+                "value": true,
+                "explanation": "Оператор называет своё имя в первом же ответе.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "Меня зовут Алина."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1742,
+            "completion": 230,
+            "cost": 0.000327426,
+            "latency_s": 2.2037578750168905,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Первое сообщение оператора [10] начинается с приветствия «Здравствуйте!». Клиент пишет на русском языке, приветствие оператора также на русском. Оператор называет своё имя в первом же ответе.",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "needs",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "conditions": {
+              "clarified_before_answer": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО.",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Для корректного ответа не хватало данных, которые нужно было бы уточнять: клиент уже указал, что работает с ноутбука и не хочет скачивать отчёт. Оператор сразу дал ответ по веб-версии, поэтому уточняющих вопросов не требовалось.",
+                "value": true
+              },
+              "used_known_details": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет».",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Оператор учёл уже известные детали: клиент работает с ноутбука и не хочет скачивать отчёт, поэтому подсказал путь в веб-версии. Повторно эти сведения оператор не запрашивал.",
+                "value": true
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 5,
+                "quote": "Я сейчас с ноутбука, отчёт качать не хочу. Можно оператора?",
+                "timestamp": "00:28"
+              },
+              "explanation": "Клиент заранее указал, что работает с ноутбука и не хочет скачивать отчёт; этих данных достаточно, чтобы подсказать, где посмотреть тариф в веб-версии, без дополнительных уточнений.",
+              "value": true
+            }
+          },
+          "usage": {
+            "prompt": 1365,
+            "completion": 1038,
+            "cost": 0.00057087,
+            "latency_s": 4.313212750013918,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Клиент заранее указал, что работает с ноутбука и не хочет скачивать отчёт; этих данных достаточно, чтобы подсказать, где посмотреть тариф в веб-версии, без дополнительных уточнений.",
+          "evidence_turns": [
+            5
+          ]
+        },
+        {
+          "weight": 20,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "identification",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "conditions": {
+              "confirmed_before_disclosure": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО.",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Раскрытия защищённых данных и действий по счёту не было, поэтому подтверждение не требовалось; условий для проверки данного пункта нет.",
+                "value": false
+              },
+              "verification_confirmed": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Здравствуйте! Меня зовут Алина. В веб-версии откройте вкладку «Кабинет».",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Успешная верификация нигде не подтверждена — ни системным событием, ни явным утверждением оператора.",
+                "value": false
+              },
+              "verification_initiated": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет».",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Оператор не запрашивал идентификацию, в чате нет и системного события о процедуре верификации.",
+                "value": false
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 10,
+                "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО.",
+                "timestamp": "01:15"
+              },
+              "explanation": "Оператор лишь объяснил, где в веб-версии самостоятельно посмотреть название тарифа; данные по счёту не раскрывались и действий по счёту не выполнялось.",
+              "value": true
+            }
+          },
+          "usage": {
+            "prompt": 1631,
+            "completion": 778,
+            "cost": 0.00085374,
+            "latency_s": 3.2724192080204375,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Оператор лишь объяснил, где в веб-версии самостоятельно посмотреть название тарифа; данные по счёту не раскрывались и действий по счёту не выполнялось.",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 20,
+          "step": 20,
+          "answer": "20",
+          "points": 20.0,
+          "passed": {
+            "4.1": true,
+            "4.2": true,
+            "4.3": true,
+            "4.4": true,
+            "4.5": true
+          },
+          "criterion": "consultation",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "client_questions": [
+              {
+                "text": "Где посмотреть мой тариф? В приложении не нахожу.",
+                "tag": "main"
+              },
+              {
+                "text": "Можно оператора? (клиент с ноутбука, не хочет скачивать отчёт)",
+                "tag": "material"
+              }
+            ],
+            "na_gate": {
+              "value": false,
+              "explanation": "Клиент сформулировал запрос: где посмотреть тариф, и попросил оператора. Чат не завершился до формулировки запроса.",
+              "evidence": {
+                "index": 1,
+                "timestamp": "00:00",
+                "quote": "Где посмотреть мой тариф? В приложении не нахожу."
+              }
+            },
+            "subcriteria": {
+              "4.1": {
+                "passed": true,
+                "explanation": "Оператор дал конкретный ответ: где в веб-версии найти название тарифа.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              },
+              "4.2": {
+                "passed": true,
+                "explanation": "Рекомендация корректна и соответствует ситуации клиента: он работает с ноутбука и не хочет скачивать отчёт.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              },
+              "4.3": {
+                "passed": true,
+                "explanation": "Клиент получил чёткий путь в интерфейсе и подтвердил, что нашёл тариф.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:28",
+                  "quote": "Нашла, спасибо."
+                }
+              },
+              "4.4": {
+                "passed": true,
+                "explanation": "Основной вопрос клиента закрыт, просьба о подключении оператора также была выполнена.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              },
+              "4.5": {
+                "passed": true,
+                "explanation": "Для данного запроса дополнительные существенные детали (сроки, комиссии, ограничения) не требовались; ответ полностью решил вопрос.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2305,
+            "completion": 1199,
+            "cost": 0.00071475,
+            "latency_s": 5.055824041948654,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 20,
+          "rationale": "Оператор дал конкретный ответ: где в веб-версии найти название тарифа. Рекомендация корректна и соответствует ситуации клиента: он работает с ноутбука и не хочет скачивать отчёт. Клиент получил чёткий путь в интерфейсе и подтвердил, что нашёл тариф. Основной вопрос клиента закрыт, просьба о подключении оператора также была выполнена. Для данного запроса дополнительные существенные детали (сроки, комиссии, ограничения) не требовались; ответ полностью решил вопрос.",
+          "evidence_turns": [
+            10,
+            11
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "yes",
+          "points": 15,
+          "conditions": {
+            "polite": true,
+            "client_dissatisfied": true,
+            "reacted_to_problem": true
+          },
+          "criterion": "empathy",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "conditions": {
+              "polite": {
+                "value": true,
+                "explanation": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "Здравствуйте! Меня зовут Алина."
+                }
+              },
+              "client_dissatisfied": {
+                "value": true,
+                "explanation": "Клиент описал неудобство: не может найти тариф в приложении и не хочет скачивать отчёт с ноутбука.",
+                "evidence": {
+                  "index": 5,
+                  "timestamp": "00:28",
+                  "quote": "Я сейчас с ноутбука, отчёт качать не хочу."
+                }
+              },
+              "reacted_to_problem": {
+                "value": true,
+                "explanation": "Оператор конкретно ответил на проблему клиента: подсказал, где в веб-версии посмотреть название тарифа без скачивания отчёта.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1202,
+            "completion": 746,
+            "cost": 0.000380212,
+            "latency_s": 5.6479788750293665,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента. Оператор конкретно ответил на проблему клиента: подсказал, где в веб-версии посмотреть название тарифа без скачивания отчёта.",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 15,
+          "step": 10,
+          "answer": "10",
+          "points": 15.0,
+          "passed": {
+            "6.1": true,
+            "6.2": true,
+            "6.3": true,
+            "6.4": null,
+            "6.5": true
+          },
+          "criterion": "dialogue_management",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "subcriteria": {
+              "6.1": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО.",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Ответ оператора последовательный и не противоречит другим сообщениям; клиент подтвердил, что нашёл информацию.",
+                "passed": true
+              },
+              "6.2": {
+                "evidence": {
+                  "index": 11,
+                  "quote": "Нашла, спасибо.",
+                  "timestamp": "01:28"
+                },
+                "explanation": "Клиент не переспрашивал из-за формулировок оператора, а сразу подтвердил, что нашёл нужное.",
+                "passed": true
+              },
+              "6.3": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО.",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Оператор прямо и по порядку ответил на вопрос клиента о том, где посмотреть тариф.",
+                "passed": true
+              },
+              "6.4": {
+                "applies": false,
+                "evidence": null,
+                "explanation": "Оператор не объявлял проверку информации, события удержания нет, а пауза до ответа оператора менее 120 секунд.",
+                "passed": true
+              },
+              "6.5": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Здравствуйте! Меня зовут Алина. В веб-версии откройте вкладку «Кабинет».",
+                  "timestamp": "01:15"
+                },
+                "explanation": "Сообщения оператора написаны грамотно, без заметных орфографических, пунктуационных или языковых ошибок.",
+                "passed": true
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2198,
+            "completion": 947,
+            "cost": 0.000618568,
+            "latency_s": 3.233201583963819,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 10,
+          "rationale": "Ответ оператора последовательный и не противоречит другим сообщениям; клиент подтвердил, что нашёл информацию. Клиент не переспрашивал из-за формулировок оператора, а сразу подтвердил, что нашёл нужное. Оператор прямо и по порядку ответил на вопрос клиента о том, где посмотреть тариф. Сообщения оператора написаны грамотно, без заметных орфографических, пунктуационных или языковых ошибок.",
+          "evidence_turns": [
+            10,
+            11
+          ]
+        },
+        {
+          "weight": 5,
+          "step": null,
+          "answer": "no",
+          "points": 0,
+          "conditions": {
+            "summary_or_help": false,
+            "farewell": true
+          },
+          "criterion": "closing",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "na_gate": {
+              "value": false,
+              "explanation": "Клиент не завершал чат: после его последнего сообщения у оператора был ход, и он ответил. События завершения со стороны клиента нет.",
+              "evidence": {
+                "index": 12,
+                "timestamp": "02:04",
+                "quote": "Пожалуйста. Хорошего вечера!"
+              }
+            },
+            "conditions": {
+              "summary_or_help": {
+                "value": false,
+                "explanation": "В финальном сообщении оператор только поблагодарил и попрощался, не подвёл итог и не предложил дальнейшую помощь.",
+                "evidence": {
+                  "index": 12,
+                  "timestamp": "02:04",
+                  "quote": "Пожалуйста. Хорошего вечера!"
+                }
+              },
+              "farewell": {
+                "value": true,
+                "explanation": "Оператор попрощался фразой «Хорошего вечера!».",
+                "evidence": {
+                  "index": 12,
+                  "timestamp": "02:04",
+                  "quote": "Хорошего вечера!"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1500,
+            "completion": 517,
+            "cost": 0.0002675,
+            "latency_s": 5.72711362503469,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "В финальном сообщении оператор только поблагодарил и попрощался, не подвёл итог и не предложил дальнейшую помощь.",
+          "evidence_turns": [
+            12
+          ]
+        },
+        {
+          "weight": 0,
+          "step": null,
+          "answer": "no",
+          "points": null,
+          "conditions": {
+            "insult": false,
+            "bypass_paid_offer": false,
+            "confidential_disclosure": false
+          },
+          "criterion": "gross_errors",
+          "conversation_id": "p1-ru-001",
+          "raw": {
+            "conditions": {
+              "insult": {
+                "value": false,
+                "explanation": "Оператор общался вежливо и корректно, оскорблений, насмешек или унижений в адрес клиента нет.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "Здравствуйте! Меня зовут Алина. В веб-версии откройте вкладку «Кабинет»."
+                }
+              },
+              "bypass_paid_offer": {
+                "value": false,
+                "explanation": "Оператор не предлагал платных услуг в обход компании, личных номеров или перевода денег ему лично.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "01:15",
+                  "quote": "В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+                }
+              },
+              "confidential_disclosure": {
+                "value": false,
+                "explanation": "Оператор не раскрывал данные других клиентов, внутреннюю информацию компании или защищённые данные клиента. Проверены все сообщения оператора.",
+                "evidence": {
+                  "index": 12,
+                  "timestamp": "02:04",
+                  "quote": "Пожалуйста. Хорошего вечера!"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1233,
+            "completion": 333,
+            "cost": 0.00022815,
+            "latency_s": 1.824707625026349,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "Оператор общался вежливо и корректно, оскорблений, насмешек или унижений в адрес клиента нет. Оператор не предлагал платных услуг в обход компании, личных номеров или перевода денег ему лично. Оператор не раскрывал данные других клиентов, внутреннюю информацию компании или защищённые данные клиента. Проверены все сообщения оператора.",
+          "evidence_turns": [
+            10,
+            12
+          ]
+        },
+        {
+          "weight": 10,
+          "step": null,
+          "answer": "yes",
+          "points": 10,
+          "conditions": {
+            "greeted": true,
+            "client_language": true,
+            "introduced_self": true
+          },
+          "criterion": "contact",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "conditions": {
+              "greeted": {
+                "value": true,
+                "explanation": "Первая реплика оператора [13] начинается с приветствия «Здравствуйте».",
+                "evidence": {
+                  "index": 13,
+                  "timestamp": "15:50:21",
+                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
+                }
+              },
+              "client_language": {
+                "value": true,
+                "explanation": "Клиент общается на русском (система зафиксировала смену языка диалога на ru-RU), приветствие оператора также на русском.",
+                "evidence": {
+                  "index": 13,
+                  "timestamp": "15:50:21",
+                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
+                }
+              },
+              "introduced_self": {
+                "value": true,
+                "explanation": "В первой же реплике оператор называет своё имя («меня зовут [Имя скрыто]»).",
+                "evidence": {
+                  "index": 13,
+                  "timestamp": "15:50:21",
+                  "quote": "меня зовут [Имя скрыто]"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3188,
+            "completion": 394,
+            "cost": 0.00064314,
+            "latency_s": 2.2526532920310274,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Первая реплика оператора [13] начинается с приветствия «Здравствуйте». Клиент общается на русском (система зафиксировала смену языка диалога на ru-RU), приветствие оператора также на русском. В первой же реплике оператор называет своё имя («меня зовут [Имя скрыто]»).",
+          "evidence_turns": [
+            13
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "yes",
+          "points": 15,
+          "conditions": {
+            "used_known_details": true,
+            "clarified_before_answer": true
+          },
+          "criterion": "needs",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "na_gate": {
+              "value": false,
+              "explanation": "В первом сообщении клиент описал проблему, но номер торгового поручения фактически не продиктовал, а для корректного ответа требовалось уточнить номер и провести идентификацию, поэтому данных для ответа сразу было недостаточно.",
+              "evidence": {
+                "index": 14,
+                "timestamp": "15:50:24",
+                "quote": "Ну вот оно что то уже почти час находится в обработке, и я у себя не вижу, что оно исполнено. Вот номер."
+              }
+            },
+            "conditions": {
+              "used_known_details": {
+                "value": true,
+                "explanation": "Оператор не переспрашивал уже известные сведения (проблема с поручением в мобильном приложении) и сам связал обращение с предыдущим звонком получасом ранее.",
+                "evidence": {
+                  "index": 22,
+                  "timestamp": "15:51:12",
+                  "quote": "Подскажите, пожалуйста, случайно не мы разговаривали буквально полчаса назад."
+                }
+              },
+              "clarified_before_answer": {
+                "value": true,
+                "explanation": "До содержательного ответа по существу (статус поручения) оператор запросил номер поручения и провёл идентификацию клиента, задав вопросы заранее.",
+                "evidence": {
+                  "index": 38,
+                  "timestamp": "15:52:40",
+                  "quote": "Давайте проведем идентификацию, вы можете продиктовать ваши фамилия, имя, отчество."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2839,
+            "completion": 3180,
+            "cost": 0.002652405,
+            "latency_s": 11.21927079197485,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Оператор не переспрашивал уже известные сведения (проблема с поручением в мобильном приложении) и сам связал обращение с предыдущим звонком получасом ранее. До содержательного ответа по существу (статус поручения) оператор запросил номер поручения и провёл идентификацию клиента, задав вопросы заранее.",
+          "evidence_turns": [
+            22,
+            38,
+            39,
+            40
+          ]
+        },
+        {
+          "weight": 20,
+          "step": null,
+          "answer": "yes",
+          "points": 20,
+          "conditions": {
+            "verification_initiated": true,
+            "verification_confirmed": true,
+            "confirmed_before_disclosure": true
+          },
+          "criterion": "identification",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "na_gate": {
+              "value": false,
+              "explanation": "Оператор проверял статус конкретного торгового поручения клиента и инициировал обращение в технический отдел по его брокерскому счёту, то есть работал с данными счёта — идентификация требовалась.",
+              "evidence": {
+                "index": 66,
+                "timestamp": "15:54:43",
+                "quote": "на данный момент там вот имеется поручение и поручение принято"
+              }
+            },
+            "conditions": {
+              "verification_initiated": {
+                "value": true,
+                "explanation": "Оператор прямо объявил о проведении идентификации и запросил ФИО, затем код из СМС.",
+                "evidence": {
+                  "index": 38,
+                  "timestamp": "15:52:40",
+                  "quote": "Давайте проведем идентификацию, вы можете продиктовать ваши фамилия, имя, отчество."
+                }
+              },
+              "verification_confirmed": {
+                "value": true,
+                "explanation": "Оператор явно сообщил об успешном прохождении идентификации после ввода кода из СМС.",
+                "evidence": {
+                  "index": 65,
+                  "timestamp": "15:54:43",
+                  "quote": "Так да, идентификацию успешно проеданная"
+                }
+              },
+              "confirmed_before_disclosure": {
+                "value": true,
+                "explanation": "Данные по поручению (принято, в обработке) оператор озвучил только после подтверждения идентификации; до этого была лишь общая процедурная информация.",
+                "evidence": {
+                  "index": 66,
+                  "timestamp": "15:54:43",
+                  "quote": "на данный момент там вот имеется поручение и поручение принято"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3105,
+            "completion": 1049,
+            "cost": 0.001297815,
+            "latency_s": 3.7171170840156265,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Оператор прямо объявил о проведении идентификации и запросил ФИО, затем код из СМС. Оператор явно сообщил об успешном прохождении идентификации после ввода кода из СМС. Данные по поручению (принято, в обработке) оператор озвучил только после подтверждения идентификации; до этого была лишь общая процедурная информация.",
+          "evidence_turns": [
+            38,
+            39,
+            40,
+            65,
+            66
+          ]
+        },
+        {
+          "weight": 20,
+          "step": 15,
+          "answer": "15",
+          "points": 15.0,
+          "passed": {
+            "4.1": true,
+            "4.2": true,
+            "4.3": true,
+            "4.4": true,
+            "4.5": false
+          },
+          "criterion": "consultation",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "client_questions": [
+              {
+                "text": "Почему торговое поручение на покупку акций, поданное через мобильное приложение, почти час находится в обработке и не исполняется?",
+                "tag": "main"
+              },
+              {
+                "text": "Что делать / когда поручение будет исполнено (акции двигаются, промедление критично)?",
+                "tag": "material"
+              },
+              {
+                "text": "Подтверждение, что оператор сам перезвонит и в какое время",
+                "tag": "secondary"
+              }
+            ],
+            "na_gate": {
+              "value": false,
+              "explanation": "Клиент сформулировал конкретный запрос по зависшему торговому поручению, поэтому условие N/A не выполняется.",
+              "evidence": {
+                "index": 14,
+                "timestamp": "15:50:24",
+                "quote": "оно что то уже почти час находится в обработке, и я у себя не вижу, что оно исполнено"
+              }
+            },
+            "subcriteria": {
+              "4.1": {
+                "passed": true,
+                "explanation": "Оператор провёл идентификацию, подтвердил наличие поручения в обработке и дал конкретный следующий шаг: обращение в технический/профильный отдел с обратным звонком клиенту.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "я сейчас направлю технический отдел ... как только они ответят, я предоставлю вам обратную связь. Позвоню вам."
+                }
+              },
+              "4.2": {
+                "passed": true,
+                "explanation": "Ключевая рекомендация корректна: проверка статуса поручения и эскалация в профильный/технический отдел с последующей обратной связью не противоречат процессу.",
+                "evidence": {
+                  "index": 68,
+                  "timestamp": "15:54:52",
+                  "quote": "Но данное поручение все еще находится в обработке."
+                }
+              },
+              "4.3": {
+                "passed": true,
+                "explanation": "Клиент понимает дальнейший порядок действий: оператор сам перезвонит с ответом профильного отдела, время обратной связи согласовано.",
+                "evidence": {
+                  "index": 75,
+                  "timestamp": "15:55:42",
+                  "quote": "только получим. Ответа от профильного, отдела я предоставлю вам обратно здесь до 00:00."
+                }
+              },
+              "4.4": {
+                "passed": true,
+                "explanation": "Основной и материальный вопросы закрыты корректным следующим шагом — эскалацией в профильный отдел и обещанным обратным звонком; открытых без ответа существенных вопросов не осталось.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "Давайте щас я сейчас направлю технический отдел ... Данное поручение, как только они ответят, я предоставлю вам обратную связь."
+                }
+              },
+              "4.5": {
+                "passed": false,
+                "explanation": "Не озвучены полезные второстепенные детали: причина длительной обработки, срок действия/актуальность поручения и что делать клиенту, если оно исполнится до звонка.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "Давайте щас я сейчас направлю технический отдел техно о том, чтобы провели вашу брокерский счёт."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3779,
+            "completion": 1668,
+            "cost": 0.00102295,
+            "latency_s": 9.08556083298754,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 15,
+          "rationale": "Не озвучены полезные второстепенные детали: причина длительной обработки, срок действия/актуальность поручения и что делать клиенту, если оно исполнится до звонка.",
+          "evidence_turns": [
+            70,
+            71
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "yes",
+          "points": 15,
+          "conditions": {
+            "polite": true,
+            "client_dissatisfied": true,
+            "reacted_to_problem": true
+          },
+          "criterion": "empathy",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "conditions": {
+              "polite": {
+                "value": true,
+                "explanation": "Все реплики оператора вежливые, без грубости, сарказма или обвинений в адрес клиента; оператор извиняется за перебивание и использует формулы вежливости.",
+                "evidence": {
+                  "index": 22,
+                  "timestamp": "15:51:12",
+                  "quote": "Прошу причин, что перебил вас."
+                }
+              },
+              "client_dissatisfied": {
+                "value": true,
+                "explanation": "Клиент сообщает о неудобстве: торговое поручение почти час находится в обработке и не исполняется, что его беспокоит.",
+                "evidence": {
+                  "index": 14,
+                  "timestamp": "15:50:24",
+                  "quote": "почти час находится в обработке, и я у себя не вижу, что оно исполнено"
+                }
+              },
+              "reacted_to_problem": {
+                "value": true,
+                "explanation": "Оператор конкретно отреагировал на проблему: проверил поручение, подтвердил, что оно в обработке, и инициировал обращение в технический отдел с обещанием перезвонить.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "я сейчас направлю технический отдел ... Данное поручение, как только они ответят, я предоставлю вам обратную связь. Позвоню вам."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2676,
+            "completion": 1093,
+            "cost": 0.0012432,
+            "latency_s": 3.5008787920232862,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Все реплики оператора вежливые, без грубости, сарказма или обвинений в адрес клиента; оператор извиняется за перебивание и использует формулы вежливости. Оператор конкретно отреагировал на проблему: проверил поручение, подтвердил, что оно в обработке, и инициировал обращение в технический отдел с обещанием перезвонить.",
+          "evidence_turns": [
+            22,
+            70,
+            71
+          ]
+        },
+        {
+          "weight": 15,
+          "step": 4,
+          "answer": "4",
+          "points": 6.0,
+          "passed": {
+            "6.1": true,
+            "6.2": false,
+            "6.3": null,
+            "6.4": null,
+            "6.5": null
+          },
+          "criterion": "dialogue_management",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "subcriteria": {
+              "6.1": {
+                "passed": true,
+                "explanation": "Реплики оператора последовательны и не противоречат друг другу: он фиксирует, что поручение принято и находится в обработке, и объясняет дальнейшие шаги. Диалог остаётся понятным клиенту.",
+                "evidence": {
+                  "index": 68,
+                  "timestamp": "15:54:52",
+                  "quote": "Но данное поручение все еще находится в обработке."
+                }
+              },
+              "6.2": {
+                "passed": false,
+                "explanation": "Клиент переспросил «Код, что имеете в виду?» из-за невнятной формулировки оператора о запросе кода из СМС, после чего оператору пришлось объяснять заново.",
+                "evidence": {
+                  "index": 50,
+                  "timestamp": "15:53:45",
+                  "quote": "Код, что имеете в виду? Счёт номер счёта моего."
+                }
+              },
+              "6.3": {
+                "passed": true,
+                "explanation": "Оператор последовательно отвечает на вопрос клиента о статусе торгового поручения: проводит идентификацию, проверяет поручение и объясняет дальнейшие действия. Вопросов без ответа не осталось.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "Давайте щас я сейчас направлю технический отдел техно о том, чтобы провели вашу брокерский счёт."
+                }
+              },
+              "6.4": {
+                "applies": true,
+                "passed": true,
+                "explanation": "Перед проверкой информации оператор предупредил клиента, что сейчас посмотрит данные, то есть пауза была анонсирована.",
+                "evidence": {
+                  "index": 31,
+                  "timestamp": "15:52:09",
+                  "quote": "Так хорошо давайте. Давайте я сейчас посмотрю."
+                }
+              },
+              "6.5": {
+                "passed": true,
+                "explanation": "Заметных орфографических и грамматических ошибок в речи оператора нет; искажённые фрагменты в транскрипте являются артефактами распознавания речи при голосовом звонке.",
+                "evidence": {
+                  "index": 13,
+                  "timestamp": "15:50:21",
+                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3672,
+            "completion": 5732,
+            "cost": 0.00344322,
+            "latency_s": 20.851260000024922,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 4,
+          "rationale": "Клиент переспросил «Код, что имеете в виду?» из-за невнятной формулировки оператора о запросе кода из СМС, после чего оператору пришлось объяснять заново.",
+          "evidence_turns": [
+            50,
+            51,
+            52,
+            53
+          ]
+        },
+        {
+          "weight": 5,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "closing",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "na_gate": {
+              "value": true,
+              "explanation": "Клиент сам завершил разговор сразу после своей последней реплики: между сообщением клиента [77] и системным событием [78] «Клиент завершил разговор» нет ни одного сообщения оператора, поэтому возможности попрощаться у оператора не было.",
+              "evidence": {
+                "index": 77,
+                "timestamp": "15:55:51",
+                "quote": "Всё спасибо, спасибо."
+              }
+            },
+            "conditions": {
+              "summary_or_help": {
+                "value": true,
+                "explanation": "Оператор подвёл итог обращения и предложил дальнейшую помощь: сообщил, что направит запрос в технический отдел и перезвонит с обратной связью.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "предоставлю вам обратную связь. Позвоню вам."
+                }
+              },
+              "farewell": {
+                "value": false,
+                "explanation": "В последней реплике оператор не попрощался, а лишь обозначил срок обратной связи; прощания в разговоре не прозвучало.",
+                "evidence": {
+                  "index": 75,
+                  "timestamp": "15:55:42",
+                  "quote": "Ответа от профильного, отдела я предоставлю вам обратно здесь до 00:00."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2974,
+            "completion": 1243,
+            "cost": 0.00140031,
+            "latency_s": 3.5545792920165695,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Клиент сам завершил разговор сразу после своей последней реплики: между сообщением клиента [77] и системным событием [78] «Клиент завершил разговор» нет ни одного сообщения оператора, поэтому возможности попрощаться у оператора не было.",
+          "evidence_turns": [
+            77
+          ]
+        },
+        {
+          "weight": 0,
+          "step": null,
+          "answer": "no",
+          "points": null,
+          "conditions": {
+            "insult": false,
+            "bypass_paid_offer": false,
+            "confidential_disclosure": false
+          },
+          "criterion": "gross_errors",
+          "conversation_id": "p4-ru-003",
+          "raw": {
+            "conditions": {
+              "insult": {
+                "value": false,
+                "explanation": "Оператор общался вежливо и корректно на протяжении всего диалога, оскорблений, насмешек или унижения клиента не зафиксировано.",
+                "evidence": {
+                  "index": 13,
+                  "timestamp": "15:50:21",
+                  "quote": "Здравствуйте, Фридом брокер меня зовут [Имя скрыто], чем могу помочь?"
+                }
+              },
+              "bypass_paid_offer": {
+                "value": false,
+                "explanation": "Оператор не предлагал никаких услуг в обход компании, личных номеров для платных консультаций или перевода денег ему лично; все действия выполнялись в рамках регламента.",
+                "evidence": {
+                  "index": 70,
+                  "timestamp": "15:55:07",
+                  "quote": "Давайте щас я сейчас направлю технический отдел техно о том, чтобы провели вашу брокерский счёт"
+                }
+              },
+              "confidential_disclosure": {
+                "value": false,
+                "explanation": "Проверены все сообщения оператора: данные клиента (ФИО, код из СМС) запрашивались и озвучивались только после проведения идентификации и самому клиенту, данные других клиентов и внутренняя информация компании не раскрывались.",
+                "evidence": {
+                  "index": 65,
+                  "timestamp": "15:54:43",
+                  "quote": "Так да, идентификацию успешно проеданная [Имя скрыто]"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3143,
+            "completion": 406,
+            "cost": 0.000586341,
+            "latency_s": 3.428468124999199,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "Оператор общался вежливо и корректно на протяжении всего диалога, оскорблений, насмешек или унижения клиента не зафиксировано. Оператор не предлагал никаких услуг в обход компании, личных номеров для платных консультаций или перевода денег ему лично; все действия выполнялись в рамках регламента. Проверены все сообщения оператора: данные клиента (ФИО, код из СМС) запрашивались и озвучивались только после проведения идентификации и самому клиенту, данные других клиентов и внутренняя информация компании не раскрывались.",
+          "evidence_turns": [
+            13,
+            65,
+            66,
+            70,
+            71
+          ]
+        },
+        {
+          "weight": 10,
+          "step": null,
+          "answer": "yes",
+          "points": 10,
+          "conditions": {
+            "greeted": true,
+            "client_language": true,
+            "introduced_self": true
+          },
+          "criterion": "contact",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "conditions": {
+              "client_language": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Hi, I'm Lina. In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Клиент пишет на английском, и оператор в первом ответе обращается на английском, что соответствует языку клиента.",
+                "value": true
+              },
+              "greeted": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Hi, I'm Lina.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Первый ответ оператора содержит приветствие «Hi»; приветствие бота в [4] не учитывается.",
+                "value": true
+              },
+              "introduced_self": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "I'm Lina",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Оператор называет своё имя в первом же ответе: «I'm Lina».",
+                "value": true
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1314,
+            "completion": 319,
+            "cost": 0.000209432,
+            "latency_s": 0.9802404159563594,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Первый ответ оператора содержит приветствие «Hi»; приветствие бота в [4] не учитывается. Клиент пишет на английском, и оператор в первом ответе обращается на английском, что соответствует языку клиента. Оператор называет своё имя в первом же ответе: «I'm Lina».",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "needs",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "na_gate": {
+              "value": true,
+              "explanation": "Клиент с самого начала указал, что идёт в отделение банка пополнять брокерский счёт, и спросил, где взять реквизиты для перевода. Этих данных достаточно для ответа, дополнительных уточнений не требовалось.",
+              "evidence": {
+                "index": 1,
+                "timestamp": "00:00",
+                "quote": "I'm going to a bank branch to fund the brokerage account. Where do I get the transfer details?"
+              }
+            },
+            "conditions": {
+              "used_known_details": {
+                "value": true,
+                "explanation": "Оператор не переспрашивал уже известные данные, а сразу использовал контекст приложения и дал путь к реквизитам.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "02:52",
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option."
+                }
+              },
+              "clarified_before_answer": {
+                "value": true,
+                "explanation": "Для корректного ответа не хватало информации, которую нужно было бы уточнить: запрос клиента был полным, поэтому оператор сразу дал ответ.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "02:52",
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1775,
+            "completion": 558,
+            "cost": 0.000540945,
+            "latency_s": 2.7373303749482147,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Клиент с самого начала указал, что идёт в отделение банка пополнять брокерский счёт, и спросил, где взять реквизиты для перевода. Этих данных достаточно для ответа, дополнительных уточнений не требовалось.",
+          "evidence_turns": [
+            1
+          ]
+        },
+        {
+          "weight": 20,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "identification",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "conditions": {
+              "confirmed_before_disclosure": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Подтверждения верификации не было; оператор не раскрывал защищённых данных, поэтому условие не выполнено.",
+                "value": false
+              },
+              "verification_confirmed": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Hi, I'm Lina.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Успешная верификация нигде не подтверждена — ни системным событием, ни явным сообщением оператора.",
+                "value": false
+              },
+              "verification_initiated": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Оператор не запрашивал верификацию, и в чате нет системного события о начале процедуры верификации.",
+                "value": false
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 10,
+                "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                "timestamp": "02:52"
+              },
+              "explanation": "Оператор только объяснил навигацию в приложении и не раскрывал данных счёта и не выполнял действий по счёту.",
+              "value": true
+            }
+          },
+          "usage": {
+            "prompt": 1633,
+            "completion": 1248,
+            "cost": 0.000731778,
+            "latency_s": 3.487819457950536,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Оператор только объяснил навигацию в приложении и не раскрывал данных счёта и не выполнял действий по счёту.",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 20,
+          "step": 20,
+          "answer": "20",
+          "points": 20.0,
+          "passed": {
+            "4.1": true,
+            "4.2": true,
+            "4.3": true,
+            "4.4": true,
+            "4.5": true
+          },
+          "criterion": "consultation",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "client_questions": [
+              {
+                "tag": "main",
+                "text": "Where do I get the transfer details to fund the brokerage account at a bank branch?"
+              },
+              {
+                "tag": "main",
+                "text": "Connect me with someone, please."
+              },
+              {
+                "tag": "material",
+                "text": "I'm sending euros. Is it the same page?"
+              }
+            ],
+            "na_gate": {
+              "evidence": {
+                "index": 1,
+                "quote": "Where do I get the transfer details?",
+                "timestamp": "00:00"
+              },
+              "explanation": "Клиент сразу сформулировал запрос о получении реквизитов для перевода, поэтому условие N/A не выполняется.",
+              "value": false
+            },
+            "subcriteria": {
+              "4.1": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Оператор дал конкретный ответ, где в приложении найти реквизиты для банковского перевода.",
+                "passed": true
+              },
+              "4.2": {
+                "evidence": {
+                  "index": 12,
+                  "quote": "Yes. Select the currency you need before downloading the details.",
+                  "timestamp": "04:23"
+                },
+                "explanation": "Ключевая рекомендация корректна: указан путь в приложении и необходимость выбрать валюту перед скачиванием реквизитов.",
+                "passed": true
+              },
+              "4.3": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "open Menu, then Add Funds, then the bank transfer details option",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Клиент получил пошаговую инструкцию, что открыть в приложении и какие реквизиты взять в отделение.",
+                "passed": true
+              },
+              "4.4": {
+                "evidence": {
+                  "index": 12,
+                  "quote": "Yes. Select the currency you need before downloading the details.",
+                  "timestamp": "04:23"
+                },
+                "explanation": "Основной запрос о реквизитах и уточнение по евро закрыты; подключение к оператору также было выполнено.",
+                "passed": true
+              },
+              "4.5": {
+                "evidence": {
+                  "index": 12,
+                  "quote": "Select the currency you need before downloading the details.",
+                  "timestamp": "04:23"
+                },
+                "explanation": "Оператор учёл важную деталь — выбор валюты перед скачиванием реквизитов; иных существенных второстепенных деталей по запросу не требовалось.",
+                "passed": true
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2307,
+            "completion": 1462,
+            "cost": 0.000818666,
+            "latency_s": 3.5563949170173146,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 20,
+          "rationale": "Оператор дал конкретный ответ, где в приложении найти реквизиты для банковского перевода. Ключевая рекомендация корректна: указан путь в приложении и необходимость выбрать валюту перед скачиванием реквизитов. Клиент получил пошаговую инструкцию, что открыть в приложении и какие реквизиты взять в отделение. Основной запрос о реквизитах и уточнение по евро закрыты; подключение к оператору также было выполнено. Оператор учёл важную деталь — выбор валюты перед скачиванием реквизитов; иных существенных второстепенных деталей по запросу не требовалось.",
+          "evidence_turns": [
+            10,
+            12
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "yes",
+          "points": 15,
+          "conditions": {
+            "polite": true,
+            "client_dissatisfied": false,
+            "reacted_to_problem": true
+          },
+          "criterion": "empathy",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "conditions": {
+              "polite": {
+                "value": true,
+                "explanation": "Все сообщения оператора вежливы и доброжелательны, без грубости, сарказма или обвинений в адрес клиента; прощание корректное.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "00:02:52",
+                  "quote": "Hi, I'm Lina. In the app, open Menu, then Add Funds, then the bank transfer details option."
+                }
+              },
+              "client_dissatisfied": {
+                "value": false,
+                "explanation": "Клиент не выражал недовольства или жалобы: он высказал предосторожность (не хочет принести в отделение неверные реквизиты) и попросил соединить с сотрудником, что не является описанием доставленного неудобства.",
+                "evidence": {
+                  "index": 5,
+                  "timestamp": "00:00:37",
+                  "quote": "I don't want to take the wrong details to the branch."
+                }
+              },
+              "reacted_to_problem": {
+                "value": true,
+                "explanation": "Условие неприменимо (клиент не выражал недовольства), но оператор всё равно конкретно ответил на вопрос по существу: указал путь в приложении и уточнил про выбор валюты перед скачиванием реквизитов.",
+                "evidence": {
+                  "index": 12,
+                  "timestamp": "00:04:23",
+                  "quote": "Yes. Select the currency you need before downloading the details. Take those details to the branch."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1204,
+            "completion": 829,
+            "cost": 0.000361718,
+            "latency_s": 5.012947582989,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Все сообщения оператора вежливы и доброжелательны, без грубости, сарказма или обвинений в адрес клиента; прощание корректное.",
+          "evidence_turns": [
+            10
+          ]
+        },
+        {
+          "weight": 15,
+          "step": 10,
+          "answer": "10",
+          "points": 15.0,
+          "passed": {
+            "6.1": true,
+            "6.2": true,
+            "6.3": true,
+            "6.4": null,
+            "6.5": true
+          },
+          "criterion": "dialogue_management",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "subcriteria": {
+              "6.1": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Ответы оператора последовательны и не противоречат друг другу: сначала указан путь в приложении, затем уточнено, что перед скачиванием нужно выбрать валюту.",
+                "passed": true
+              },
+              "6.2": {
+                "evidence": {
+                  "index": 12,
+                  "quote": "Yes. Select the currency you need before downloading the details.",
+                  "timestamp": "04:23"
+                },
+                "explanation": "Клиент задал уточняющий вопрос о валюте по своей инициативе, а не из-за непонятной формулировки оператора; переспрашиваний «что вы имеете в виду» не было.",
+                "passed": true
+              },
+              "6.3": {
+                "evidence": {
+                  "index": 12,
+                  "quote": "Yes. Select the currency you need before downloading the details. Take those details to the branch.",
+                  "timestamp": "04:23"
+                },
+                "explanation": "Оператор ответил на вопрос клиента про евро и ту же страницу в логичном порядке, ни один вопрос не остался без ответа.",
+                "passed": true
+              },
+              "6.4": {
+                "applies": false,
+                "evidence": null,
+                "explanation": "Оператор не объявлял проверку информации, события удержания в чате нет, а пауза до первого ответа оператора (00:59–02:52) не превышает 120 секунд.",
+                "passed": true
+              },
+              "6.5": {
+                "evidence": {
+                  "index": 10,
+                  "quote": "Hi, I'm Lina. In the app, open Menu, then Add Funds, then the bank transfer details option.",
+                  "timestamp": "02:52"
+                },
+                "explanation": "Сообщения оператора грамотные, без орфографических и пунктуационных ошибок и иноязычных фрагментов.",
+                "passed": true
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2200,
+            "completion": 948,
+            "cost": 0.000507424,
+            "latency_s": 3.670104250020813,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 10,
+          "rationale": "Ответы оператора последовательны и не противоречат друг другу: сначала указан путь в приложении, затем уточнено, что перед скачиванием нужно выбрать валюту. Клиент задал уточняющий вопрос о валюте по своей инициативе, а не из-за непонятной формулировки оператора; переспрашиваний «что вы имеете в виду» не было. Оператор ответил на вопрос клиента про евро и ту же страницу в логичном порядке, ни один вопрос не остался без ответа. Сообщения оператора грамотные, без орфографических и пунктуационных ошибок и иноязычных фрагментов.",
+          "evidence_turns": [
+            10,
+            12
+          ]
+        },
+        {
+          "weight": 5,
+          "step": null,
+          "answer": "no",
+          "points": 0,
+          "conditions": {
+            "summary_or_help": false,
+            "farewell": true
+          },
+          "criterion": "closing",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "conditions": {
+              "farewell": {
+                "evidence": {
+                  "index": 14,
+                  "quote": "Goodbye!",
+                  "timestamp": "05:51"
+                },
+                "explanation": "Оператор попрощался в финальном сообщении.",
+                "value": true
+              },
+              "summary_or_help": {
+                "evidence": {
+                  "index": 14,
+                  "quote": "You're welcome. Goodbye!",
+                  "timestamp": "05:51"
+                },
+                "explanation": "В финальном сообщении оператор только поблагодарил и попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+                "value": false
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 14,
+                "quote": "You're welcome. Goodbye!",
+                "timestamp": "05:51"
+              },
+              "explanation": "Клиент не завершал чат самостоятельно: после его последнего сообщения [13] у оператора был ход, и он ответил [14]. События завершения со стороны клиента нет.",
+              "value": false
+            }
+          },
+          "usage": {
+            "prompt": 1502,
+            "completion": 631,
+            "cost": 0.00034032,
+            "latency_s": 3.7406711250077933,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "В финальном сообщении оператор только поблагодарил и попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+          "evidence_turns": [
+            14
+          ]
+        },
+        {
+          "weight": 0,
+          "step": null,
+          "answer": "no",
+          "points": null,
+          "conditions": {
+            "insult": false,
+            "bypass_paid_offer": false,
+            "confidential_disclosure": false
+          },
+          "criterion": "gross_errors",
+          "conversation_id": "p1-en-005",
+          "raw": {
+            "conditions": {
+              "insult": {
+                "value": false,
+                "explanation": "Оператор общался вежливо и нейтрально, без оскорблений, насмешек или унижения клиента.",
+                "evidence": {
+                  "index": 10,
+                  "timestamp": "02:52",
+                  "quote": "Hi, I'm Lina. In the app, open Menu, then Add Funds, then the bank transfer details option."
+                }
+              },
+              "bypass_paid_offer": {
+                "value": false,
+                "explanation": "Оператор не предлагал платных услуг в обход компании, личных номеров или переводов ему лично.",
+                "evidence": {
+                  "index": 12,
+                  "timestamp": "04:23",
+                  "quote": "Yes. Select the currency you need before downloading the details. Take those details to the branch."
+                }
+              },
+              "confidential_disclosure": {
+                "value": false,
+                "explanation": "Оператор не раскрывал конфиденциальную информацию: ни данных других клиентов, ни внутренней информации компании.",
+                "evidence": {
+                  "index": 14,
+                  "timestamp": "05:51",
+                  "quote": "You're welcome. Goodbye!"
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1235,
+            "completion": 293,
+            "cost": 0.000434205,
+            "latency_s": 0.961333375016693,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "Оператор общался вежливо и нейтрально, без оскорблений, насмешек или унижения клиента. Оператор не предлагал платных услуг в обход компании, личных номеров или переводов ему лично. Оператор не раскрывал конфиденциальную информацию: ни данных других клиентов, ни внутренней информации компании.",
+          "evidence_turns": [
+            10,
+            12,
+            14
+          ]
+        },
+        {
+          "weight": 10,
+          "step": null,
+          "answer": "yes",
+          "points": 10,
+          "conditions": {
+            "greeted": true,
+            "client_language": true,
+            "introduced_self": true
+          },
+          "criterion": "contact",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "conditions": {
+              "greeted": {
+                "value": true,
+                "explanation": "Оператор начал диалог с приветствия 'Hi'.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Hi, I'm Sofia. Enter the ticker in the search bar under Quotes. Check that the result shows the ticker you intended before opening an order."
+                }
+              },
+              "client_language": {
+                "value": true,
+                "explanation": "Клиент общался на английском языке, и оператор ответил на нем.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Hi, I'm Sofia. Enter the ticker in the search bar under Quotes. Check that the result shows the ticker you intended before opening an order."
+                }
+              },
+              "introduced_self": {
+                "value": true,
+                "explanation": "Оператор представился, назвав свое имя София.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Hi, I'm Sofia. Enter the ticker in the search bar under Quotes. Check that the result shows the ticker you intended before opening an order."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1905,
+            "completion": 558,
+            "cost": 0.0003678945,
+            "latency_s": 3.5769774169893935,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Оператор начал диалог с приветствия 'Hi'. Клиент общался на английском языке, и оператор ответил на нем. Оператор представился, назвав свое имя София.",
+          "evidence_turns": [
+            11
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "needs",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "conditions": {
+              "clarified_before_answer": {
+                "evidence": {
+                  "index": 11,
+                  "quote": "Enter the ticker in the search bar under Quotes.",
+                  "timestamp": "01:47"
+                },
+                "explanation": "Недостающей для корректного ответа информации не было: тикер и открытое приложение уже известны, поэтому уточнения перед ответом не требовались.",
+                "value": true
+              },
+              "used_known_details": {
+                "evidence": {
+                  "index": 11,
+                  "quote": "Enter the ticker in the search bar under Quotes.",
+                  "timestamp": "01:47"
+                },
+                "explanation": "Оператор не переспрашивал тикер или наличие приложения — сразу использовал известные данные и дал инструкцию по поиску.",
+                "value": true
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 5,
+                "quote": "I have the ticker but I'm still new to this.",
+                "timestamp": "00:32"
+              },
+              "explanation": "Клиент сообщил, что тикер у него уже есть и приложение открыто; бот уже подсказал поиск по тикеру. Для ответа оператору не требовалось уточнений.",
+              "value": true
+            }
+          },
+          "usage": {
+            "prompt": 1523,
+            "completion": 1051,
+            "cost": 0.000554702,
+            "latency_s": 3.1631321670138277,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Клиент сообщил, что тикер у него уже есть и приложение открыто; бот уже подсказал поиск по тикеру. Для ответа оператору не требовалось уточнений.",
+          "evidence_turns": [
+            5
+          ]
+        },
+        {
+          "weight": 20,
+          "step": null,
+          "answer": "na",
+          "points": null,
+          "criterion": "identification",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "na_gate": {
+              "value": true,
+              "explanation": "Оператор не раскрывал данные счёта клиента и не выполнял действий по счёту: давал только общие навигационные подсказки по приложению.",
+              "evidence": {
+                "index": 11,
+                "timestamp": "01:47",
+                "quote": "Enter the ticker in the search bar under Quotes."
+              }
+            },
+            "conditions": {
+              "verification_initiated": {
+                "value": false,
+                "explanation": "Оператор не запрашивал верификацию, и в чате нет системного события о начале процедуры идентификации.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Hi, I'm Sofia. Enter the ticker in the search bar under Quotes."
+                }
+              },
+              "verification_confirmed": {
+                "value": false,
+                "explanation": "Успешная верификация нигде не подтверждена — ни системным событием, ни явным сообщением оператора.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Hi, I'm Sofia. Enter the ticker in the search bar under Quotes."
+                }
+              },
+              "confirmed_before_disclosure": {
+                "value": false,
+                "explanation": "Подтверждения верификации не было, при этом раскрытия защищённых данных или выполнения защищённого действия в диалоге не происходило.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Enter the ticker in the search bar under Quotes."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1789,
+            "completion": 708,
+            "cost": 0.000645645,
+            "latency_s": 3.4834744579857215,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": null,
+          "rationale": "Оператор не раскрывал данные счёта клиента и не выполнял действий по счёту: давал только общие навигационные подсказки по приложению.",
+          "evidence_turns": [
+            11
+          ]
+        },
+        {
+          "weight": 20,
+          "step": 5,
+          "answer": "5",
+          "points": 5.0,
+          "passed": {
+            "4.1": true,
+            "4.2": true,
+            "4.3": false,
+            "4.4": null,
+            "4.5": null
+          },
+          "criterion": "consultation",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "client_questions": [
+              {
+                "text": "There are several results for the company I'm looking up. How can I find the exact stock?",
+                "tag": "main"
+              },
+              {
+                "text": "Can I talk to an agent?",
+                "tag": "material"
+              },
+              {
+                "text": "Now there's one result. Where do I go from there?",
+                "tag": "material"
+              },
+              {
+                "text": "The order screen has a Use Margin checkbox. How do I turn that off?",
+                "tag": "main"
+              },
+              {
+                "text": "Does that change a position I already own?",
+                "tag": "material"
+              }
+            ],
+            "na_gate": {
+              "value": false,
+              "explanation": "Клиент сформулировал запросы в чате, поэтому условие N/A не выполняется.",
+              "evidence": {
+                "index": 1,
+                "timestamp": "00:00",
+                "quote": "There are several results for the company I'm looking up. How can I find the exact stock?"
+              }
+            },
+            "subcriteria": {
+              "4.1": {
+                "passed": true,
+                "explanation": "Оператор дал конкретный следующий шаг по основному вопросу: искать по тикеру в Quotes и проверить результат перед открытием ордера.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Enter the ticker in the search bar under Quotes. Check that the result shows the ticker you intended before opening an order."
+                }
+              },
+              "4.2": {
+                "passed": true,
+                "explanation": "Ключевая рекомендация по отключению Use Margin процедурно корректна: открыть Order Settings и снять галочку.",
+                "evidence": {
+                  "index": 16,
+                  "timestamp": "04:26",
+                  "quote": "Before you submit, open Order Settings and untick Use Margin."
+                }
+              },
+              "4.3": {
+                "passed": false,
+                "explanation": "По вопросу о влиянии настройки на уже имеющуюся позицию клиент не получил конкретного ответа или следующего шага.",
+                "evidence": {
+                  "index": 18,
+                  "timestamp": "05:22",
+                  "quote": "That setting is for the order you're entering now. It doesn't answer what's happening with an existing position."
+                }
+              },
+              "4.4": {
+                "passed": false,
+                "explanation": "Существенный вопрос о том, меняет ли настройка Use Margin уже открытую позицию, остался без ответа.",
+                "evidence": {
+                  "index": 18,
+                  "timestamp": "05:22",
+                  "quote": "It doesn't answer what's happening with an existing position."
+                }
+              },
+              "4.5": {
+                "passed": true,
+                "explanation": "Оператор дал релевантное предупреждение проверить тикер и просмотреть параметры перед отправкой; иных существенных второстепенных деталей по запросу не требовалось.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Check that the result shows the ticker you intended before opening an order."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 3316,
+            "completion": 2229,
+            "cost": 0.000964552,
+            "latency_s": 14.741397165984381,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 5,
+          "rationale": "По вопросу о влиянии настройки на уже имеющуюся позицию клиент не получил конкретного ответа или следующего шага.",
+          "evidence_turns": [
+            18
+          ]
+        },
+        {
+          "weight": 15,
+          "step": null,
+          "answer": "yes",
+          "points": 15,
+          "conditions": {
+            "polite": true,
+            "client_dissatisfied": true,
+            "reacted_to_problem": true
+          },
+          "criterion": "empathy",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "conditions": {
+              "polite": {
+                "value": true,
+                "explanation": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента; завершает диалог доброжелательно.",
+                "evidence": {
+                  "index": 20,
+                  "timestamp": "06:13",
+                  "quote": "Of course. Have a good day!"
+                }
+              },
+              "client_dissatisfied": {
+                "value": true,
+                "explanation": "Клиент описал затруднение: по компании выдаётся несколько результатов, и он не может найти нужную акцию; также отметил, что ещё не освоился в приложении.",
+                "evidence": {
+                  "index": 1,
+                  "timestamp": "00:00",
+                  "quote": "There are several results for the company I'm looking up. How can I find the exact stock?"
+                }
+              },
+              "reacted_to_problem": {
+                "value": true,
+                "explanation": "Оператор конкретно отреагировал на затруднение клиента: объяснил поиск по тикеру и проверку результата, а затем дал пошаговые указания по экрану заявки и настройке Use Margin.",
+                "evidence": {
+                  "index": 11,
+                  "timestamp": "01:47",
+                  "quote": "Enter the ticker in the search bar under Quotes. Check that the result shows the ticker you intended before opening an order."
+                }
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1360,
+            "completion": 1187,
+            "cost": 0.0006615,
+            "latency_s": 8.59265491599217,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": true,
+          "rationale": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента; завершает диалог доброжелательно. Оператор конкретно отреагировал на затруднение клиента: объяснил поиск по тикеру и проверку результата, а затем дал пошаговые указания по экрану заявки и настройке Use Margin.",
+          "evidence_turns": [
+            11,
+            20
+          ]
+        },
+        {
+          "weight": 15,
+          "step": 10,
+          "answer": "10",
+          "points": 15.0,
+          "passed": {
+            "6.1": true,
+            "6.2": true,
+            "6.3": true,
+            "6.4": null,
+            "6.5": true
+          },
+          "criterion": "dialogue_management",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "subcriteria": {
+              "6.1": {
+                "evidence": {
+                  "index": 18,
+                  "quote": "That setting is for the order you're entering now. It doesn't answer what's happening with an existing position.",
+                  "timestamp": "05:22"
+                },
+                "explanation": "Ответы оператора последовательны и не противоречат друг другу: инструкции по поиску тикера, оформлению ордера и настройке Use Margin согласуются между собой.",
+                "passed": true
+              },
+              "6.2": {
+                "evidence": {
+                  "index": 15,
+                  "quote": "Hang on, I have another question.",
+                  "timestamp": "03:39"
+                },
+                "explanation": "Клиент не переспрашивал из-за формулировок оператора: вопросы [15] и [17] — новые уточнения, а не просьбы пояснить сказанное.",
+                "passed": true
+              },
+              "6.3": {
+                "evidence": {
+                  "index": 16,
+                  "quote": "Before you submit, open Order Settings and untick Use Margin.",
+                  "timestamp": "04:26"
+                },
+                "explanation": "Оператор ответил на все вопросы клиента по порядку: [12]→[13], [15]→[16], [17]→[18]; ни один вопрос не оставлен без ответа.",
+                "passed": true
+              },
+              "6.4": {
+                "applies": false,
+                "evidence": null,
+                "explanation": "Оператор не объявлял проверку информации, событий удержания в чате нет, а все паузы между сообщениями (макс. ~47 с) меньше порога 120 с.",
+                "passed": true
+              },
+              "6.5": {
+                "evidence": {
+                  "index": 11,
+                  "quote": "Enter the ticker in the search bar under Quotes.",
+                  "timestamp": "01:47"
+                },
+                "explanation": "Сообщения оператора грамотны, без орфографических и пунктуационных ошибок и без фрагментов на другом языке.",
+                "passed": true
+              }
+            }
+          },
+          "usage": {
+            "prompt": 2356,
+            "completion": 1067,
+            "cost": 0.000572852,
+            "latency_s": 3.2703847500379197,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": 10,
+          "rationale": "Ответы оператора последовательны и не противоречат друг другу: инструкции по поиску тикера, оформлению ордера и настройке Use Margin согласуются между собой. Клиент не переспрашивал из-за формулировок оператора: вопросы [15] и [17] — новые уточнения, а не просьбы пояснить сказанное. Оператор ответил на все вопросы клиента по порядку: [12]→[13], [15]→[16], [17]→[18]; ни один вопрос не оставлен без ответа. Сообщения оператора грамотны, без орфографических и пунктуационных ошибок и без фрагментов на другом языке.",
+          "evidence_turns": [
+            11,
+            15,
+            16,
+            18
+          ]
+        },
+        {
+          "weight": 5,
+          "step": null,
+          "answer": "no",
+          "points": 0,
+          "conditions": {
+            "summary_or_help": false,
+            "farewell": true
+          },
+          "criterion": "closing",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "conditions": {
+              "farewell": {
+                "evidence": {
+                  "index": 20,
+                  "quote": "Of course. Have a good day!",
+                  "timestamp": "06:13"
+                },
+                "explanation": "Оператор попрощался фразой «Have a good day!».",
+                "value": true
+              },
+              "summary_or_help": {
+                "evidence": {
+                  "index": 20,
+                  "quote": "Of course. Have a good day!",
+                  "timestamp": "06:13"
+                },
+                "explanation": "В финальном сообщении оператор только подтвердил решение клиента и попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+                "value": false
+              }
+            },
+            "na_gate": {
+              "evidence": {
+                "index": 20,
+                "quote": "Of course. Have a good day!",
+                "timestamp": "06:13"
+              },
+              "explanation": "Клиент не завершал чат до ответа оператора; последнее сообщение принадлежит оператору, у него была возможность корректно закрыть диалог.",
+              "value": false
+            }
+          },
+          "usage": {
+            "prompt": 1658,
+            "completion": 671,
+            "cost": 0.000398504,
+            "latency_s": 2.6511846669600345,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "В финальном сообщении оператор только подтвердил решение клиента и попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+          "evidence_turns": [
+            20
+          ]
+        },
+        {
+          "weight": 0,
+          "step": null,
+          "answer": "no",
+          "points": null,
+          "conditions": {
+            "insult": false,
+            "bypass_paid_offer": false,
+            "confidential_disclosure": false
+          },
+          "criterion": "gross_errors",
+          "conversation_id": "p1-en-008",
+          "raw": {
+            "conditions": {
+              "bypass_paid_offer": {
+                "evidence": {
+                  "index": 11,
+                  "quote": "Enter the ticker in the search bar under Quotes.",
+                  "timestamp": "01:47"
+                },
+                "explanation": "Оператор даёт только инструкции по работе в приложении; предложений оплатить услуги лично оператору или обойти компанию нет.",
+                "value": false
+              },
+              "confidential_disclosure": {
+                "evidence": {
+                  "index": 18,
+                  "quote": "That setting is for the order you're entering now.",
+                  "timestamp": "05:22"
+                },
+                "explanation": "Оператор не раскрывает данные других клиентов или внутреннюю информацию компании; все сообщения касаются только настроек клиента.",
+                "value": false
+              },
+              "insult": {
+                "evidence": {
+                  "index": 20,
+                  "quote": "Of course. Have a good day!",
+                  "timestamp": "06:13"
+                },
+                "explanation": "Все сообщения оператора (11, 13, 16, 18, 20) проверены: оскорблений, насмешек или унижения клиента нет, тон вежливый.",
+                "value": false
+              }
+            }
+          },
+          "usage": {
+            "prompt": 1804,
+            "completion": 286,
+            "cost": 0.000737,
+            "latency_s": 1.8660784169915132,
+            "calls": 1
+          },
+          "evidence_warnings": [],
+          "value": false,
+          "rationale": "Все сообщения оператора (11, 13, 16, 18, 20) проверены: оскорблений, насмешек или унижения клиента нет, тон вежливый. Оператор даёт только инструкции по работе в приложении; предложений оплатить услуги лично оператору или обойти компанию нет. Оператор не раскрывает данные других клиентов или внутреннюю информацию компании; все сообщения касаются только настроек клиента.",
+          "evidence_turns": [
+            11,
+            18,
+            20
+          ]
         }
       ]
+    }
+  },
+  "evaluations": {
+    "p1-ru-010": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-kz-003": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-en-006": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-ru-005": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-kz-005": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-en-007": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-ru-029": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-kz-013": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-en-014": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p4-ru-001": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p4-ru-002": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p4-ru-003": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:29:11+05:00",
+      "checklist_version": 1
+    },
+    "p4-ru-004": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p4-ru-005": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:14:02+05:00",
+      "checklist_version": 1
+    },
+    "p1-ru-001": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:28:51+05:00",
+      "checklist_version": 1
+    },
+    "p1-en-005": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:40:20+05:00",
+      "checklist_version": 1
+    },
+    "p1-en-008": {
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "assessed_at": "2026-11-08T04:40:27+05:00",
+      "checklist_version": 1
     }
   }
 }

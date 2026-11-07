@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0",
+  "criterion_id": "dialogue_management",
+  "order": 6,
+  "section": {
+    "id": "conduct_closing",
+    "name_ru": "Ведение и завершение диалога"
+  },
+  "name_ru": "Управление диалогом, скорость и грамотность",
+  "name_en": "Dialogue management, speed and literacy",
+  "answer_type": "scale",
+  "weight": 15,
+  "enabled": true,
+  "official_rule": "10: clear and coherent, waits announced; 7: one lapse; 4: the client has to re-ask; 0: the course of the dialogue is unclear.",
+  "na": {
+    "allowed": false
+  },
+  "scale": {
+    "min": 0,
+    "max": 10,
+    "allowed_steps": [
+      0,
+      4,
+      7,
+      10
+    ],
+    "step_descriptions": {
+      "10": "Replies clear and coherent; if there was an explicit wait, the operator warned.",
+      "7": "One noticeable lapse, but the client can understand and continue.",
+      "4": "Client has to re-ask because of wording or order of replies.",
+      "0": "Incoherent or contradictory replies make the course of the dialogue unclear."
+    }
+  },
+  "parameters": {
+    "first_response_threshold": {
+      "value": null,
+      "source": "checklist",
+      "note": "3-minute first-response threshold is excluded from this task."
+    },
+    "explicit_wait_gap_seconds": {
+      "value": 120,
+      "source": "team_assumption",
+      "note": "Computed gap is passed to the model as a hint, not a hard trigger; the primary signal is the operator announcing a check or a hold event. Calibrated on DEV (see dev_eval_cases.json)."
+    }
+  },
+  "subcriteria": [
+    {
+      "id": "6.1",
+      "label_ru": "Ответы связные, без противоречий",
+      "key": "coherent_no_contradictions",
+      "question": "Are operator replies coherent and free of contradictions with each other?",
+      "pass_if": "Yes.",
+      "fail_if": "Contradictory or disjointed replies make the dialogue hard to follow.",
+      "severity": "critical"
+    },
+    {
+      "id": "6.2",
+      "label_ru": "Клиенту не пришлось переспрашивать",
+      "key": "no_reask_caused_by_operator",
+      "question": "Did the client have to re-ask or ask 'what do you mean?' BECAUSE of the operator's wording or reply order?",
+      "pass_if": "No such re-ask.",
+      "fail_if": "At least one re-ask attributable to the operator.",
+      "severity": "major",
+      "note": "Re-asks caused by the client's own inattention do not count."
+    },
+    {
+      "id": "6.3",
+      "label_ru": "Ответы в логичном порядке",
+      "key": "logical_order",
+      "question": "Did the operator answer the client's questions in a logical order without ignoring any message?",
+      "pass_if": "Yes.",
+      "fail_if": "A question ignored or answered out of order.",
+      "severity": "lapse"
+    },
+    {
+      "id": "6.4",
+      "label_ru": "Паузы и ожидание под контролем",
+      "key": "wait_warned",
+      "applies_if": "operator announced checking information, a system hold event appears ('Клиент находится на удержании'), or a computed gap exceeds explicit_wait_gap_seconds",
+      "question": "Did the operator warn the client before the wait ('one moment, let me check')?",
+      "pass_if": "Warning given before the wait.",
+      "fail_if": "Silent wait without warning.",
+      "severity": "lapse"
+    },
+    {
+      "id": "6.5",
+      "label_ru": "Грамотность и корректность речи",
+      "key": "literacy",
+      "question": "Are operator messages free of noticeable spelling/grammar errors, typos, or wrong-language fragments?",
+      "pass_if": "No noticeable errors.",
+      "fail_if": "Noticeable errors (count each distinct message as one lapse).",
+      "severity": "lapse"
+    }
+  ],
+  "decision_logic": {
+    "type": "severity_ladder",
+    "rules": [
+      {
+        "if": "6.1 fails",
+        "score": 0
+      },
+      {
+        "if": "6.2 fails",
+        "score": 4
+      },
+      {
+        "if": "lapse_count >= 2",
+        "score": 4,
+        "source": "team_decision",
+        "note": "The official scale does not define 2+ lapses without a re-ask; treated as 4. Change to 7 if calibration shows it's too harsh."
+      },
+      {
+        "if": "lapse_count == 1",
+        "score": 7
+      },
+      {
+        "else": true,
+        "score": 10
+      }
+    ],
+    "lapse_count_definition": "Number of failures among subcriteria with severity 'lapse' (6.3, 6.4, 6.5)."
+  },
+  "scoring": {
+    "formula": "points = step / 10 * weight",
+    "step_to_points_before_na_redistribution": {
+      "10": 15,
+      "7": 10.5,
+      "4": 6,
+      "0": 0
+    }
+  },
+  "evidence": {
+    "required": true,
+    "format": "message index + timestamp + short quote",
+    "on_missing_action": "point to the dialogue span where the action was expected",
+    "on_na": "state which N/A condition is met and cite the message that proves it"
+  },
+  "boundary_with_c04": "A clear answer to only one of two important questions can score high here and partial in consultation.",
+  "channel_overrides": {
+    "voice call": {
+      "source": "Organisers' clarification: for calls, judge logical flow, clarity of explanations, absence of inappropriate expressions, correct verbal phrasing and pause management; with audio, also tempo, diction and intelligibility.",
+      "subcriteria_overrides": {
+        "6.2": {
+          "note": "A re-ask caused by audio/ASR problems ('Алло?', 'Как?') is not attributable to the operator's phrasing."
+        },
+        "6.4": {
+          "key": "pause_management",
+          "question": "Did the operator manage pauses: announce holds and checks before them, thank the client after, and avoid long unexplained silences?",
+          "applies_if": "a hold event, an announced check, or a long silence between turns"
+        },
+        "6.5": {
+          "key": "speech_correctness",
+          "question": "Is the operator's speech appropriate and correctly phrased at the level of meaning — no inappropriate, slang or dismissive expressions, no confusing or incorrect formulations?",
+          "note": "Judge what the operator said, not how ASR spelled it. Misrecognised words, broken punctuation and fragmented turns are transcription artefacts, never lapses."
+        }
+      },
+      "optional_audio_checks": {
+        "status": "only if audio is processed",
+        "items": [
+          {
+            "key": "speech_tempo",
+            "how": "words per second of operator turns from timestamps or audio; flag outliers"
+          },
+          {
+            "key": "intelligibility",
+            "how": "ASR confidence or audio model on operator segments; low confidence on operator speech, not the client's, is a signal"
+          }
+        ],
+        "scoring_rule": "Each failed audio check counts as one lapse in the 6.3–6.5 lapse count."
+      }
+    }
+  }
+}

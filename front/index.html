@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CQA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%223%22 fill=%22%230F4A33%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cqa.css">
+</head>
+<body>
+<div class="app">
+  <nav class="side" aria-label="Разделы">
+    <div class="logo">CQA</div>
+    <button class="nav" id="navDialogs" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="lbl-nav">Диалоги</span></button>
+    <button class="nav" id="navChecklists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg><span class="lbl-nav">Чек-листы</span><span class="dot" id="clDot" hidden title="Есть несохранённые изменения"></span></button>
+    <div class="side-role" role="group" aria-label="Режим работы">
+      <div class="side-role-h">Режим</div>
+      <button id="roleQa" aria-pressed="true">Оператор</button>
+      <button id="roleRev" aria-pressed="false">Проверяющий</button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="viewList" class="list-view" aria-label="Список диалогов" hidden>
+      <header class="list-top">
+        <div>
+          <h1>Диалоги</h1>
+          <div class="meta"><span id="listMeta"></span> <button class="f-reset" id="fReset" hidden>Сбросить фильтры</button></div>
+        </div>
+        <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3.5 3.5"/></svg>
+          <input id="q" type="search" placeholder="Поиск по ID или тексту" aria-label="Поиск по ID или тексту"></label>
+      </header>
+      <div class="filters" id="filters"></div>
+      <div class="sel-bar" id="selBar" hidden role="region" aria-label="Выбранные диалоги">
+        <span id="selCount"></span>
+        <button class="btn primary" id="selRun">Оценить выбранные</button>
+        <button class="btn ghost" id="selClear">Снять выбор</button>
+      </div>
+      <div class="card table-card">
+        <table class="dlg-table" id="dlgTable">
+          <thead><tr>
+            <th scope="col" class="sel-cell"><input type="checkbox" id="selAll" aria-label="Выбрать все диалоги в списке" title="Выбрать все диалоги в списке"></th>
+            <th scope="col" data-sort="id">Диалог</th>
+            <th scope="col" data-sort="channel">Канал</th>
+            <th scope="col" data-sort="language">Язык</th>
+            <th scope="col" data-sort="length" class="num">Длительность</th>
+            <th scope="col" data-sort="score" class="num">Итог</th>
+            <th scope="col">Статус</th>
+          </tr></thead>
+          <tbody id="dlgBody"></tbody>
+        </table>
+        <div class="empty" id="listEmpty" hidden>Под эти фильтры диалогов нет. Сбросьте фильтры или измените поиск.</div>
+      </div>
+    </section>
+
+
+    <section id="viewChecklists" class="cl-view" aria-label="Чек-листы" hidden>
+      <header class="list-top">
+        <div>
+          <h1>Чек-листы</h1>
+          <div class="meta cl-meta" id="clMeta"></div>
+        </div>
+        <div class="cl-top-actions">
+          <button class="btn ghost" id="clDefault">Вернуть стандартный</button>
+          <button class="btn ghost" id="clDiscard">Отменить изменения</button>
+          <button class="btn primary" id="clSave">Сохранить чек-лист</button>
+        </div>
+      </header>
+      <div class="tr-err" id="clTrErr" hidden role="alert"></div>
+      <div class="card table-card">
+        <table class="dlg-table cl-table">
+          <thead><tr>
+            <th scope="col" data-csort="n" title="Исходный порядок">№</th>
+            <th scope="col" data-csort="name">Критерий и условие</th>
+            <th scope="col" data-csort="section">Категория</th>
+            <th scope="col" data-csort="type">Тип ответа</th>
+            <th scope="col" data-csort="scale">Шкала</th>
+            <th scope="col" data-csort="weight" class="num">Вес</th>
+            <th scope="col" data-csort="share" class="num" title="Сколько баллов из 100 даёт критерий, если все критерии применимы">Доля в итоге</th>
+            <th scope="col" data-csort="inc" class="inc-h">Включён</th>
+            <th scope="col"><span class="sr" style="position:absolute;left:-9999px">Удалить</span></th>
+          </tr></thead>
+          <tbody id="clBody"></tbody>
+        </table>
+        <div class="cl-bar">
+          <div class="cl-bar-actions">
+            <button class="btn primary" id="clAdd">+ Добавить критерий</button>
+            <button class="btn ghost" id="clCats">Категории</button>
+          </div>
+          <div class="cl-sum" id="clSum"></div>
+        </div>
+      </div>
+      <details class="card shared-card">
+        <summary>Общие правила для модели <span class="muted-cell">shared_rules.json</span></summary>
+        <div id="clShared"></div>
+      </details>
+    </section>
+
+    <div id="viewCard" hidden>
+    <header class="top" id="top">
+      <div>
+        <button class="back" id="backBtn">← Все диалоги</button>
+        <h1>Анализ разговора</h1>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="scorecard" id="scorecard" aria-live="polite"></div>
+    </header>
+
+    <section class="card player" id="player" aria-label="Запись разговора">
+      <div class="controls">
+        <button class="play" id="play" aria-label="Воспроизвести"></button>
+        <span class="time" id="time">00:00 / 00:00</span>
+        <div class="track" id="track">
+          <div class="flags" id="flags" aria-label="Доказательства по критериям"></div>
+          <div class="bar" id="bar" role="slider" aria-label="Позиция записи" tabindex="0">
+            <div class="bar-layer" id="barLayer"></div>
+            <div class="fill" id="fill"></div><div class="knob" id="knob"></div>
+          </div>
+        </div>
+      </div>
+      <div class="player-hint">Флажки отмечают реплики-доказательства. Нажмите на флажок, чтобы открыть критерий и перейти к реплике.</div>
+      <div class="audio-note" id="audioNote" hidden></div>
+      <audio id="audio" preload="metadata"></audio>
+    </section>
+
+    <div class="grid">
+      <section class="card transcript" id="transcriptCard" aria-label="Расшифровка">
+        <div class="panel-bar">
+          <h2 class="panel-h" id="transcriptTitle">Расшифровка</h2>
+          <span class="fs-meta" id="fsMeta"></span>
+          <button class="fs-btn" id="fsBtn" hidden aria-label="Развернуть переписку на весь экран" title="На весь экран"></button>
+        </div>
+        <div class="msgs" id="msgs"></div>
+        <button class="follow-btn" id="followBtn" hidden>К текущей реплике</button>
+        <div class="fs-verdict" id="fsVerdict" hidden></div>
+      </section>
+
+      <section class="card quality" aria-label="Оценка качества">
+        <h2 class="panel-h">Оценка качества</h2>
+        <div class="rows" id="rows" role="listbox" aria-label="Критерии"></div>
+      </section>
+    </div>
+    </div>
+  </main>
+</div>
+
+<dialog id="appealDlg">
+  <form method="dialog" class="modal" id="appealForm">
+    <h2>Оспорить оценку</h2>
+    <div class="sub" id="appealCrit" style="color:var(--muted)"></div>
+    <div class="quote" id="appealQuote"></div>
+    <label class="lbl" for="appealText">Что не так с оценкой</label>
+    <textarea id="appealText" required placeholder="Например: оператор предложил помощь в реплике 69"></textarea>
+    <div class="actions" style="margin-top:16px">
+      <button class="btn primary" value="save" id="appealSave">Отправить апелляцию</button>
+      <button class="btn ghost" value="cancel" formnovalidate>Отмена</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="critDlg">
+  <form method="dialog" class="modal" id="critForm">
+    <h2>Новый критерий</h2>
+    <p class="hint" style="color:var(--muted);margin:0 0 14px;font-size:14px">Пишите по-русски: после сохранения чек-листа тексты переведутся на английский, и у критерия появится свой файл в checklist_iter1/.</p>
+    <label class="field"><span>Название</span><input class="inp" id="ncName" required placeholder="Например: Соблюдение регламента"></label>
+    <label class="field"><span>Условие оценки</span><textarea class="inp" id="ncDesc" rows="2" placeholder="Да — оператор … Нет — …"></textarea></label>
+    <label class="field" id="ncNaF" hidden><span>Когда ставить Н/П</span><input class="inp" id="ncNa" placeholder="Например: клиент ушёл до того, как сформулировал вопрос"></label>
+    <div class="field-row">
+      <label class="field"><span>Категория</span><select class="inp" id="ncSec"></select></label>
+      <label class="field"><span>Тип ответа</span><select class="inp" id="ncType"></select></label>
+    </div>
+    <div class="field-row">
+      <label class="field"><span>Вес</span><input class="inp" id="ncWeight" type="number" min="0" max="100" step="1" value="10"></label>
+      <label class="field" id="ncScaleF"><span>Ступени шкалы</span><input class="inp" id="ncScale" value="0, 5, 10"></label>
+    </div>
+    <div class="steps-f" id="ncSteps" hidden></div>
+    <div class="redist" id="ncRedist">
+      <label class="radio"><input type="radio" name="redist" value="prop" checked><span>Уменьшить веса остальных критериев пропорционально, чтобы сумма весов была 100</span></label>
+      <div class="redist-prev" id="ncPrev"></div>
+      <label class="radio"><input type="radio" name="redist" value="keep"><span>Не менять остальные веса, поправлю вручную</span></label>
+    </div>
+    <div class="actions" style="margin-top:16px">
+      <button class="btn primary" value="save">Добавить критерий</button>
+      <button class="btn ghost" value="cancel" formnovalidate>Отмена</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="catDlg">
+  <div class="modal">
+    <h2>Категории</h2>
+    <p class="hint" style="color:var(--muted);margin:0 0 12px;font-size:14px">Категории группируют критерии в оценке диалога. Удалить можно только пустую категорию. Изменения начнут действовать после сохранения чек-листа.</p>
+    <div id="catList"></div>
+    <form class="cat-add" id="catAdd">
+      <input class="inp" id="catName" placeholder="Новая категория" aria-label="Название новой категории">
+      <button class="btn ghost">Добавить</button>
+    </form>
+    <div class="actions" style="margin-top:18px"><button class="btn primary" id="catClose">Готово</button></div>
+  </div>
+</dialog>
+<dialog id="askDlg">
+  <form method="dialog" class="modal">
+    <h2 id="askTitle"></h2>
+    <div id="askBody" style="font-size:14.5px"></div>
+    <div class="actions" style="margin-top:18px">
+      <button class="btn primary" value="ok" id="askOk"></button>
+      <button class="btn ghost" value="cancel" formnovalidate>Отмена</button>
+    </div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- order matters: each file uses the globals of the files above it -->
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/core.js"></script>
+<script src="js/model.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/card.js"></script>
+<script src="js/list.js"></script>
+<script src="js/assess.js"></script>
+<script src="js/checklists.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

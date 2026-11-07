@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Rules about the data format and scoring scope. Prepended to every criterion prompt, so criterion files stay pure checklist content and can be swapped.",
+  "rules": [
+    "Only operator messages are scored. The operator sees the full client–bot exchange, so bot and system messages are known context (details already given, verification events, chat closure).",
+    "Tokens in square brackets such as '[Имя скрыто]' or '[Персональные данные скрыты]' are masked real content: treat them as present, never as missing or as an error.",
+    "For channel 'voice call' the transcript is speech-recognition output: misheard words, garbled phrases and fragmented turns are transcription artefacts, not operator mistakes.",
+    "System messages may be in RU, KZ or EN; interpret them by meaning.",
+    "Messages marked 'internal' happened while the client was on hold (consultation with colleagues); the client did not hear them. Never score them as communication with the client (contact, empathy, dialogue_management, gross_errors). They may be used only as context for what the operator knew (consultation).",
+    "Cite evidence by message index [i] and timestamp with a short quote."
+  ],
+  "preprocessing_in_code": [
+    "Parse both timestamp formats (MM:SS for chats; ISO-8601 with 7-digit fractions for voice — truncate to 6).",
+    "Voice calls: move the end-of-call system event ('Клиент завершил разговор' etc.) to the end of the transcript — it is logged before the last utterance(s) because of ASR latency. Keep original indices for evidence.",
+    "Index messages as '[i] timestamp speaker: text'.",
+    "Drop the constant bot boilerplate (AIM greeting, privacy notice).",
+    "Voice calls: mark every non-system message between the 'client on hold' and 'no longer on hold' events as speaker 'internal'.",
+    "Merge consecutive same-speaker fragments in voice calls, keeping original indices.",
+    "Compute mid-dialogue operator reply gaps and pass them as hints for dialogue_management."
+  ]
+}

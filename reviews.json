@@ -1,0 +1,21 @@
+{
+  "purpose": "Appeals of operators and decisions of reviewers per dialogue (conversation_id -> {appeals, overrides}), keyed by criterion id.",
+  "reviews": {
+    "p1-kz-013": {
+      "appeals": {
+        "contact": {
+          "comment": "Оператор начал разговор на казахском.",
+          "status": "decided",
+          "at": "2026-11-07T23:45:10.531Z"
+        }
+      },
+      "overrides": {
+        "contact": {
+          "value": true,
+          "reason": "Действительно.",
+          "at": "2026-11-07T23:45:32.930Z"
+        }
+      }
+    }
+  }
+}

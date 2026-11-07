@@ -6,7 +6,7 @@
     "Tokens in square brackets such as '[Имя скрыто]' or '[Персональные данные скрыты]' are masked real content: treat them as present, never as missing or as an error.",
     "For channel 'voice call' the transcript is speech-recognition output: misheard words, garbled phrases and fragmented turns are transcription artefacts, not operator mistakes.",
     "System messages may be in RU, KZ or EN; interpret them by meaning.",
-    "Messages marked 'internal' happened while the client was on hold (consultation with colleagues); the client did not hear them. Never score them as communication with the client (c01, c05, c06, c08). They may be used only as context for what the operator knew (c04).",
+    "Messages marked 'internal' happened while the client was on hold (consultation with colleagues); the client did not hear them. Never score them as communication with the client (contact, empathy, dialogue_management, gross_errors). They may be used only as context for what the operator knew (consultation).",
     "Cite evidence by message index [i] and timestamp with a short quote."
   ],
   "preprocessing_in_code": [
@@ -16,6 +16,6 @@
     "Drop the constant bot boilerplate (AIM greeting, privacy notice).",
     "Voice calls: mark every non-system message between the 'client on hold' and 'no longer on hold' events as speaker 'internal'.",
     "Merge consecutive same-speaker fragments in voice calls, keeping original indices.",
-    "Compute mid-dialogue operator reply gaps and pass them as hints for c06."
+    "Compute mid-dialogue operator reply gaps and pass them as hints for dialogue_management."
   ]
 }

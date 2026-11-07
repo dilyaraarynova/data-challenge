@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "criterion_id": "c06_dialogue_management",
+  "criterion_id": "dialogue_management",
   "order": 6,
   "section": {
     "id": "conduct_closing",
@@ -10,6 +10,8 @@
   "name_en": "Dialogue management, speed and literacy",
   "answer_type": "scale",
   "weight": 15,
+  "enabled": true,
+  "official_rule": "10: clear and coherent, waits announced; 7: one lapse; 4: the client has to re-ask; 0: the course of the dialogue is unclear.",
   "na": {
     "allowed": false
   },
@@ -44,6 +46,7 @@
   "subcriteria": [
     {
       "id": "6.1",
+      "label_ru": "Ответы связные, без противоречий",
       "key": "coherent_no_contradictions",
       "question": "Are operator replies coherent and free of contradictions with each other?",
       "pass_if": "Yes.",
@@ -52,6 +55,7 @@
     },
     {
       "id": "6.2",
+      "label_ru": "Клиенту не пришлось переспрашивать",
       "key": "no_reask_caused_by_operator",
       "question": "Did the client have to re-ask or ask 'what do you mean?' BECAUSE of the operator's wording or reply order?",
       "pass_if": "No such re-ask.",
@@ -61,6 +65,7 @@
     },
     {
       "id": "6.3",
+      "label_ru": "Ответы в логичном порядке",
       "key": "logical_order",
       "question": "Did the operator answer the client's questions in a logical order without ignoring any message?",
       "pass_if": "Yes.",
@@ -69,6 +74,7 @@
     },
     {
       "id": "6.4",
+      "label_ru": "Паузы и ожидание под контролем",
       "key": "wait_warned",
       "applies_if": "operator announced checking information, a system hold event appears ('Клиент находится на удержании'), or a computed gap exceeds explicit_wait_gap_seconds",
       "question": "Did the operator warn the client before the wait ('one moment, let me check')?",
@@ -78,6 +84,7 @@
     },
     {
       "id": "6.5",
+      "label_ru": "Грамотность и корректность речи",
       "key": "literacy",
       "question": "Are operator messages free of noticeable spelling/grammar errors, typos, or wrong-language fragments?",
       "pass_if": "No noticeable errors.",
@@ -128,7 +135,7 @@
     "on_missing_action": "point to the dialogue span where the action was expected",
     "on_na": "state which N/A condition is met and cite the message that proves it"
   },
-  "boundary_with_c04": "A clear answer to only one of two important questions can score high here and partial in c04.",
+  "boundary_with_c04": "A clear answer to only one of two important questions can score high here and partial in consultation.",
   "channel_overrides": {
     "voice call": {
       "source": "Organisers' clarification: for calls, judge logical flow, clarity of explanations, absence of inappropriate expressions, correct verbal phrasing and pause management; with audio, also tempo, diction and intelligibility.",

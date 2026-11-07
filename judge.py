@@ -3,20 +3,21 @@
 
 One LLM call per (dialogue, criterion). The model only returns booleans + evidence;
 the final answer/step/points are computed here from the criterion file's own rules.
-Supported criterion shapes (checklist_iter1/*.json):
-  - conditions + boolean decision (AND/OR/NOT) (+ optional na_gate)  e.g. c01, c02, c03, c05, c07, c08
-    (c08 is a flag: no points, excluded from the total, reported separately)
-  - subcriteria as ordered gates, first failed gate sets score    e.g. c04 (na_gate_then_ordered_gates)
-  - subcriteria as severity ladder (critical/major/lapse count)   e.g. c06 (severity_ladder)
+Supported criterion shapes (checklist_iter1/*.json, any file with a `criterion_id`; `"enabled": false` skips it):
+  - conditions + boolean decision (AND/OR/NOT) (+ optional na_gate)  e.g. contact, needs, identification, empathy,
+    closing, gross_errors (gross_errors is a flag: no points, excluded from the total, reported separately)
+  - subcriteria as ordered gates, first failed gate sets score    e.g. consultation (na_gate_then_ordered_gates)
+  - subcriteria as severity ladder (critical/major/lapse count)   e.g. dialogue_management (severity_ladder)
+  - direct scale: the model picks one allowed step                 criteria created in the web UI (direct_scale)
 A per-dialogue total (0-100) is computed over the criteria that were run, redistributing N/A weight.
 
 Transcript turns are numbered from 1 over the ORIGINAL transcript array (client, bot and system turns included),
 as the results appendix (CQA_Student_Guide_Appendix_Results.pdf) requires for `evidence_turns`.
 
 Usage:
-    python judge.py                         # all dialogues in test_subset.json, all 8 criteria
-    python judge.py --criteria c01_contact c02_needs c04_consultation c06_dialogue_management
-    python judge.py --ids p1-ru-010 p4-ru-002 --criteria c01_contact
+    python judge.py                         # all dialogues in test_subset.json, all enabled criteria
+    python judge.py --criteria contact needs consultation dialogue_management
+    python judge.py --ids p1-ru-010 p4-ru-002 --criteria contact
     python judge.py --dry-run --ids p1-ru-010   # print prompts, no API calls
 
 Submission files (format JSON 1.0, one record per dialogue of the whole set, exactly one model):
@@ -41,8 +42,41 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+
+
+def load_json(path):
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
 CHECKLIST_DIR = ROOT / "checklist_iter1"
-DEFAULT_CRITERIA = sorted(p.stem for p in CHECKLIST_DIR.glob("c0*.json"))  # all 8 criteria
+
+
+def criterion_files(directory=CHECKLIST_DIR):
+    """{criterion_id: path} of every criterion file (a JSON object with `criterion_id`) in `directory`."""
+    out = {}
+    for p in sorted(directory.glob("*.json")):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(d, dict) and d.get("criterion_id"):
+            out[d["criterion_id"]] = p
+    return out
+
+
+def enabled_criteria(directory=CHECKLIST_DIR):
+    """Criterion ids the judge runs by default: enabled ones, in checklist order."""
+    crits = [json.loads(p.read_text(encoding="utf-8")) for p in criterion_files(directory).values()]
+    return [c["criterion_id"] for c in sorted(crits, key=lambda c: c.get("order", 999)) if c.get("enabled", True)]
+
+
+def load_criterion(stem):
+    path = criterion_files().get(stem)
+    if not path:
+        sys.exit(f"Unknown criterion {stem!r}: no file in {CHECKLIST_DIR} has this criterion_id.")
+    return load_json(path)
+
+
+DEFAULT_CRITERIA = enabled_criteria()
 DEFAULT_MODEL = "deepseek/deepseek-v4.1-flash-1017"
 # keys of the criterion file shown to the model (scoring/decision rules stay in code)
 SPEC_KEYS = ("name_en", "official_rule", "na_gate", "na", "scope", "conditions", "preparation_step",
@@ -51,9 +85,9 @@ HIDDEN_SUB_KEYS = {"on_fail_score", "severity"}
 EXPLANATION_LANG = "Russian"  # language of the model's explanations (-> `rationale` in the results file)
 # criterion file -> criterion_id required by the results appendix (do not rename)
 CRITERION_CODES = {
-    "c01_contact": "contact", "c02_needs": "discovery", "c03_identification": "identification",
-    "c04_consultation": "consultation", "c05_empathy": "empathy", "c06_dialogue_management": "dialogue",
-    "c07_closing": "closing", "c08_gross_errors": "critical",
+    "contact": "contact", "needs": "discovery", "identification": "identification",
+    "consultation": "consultation", "empathy": "empathy", "dialogue_management": "dialogue",
+    "closing": "closing", "gross_errors": "critical",
 }
 ALLOWED_VALUES = {  # None = N/A
     "contact": {True, False}, "discovery": {True, False, None}, "identification": {True, False, None},
@@ -63,10 +97,6 @@ ALLOWED_VALUES = {  # None = N/A
 
 
 # --------------------------------------------------------------------------- data
-def load_json(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"))
-
-
 def load_records(path=None):
     """Records from the organisers' API response ({data:{records}}) or from a plain list of records."""
     data = load_json(path or ROOT / "dialogues.json")
@@ -170,6 +200,17 @@ def items(crit):
     return crit.get("conditions") or crit.get("subcriteria") or []
 
 
+def is_direct_scale(crit):
+    return (crit.get("decision_logic") or {}).get("type") == "direct_scale"
+
+
+def item_of(raw, iid, crit):
+    """The model's verdict object for an item id ('na_gate', 'scale_step', a condition or a subcriterion)."""
+    if iid in ("na_gate", "scale_step"):
+        return raw[iid]
+    return raw["conditions" if crit.get("conditions") else "subcriteria"][iid]
+
+
 def public_spec(crit):
     spec = {k: crit[k] for k in SPEC_KEYS if k in crit}
     if "subcriteria" in spec:
@@ -188,6 +229,10 @@ def output_schema(crit):
     if na_gate_question(crit):
         schema["na_gate"] = {"value": "true|false (true = N/A condition holds)", "explanation": "1-2 sentences",
                              "evidence": ev}
+    if is_direct_scale(crit):
+        schema["scale_step"] = {"value": f"one of {crit['scale']['allowed_steps']}", "explanation": "1-2 sentences",
+                                "evidence": ev}
+        return schema
     key = "conditions" if crit.get("conditions") else "subcriteria"
     body = {}
     for it in items(crit):
@@ -219,6 +264,8 @@ def build_messages(crit, shared, transcript, record, hints=None):
         + ("For each subcriterion set `passed` (true when its pass_if holds, false when fail_if holds); where "
            "`applies_if` exists also set `applies`, and when `applies` is false set `evidence` to null "
            "(never cite an unrelated message).\n" if sub else "")
+        + ("Choose exactly one step of scale.allowed_steps (`scale_step.value`) using official_rule and "
+           "scale.step_descriptions.\n" if is_direct_scale(crit) else "")
         + "Give a short `explanation` and `evidence` (message index, timestamp, short verbatim quote) for each. "
         "For a failed item cite where it was expected. Do NOT compute the final score or answer.\n"
         f"Write every `explanation` in {EXPLANATION_LANG}, concisely and factually (it is shown to reviewers); "
@@ -256,6 +303,9 @@ def response_schema(crit):
             "tag": {"type": "string", "enum": ["main", "material", "secondary"]}})}
     if na_gate_question(crit):
         props["na_gate"] = _obj({"value": {"type": "boolean"}, **base})
+    if is_direct_scale(crit):
+        props["scale_step"] = _obj({"value": {"type": "integer", "enum": crit["scale"]["allowed_steps"]}, **base})
+        return _obj(props)
     body = {}
     for it in items(crit):
         if crit.get("conditions"):
@@ -295,6 +345,8 @@ def validate(value, schema, path="$"):
     if t == "integer":
         if not isinstance(value, int) or isinstance(value, bool):  # "10" (str), 10.0 and true are rejected
             raise ValueError(f"{path}: expected integer, got {value!r}")
+        if "enum" in schema and value not in schema["enum"]:
+            raise ValueError(f"{path}: {value!r} not in {schema['enum']}")
         return
     if not isinstance(value, _TYPES[t]):
         raise ValueError(f"{path}: expected {t}, got {type(value).__name__}")
@@ -493,10 +545,13 @@ def decide(crit, raw, record):
 
     if na:
         res["answer"] = "na"
+    elif is_direct_scale(crit):                                  # the model picked the step itself
+        step = raw["scale_step"]["value"]
+        res.update(step=step, answer=str(step), points=round(step / crit["scale"]["max"] * crit["weight"], 2))
     elif crit.get("decision"):                                   # yes/no: "a AND b"
         conds = {c["id"]: bool(raw["conditions"].get(c["id"], {}).get("value")) for c in crit["conditions"]}
         res["answer"] = "yes" if eval_bool(crit["decision"]["yes_if"], conds) else "no"
-        if crit.get("affects_score", True):                      # c08 is a flag: no points
+        if crit.get("affects_score", True):                      # gross_errors is a flag: no points
             res["points"] = crit["scoring"][res["answer"]]
         res["conditions"] = conds
     else:                                                        # scale criteria
@@ -542,6 +597,8 @@ def decisive_ids(crit, res):
     Ladder -> failed items. If nothing failed (full marks) -> all active items (never inactive/skipped ones)."""
     if res["answer"] == "na":
         return ["na_gate"]
+    if is_direct_scale(crit):
+        return ["scale_step"]
     if crit.get("decision"):
         conds, base = res["conditions"], res["answer"]
         out = []
@@ -559,8 +616,7 @@ def turns_for(raw, item_ids, crit, msgs, n_turns):
     """evidence_turns: 1-based original transcript numbers cited by the given items (merged voice turns expand)."""
     turns = set()
     for iid in item_ids:
-        item = raw["na_gate"] if iid == "na_gate" else raw["conditions" if crit.get("conditions") else "subcriteria"][iid]
-        n = item["evidence"]["index"]
+        n = item_of(raw, iid, crit)["evidence"]["index"]
         hit = [m for m in msgs if n in m["idx"]]
         if hit:
             turns.update(hit[0]["idx"])
@@ -572,8 +628,7 @@ def turns_for(raw, item_ids, crit, msgs, n_turns):
 def rationale_text(raw, item_ids, crit, limit=600):
     parts = []
     for iid in item_ids:
-        item = raw["na_gate"] if iid == "na_gate" else raw["conditions" if crit.get("conditions") else "subcriteria"][iid]
-        e = item["explanation"].strip()
+        e = item_of(raw, iid, crit)["explanation"].strip()
         if e and e not in parts:
             parts.append(e)
     text = " ".join(parts)
@@ -689,7 +744,7 @@ def write_reports(d, info, crits, ids, meta, by_id, runs):
 
 
 def wait_hints(crit, msgs):
-    """Code-computed hints for criteria that define explicit_wait_gap_seconds (c06); None otherwise."""
+    """Code-computed hints for criteria that define explicit_wait_gap_seconds (dialogue_management); None otherwise."""
     thr = crit.get("parameters", {}).get("explicit_wait_gap_seconds", {}).get("value")
     if not thr:
         return None
@@ -721,7 +776,7 @@ def submission_record(cid, per_crit, stems):
                 for s in stems]
     return {"conversation_id": cid, "status": "ok", "criteria": criteria,
             "score": {"final_score": total_score([per_crit[s] for s in stems]),
-                      "critical_flag": per_crit["c08_gross_errors"]["value"]}}
+                      "critical_flag": per_crit["gross_errors"]["value"]}}
 
 
 def validate_submission(payload, expected_ids, n_turns, expect_count=None):
@@ -774,7 +829,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--subset", default=str(ROOT / "test_subset.json"))
     ap.add_argument("--ids", nargs="*", help="override: only these conversation_ids")
-    ap.add_argument("--criteria", nargs="*", default=DEFAULT_CRITERIA, help="criterion ids (file stems)")
+    ap.add_argument("--criteria", nargs="*", default=DEFAULT_CRITERIA,
+                    help="criterion ids (`criterion_id` of the files; default: the enabled criteria)")
     ap.add_argument("--models", nargs="*", default=None,
                     help="OpenRouter model ids; several allowed, each is run and reported separately "
                          "(default: $OPENROUTER_MODEL or " + DEFAULT_MODEL + ")")
@@ -827,7 +883,7 @@ def main():
         sys.exit(f"Unknown conversation ids: {missing}")
 
     shared = load_json(CHECKLIST_DIR / "shared_rules.json")
-    crits = [load_json(CHECKLIST_DIR / f"{c}.json") for c in args.criteria]
+    crits = [load_criterion(c) for c in args.criteria]
     jobs = [(c, by_id[i], build_messages_list(by_id[i], boiler)) for i in ids for c in crits]
 
     if args.dry_run:

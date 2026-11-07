@@ -1,0 +1,10 @@
+{
+  "purpose": "Audio recording link per voice call (conversation_id -> URL), merged into dialogues by server.py.",
+  "audio_urls": {
+    "p4-ru-003": "https://ec88f21f1accecf38e20095a9fe175.a5.environment.api.powerplatform.com/powerautomate/automations/direct/cu/27/workflows/ee653e55497e4699ba457aeea593afa9/triggers/manual/paths/invoke/Conversation/25cd6421-d3a3-4b32-99b0-cd7cede10345?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=80oPNzzPFw05Iegm-pzb3cl9MIZMkXtffY_v36FVBRg",
+    "p4-ru-002": "https://ec88f21f1accecf38e20095a9fe175.a5.environment.api.powerplatform.com/powerautomate/automations/direct/cu/27/workflows/ee653e55497e4699ba457aeea593afa9/triggers/manual/paths/invoke/Conversation/8c39c32d-42f4-4ddd-975a-c8950b4ac9db?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=80oPNzzPFw05Iegm-pzb3cl9MIZMkXtffY_v36FVBRg",
+    "p4-ru-001": "https://ec88f21f1accecf38e20095a9fe175.a5.environment.api.powerplatform.com/powerautomate/automations/direct/cu/27/workflows/ee653e55497e4699ba457aeea593afa9/triggers/manual/paths/invoke/Conversation/885b7dca-896c-426d-a36c-017943c8d3f8?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=80oPNzzPFw05Iegm-pzb3cl9MIZMkXtffY_v36FVBRg",
+    "p4-ru-005": "https://ec88f21f1accecf38e20095a9fe175.a5.environment.api.powerplatform.com/powerautomate/automations/direct/cu/27/workflows/ee653e55497e4699ba457aeea593afa9/triggers/manual/paths/invoke/Conversation/fa605f1b-f23a-4c31-bb6f-c0892acbca12?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=80oPNzzPFw05Iegm-pzb3cl9MIZMkXtffY_v36FVBRg",
+    "p4-ru-004": "https://ec88f21f1accecf38e20095a9fe175.a5.environment.api.powerplatform.com/powerautomate/automations/direct/cu/27/workflows/ee653e55497e4699ba457aeea593afa9/triggers/manual/paths/invoke/Conversation/e817099c-8649-4c65-aec0-efef2be62f47?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=80oPNzzPFw05Iegm-pzb3cl9MIZMkXtffY_v36FVBRg"
+  }
+}
