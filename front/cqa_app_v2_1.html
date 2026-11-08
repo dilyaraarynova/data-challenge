@@ -326,8 +326,6 @@ dialog::backdrop{background:rgba(10,25,18,.45)}
 .cl-table th.inc-h{text-align:center}
 .cl-table tr.off .inp,.cl-table tr.off .icon-btn{cursor:not-allowed}
 .cl-table tr.off .icon-btn:hover{border-color:transparent;color:var(--muted);background:none}
-.cl-table th[data-csort]{cursor:pointer;user-select:none}
-.cl-table th[data-csort]:hover{color:var(--ink)}
 .cl-table td.inc-cell{text-align:center;padding-top:16px;width:80px}
 .sw{position:relative;width:40px;height:23px;border-radius:999px;border:0;background:var(--line);cursor:pointer;padding:0;transition:background .15s;vertical-align:middle}
 .sw span{position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
@@ -345,7 +343,7 @@ dialog::backdrop{background:rgba(10,25,18,.45)}
 .inp.desc{font-size:12.5px;line-height:1.4;color:var(--muted);padding:4px 9px;margin-top:5px;border-color:transparent;background:none;min-height:0;resize:none}
 .inp.desc:hover{border-color:var(--line)}
 .inp.desc:focus{border-color:var(--green);color:var(--ink)}
-.inp.scale{width:112px}
+.inp.scale{width:100%;font-weight:400}
 select.inp{cursor:pointer;min-width:150px}
 .yn{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px;background:var(--surface)}
 .yn button{border:0;background:none;padding:4px 10px;border-radius:6px;cursor:pointer;color:var(--muted);font-size:13px}
@@ -360,6 +358,76 @@ select.inp{cursor:pointer;min-width:150px}
 .cl-sum{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
 .cl-sum b{color:var(--ink);font-variant-numeric:tabular-nums}
 .cl-sum.warn b{color:var(--amber)}
+.cl-sum{padding:12px 16px;border-left:4px solid var(--green)}
+.cl-sum.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+.cl-sum .sum-main{font-size:16px;color:var(--ink)}
+.cl-sum .sum-main b{font-size:20px}
+.crit-list{display:flex;flex-direction:column;gap:10px}
+.crit-sec{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 2px 0}
+.crit-sec:first-child{margin-top:0}
+.crit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:14px 16px}
+.crit.dirty{box-shadow:inset 4px 0 0 var(--amber)}
+@keyframes critflash{0%{background:var(--green-soft)}100%{background:var(--surface)}}
+.crit.flash{animation:critflash 1.6s ease}
+.crit.off .crit-main,.crit.off .crit-badge{opacity:.5}
+.crit-head{display:flex;align-items:flex-start;gap:12px}
+.crit-n{color:var(--muted);font-variant-numeric:tabular-nums;width:22px;padding-top:8px;flex:none}
+.crit-main{flex:1;min-width:0}
+.crit-main .inp.name{font-size:15.5px;font-weight:600}
+.crit-side{display:flex;align-items:center;gap:12px;flex:none;padding-top:2px}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper .inp.w{width:56px;text-align:center}
+.stepper button{width:30px;height:32px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:17px;line-height:1;cursor:pointer}
+.stepper button:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.stepper button:disabled{cursor:not-allowed;opacity:.5}
+.stepper .unit{font-size:13px;color:var(--muted);margin-left:2px}
+.crit-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 0 34px}
+.crit-badge{font-size:12.5px;background:var(--green-soft);color:var(--ink);border-radius:999px;padding:2px 10px}
+.crit-more{margin-left:auto}
+.crit-more .chev{display:inline-block;transition:transform .15s}
+.crit-more[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.params-h{margin:16px 0 0;font-size:15px;padding-top:14px;border-top:1px dashed var(--line)}
+.crit-details{margin:10px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;align-items:start}
+.crit-details label{display:flex;flex-direction:column;gap:4px;font-size:13.5px;font-weight:600}
+.crit-details label .help{font-weight:400;font-size:12.5px;color:var(--muted)}
+.crit-details .del-wrap{display:flex;align-items:flex-end}
+.crit-details .del-wrap .btn{display:inline-flex;align-items:center;gap:6px;width:auto}.crit-details .del-wrap svg{width:16px;height:16px;flex:none}
+.cl-backdrop{position:fixed;inset:0;background:rgba(8,18,13,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .18s}
+.cl-backdrop.on{opacity:1}
+.crit.focus{position:relative;z-index:41;scroll-margin-top:16px;box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.crit.focus.dirty{box-shadow:inset 4px 0 0 var(--amber),0 16px 48px rgba(0,0,0,.4)}
+.crit-how{margin:12px 0 0 34px;padding-top:12px;border-top:1px dashed var(--line)}
+.crit-sum{font-size:13.5px;color:var(--muted);padding:4px 9px 0}
+.crit-sum ul{margin:2px 0 0;padding-left:18px}
+.crit-sum li{margin:1px 0}
+.crit-sum .sum-lead{font-weight:600;color:var(--ink)}
+.crit-sum .sum-more,.crit-sum .sum-empty{font-style:italic}
+.crit-btns{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.crit-btns .btn.small{padding:5px 12px;font-size:13.5px}
+.crit-btns .crit-more{margin-left:0}
+.crit-btns .btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.how{display:flex;flex-direction:column;gap:10px}
+.how h3{margin:0;font-size:15px}
+.how .help{margin:0;font-size:13px;color:var(--muted);font-weight:400}
+.cond-list{display:flex;flex-direction:column;gap:8px}
+.cond{display:flex;align-items:flex-start;gap:8px}
+.cond-n{width:20px;padding-top:8px;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+.cond textarea{flex:1;min-height:0;resize:vertical;font-size:14px}
+.cond-fail{flex-direction:row!important;align-items:center;gap:6px!important;font-weight:400!important;font-size:13px!important;color:var(--muted);white-space:nowrap;padding-top:4px}
+.cond-fail select.inp{min-width:0;width:64px}
+.cond-btns{display:flex;gap:4px;flex:none}
+.cond-btns .icon-btn{width:30px;height:32px}
+.how .btn.small{align-self:flex-start;padding:6px 12px;font-size:13.5px}
+.how-f{font-size:13.5px}
+.how-preview{background:var(--green-soft);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--ink)}
+.how-preview .ladder{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.how-preview .ladder li{display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 6px 3px 12px;font-size:13px}
+.how-preview .ladder b{background:var(--green);color:#fff;border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+.opt-link{align-self:flex-start;font-size:13.5px}
+.stepper .unit-l{margin:0 6px 0 0}
+.how-f textarea.inp{font-weight:400;font-size:14px;resize:vertical}
+.how-f textarea.hint{min-height:110px}
+@media (max-width:760px){.cond{flex-wrap:wrap}.cond textarea{flex-basis:calc(100% - 28px)}.crit-head{flex-wrap:wrap}.crit-side{width:calc(100% - 34px);justify-content:space-between;margin-left:34px}.crit-foot,.crit-details{margin-left:0}}
 .link-btn{border:0;background:none;color:var(--green);cursor:pointer;padding:0;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 .cl-lower{display:grid;grid-template-columns:minmax(0,640px);gap:16px;align-items:start}
 .cl-card{padding:18px 20px}
@@ -471,28 +539,11 @@ select.inp{cursor:pointer;min-width:150px}
           <button class="btn primary" id="clSave">Сохранить чек-лист</button>
         </div>
       </header>
-      <div class="card table-card">
-        <table class="dlg-table cl-table">
-          <thead><tr>
-            <th scope="col" data-csort="n" title="Исходный порядок">№</th>
-            <th scope="col" data-csort="name">Критерий и условие</th>
-            <th scope="col" data-csort="section">Категория</th>
-            <th scope="col" data-csort="type">Тип ответа</th>
-            <th scope="col" data-csort="scale">Шкала</th>
-            <th scope="col" data-csort="weight" class="num">Вес</th>
-            <th scope="col" data-csort="share" class="num" title="Сколько баллов из 100 даёт критерий, если все критерии применимы">Доля в итоге</th>
-            <th scope="col" data-csort="inc" class="inc-h">Включён</th>
-            <th scope="col"><span class="sr" style="position:absolute;left:-9999px">Удалить</span></th>
-          </tr></thead>
-          <tbody id="clBody"></tbody>
-        </table>
-        <div class="cl-bar">
-          <div class="cl-bar-actions">
-            <button class="btn primary" id="clAdd">+ Добавить критерий</button>
-            <button class="btn ghost" id="clCats">Категории</button>
-          </div>
-          <div class="cl-sum" id="clSum"></div>
-        </div>
+      <div class="cl-sum card" id="clSum"></div>
+      <div id="clBody" class="crit-list"></div>
+      <div class="cl-bar-actions">
+        <button class="btn primary" id="clAdd">+ Добавить критерий</button>
+        <button class="btn ghost" id="clCats">Категории</button>
       </div>
     </section>
 
@@ -563,7 +614,7 @@ select.inp{cursor:pointer;min-width:150px}
     <h2>Новый критерий</h2>
     <p class="hint" style="color:var(--muted);margin:0 0 14px;font-size:14px">Критерий начнёт действовать после сохранения чек-листа.</p>
     <label class="field"><span>Название</span><input class="inp" id="ncName" required placeholder="Например: Соблюдение регламента"></label>
-    <label class="field"><span>Условие оценки</span><input class="inp" id="ncDesc" placeholder="Да — оператор … N/A — …"></label>
+    <label class="field"><span>Первый субкритерий</span><input class="inp" id="ncDesc" placeholder="Например: Оператор назвал срок выполнения запроса"><span class="hint" style="color:var(--muted);font-size:12.5px">Остальные можно добавить в карточке критерия.</span></label>
     <div class="field-row">
       <label class="field"><span>Категория</span><select class="inp" id="ncSec"></select></label>
       <label class="field"><span>Тип ответа</span><select class="inp" id="ncType"></select></label>
@@ -1211,6 +1262,7 @@ function openDialogue(id){
 }
 function stopPlayback(){ if (state.playing) { state.playing = false; try { audio.pause(); } catch {} } }
 function showView(v){
+  if (v !== 'checklists') { try { closeFocus(); } catch (e) {} }
   $('viewList').hidden = v !== 'list'; $('viewCard').hidden = v !== 'card'; $('viewChecklists').hidden = v !== 'checklists';
   const cl = v === 'checklists';
   $('navDialogs').toggleAttribute('aria-current', !cl); $('navChecklists').toggleAttribute('aria-current', cl);
@@ -1309,22 +1361,41 @@ $('fReset').onclick = () => { Object.assign(listState, {channel:'all', language:
 const LS_CL = 'cqa.checklist', LS_HIST = 'cqa.checklist.history', LS_EV = 'cqa.evaluations';
 const lsGet = k => { try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : null; } catch { return null; } };
 const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } };
+/* server (server.py) wraps judge.py. When it is not reachable the page keeps working with the simulated judge. */
+let API_OK = false;
+async function api(path, opts = {}){
+  const r = await fetch(path, {headers: {'Content-Type': 'application/json'}, ...opts});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(j.error || r.statusText), {status: r.status});
+  return j;
+}
 const clone = o => JSON.parse(JSON.stringify(o));
 const TYPES = {yes_no: 'Да / Нет', yes_no_na: 'Да / Нет / Н/П', scale: 'Шкала', scale_na: 'Шкала / Н/П', flag: 'Флаг, без баллов'};
-const DESC = {
-  c01_contact: 'Да — оператор поздоровался на языке клиента и представился в первом ответе.',
-  c02_needs: 'Да — учёл известные детали и уточнил недостающее до ответа. N/A — данных для ответа хватало с самого начала.',
-  c03_identification: 'Да — личность подтверждена до раскрытия данных или защищённого действия. N/A — запрос не требовал идентификации.',
-  c04_consultation: '20 — все вопросы закрыты, 15 — пропущена деталь, 10 — существенный вопрос открыт, 5 — общая подсказка, 0 — нет ответа. N/A — чат закончился до запроса.',
-  c05_empathy: 'Да — оператор вежлив и отреагировал на конкретную проблему, если клиент выразил недовольство.',
-  c06_dialogue_management: '10 — ясно и связно, ожидание объявлено, 7 — один сбой, 4 — клиенту приходится переспрашивать, 0 — ход диалога непонятен.',
-  c07_closing: 'Да — подвёл итог или предложил помощь и попрощался. N/A — чат оборвался до возможности его завершить.',
-  c08_gross_errors: 'Да — оскорбление клиента, платная услуга в обход компании или раскрытие конфиденциальной информации.'};
+/* "How we check": per-criterion yes/no questions for the judge (same idea as conditions[] / subcriteria in checklist_iter1/*.json).
+   yes_no: all must hold -> Да. flag: any holds -> violation. scale: checked in order; the score is the pass_score of the last condition reached by consecutive "yes" answers (lowest step if the first is "no"). */
+const SEED = {
+  c01_contact: {c: ['В первом ответе оператор поздоровался', 'Приветствие на языке клиента', 'Оператор назвал своё имя (одного названия компании недостаточно)']},
+  c02_needs: {c: ['Оператор не переспрашивал то, что клиент, бот или система уже сообщили', 'Если для верного ответа не хватало данных, оператор спросил их до ответа по существу'],
+    na: 'Клиент уже сообщил всё необходимое для верного ответа ещё до первого ответа оператора по существу'},
+  c03_identification: {c: ['Оператор запросил верификацию (или есть системное событие о проверке)', 'Успешная верификация явно подтверждена', 'Подтверждение было до первого раскрытия защищённых данных или действия по счёту'],
+    na: 'Оператор не раскрывал данные по счёту клиента и не выполнял действий по его счёту'},
+  c04_consultation: {c: ['Оператор дал содержательный ответ на главный вопрос или назвал конкретный следующий шаг', 'Ключевая рекомендация верна по фактам и по процедуре', 'После ответа клиент понимает, что делать дальше', 'Закрыты ВСЕ главные и существенные вопросы клиента', 'Раскрыты второстепенные детали (комиссии, сроки, лимиты, оговорки)'],
+    pass: [0, 5, 10, 15, 20], na: 'Чат закончился до того, как клиент сформулировал запрос'},
+  c05_empathy: {c: ['Все реплики оператора вежливы (нет грубости, сарказма, обвинений клиента)', 'Если клиент выразил недовольство, оператор отреагировал на его конкретную проблему, а не шаблонной фразой']},
+  c06_dialogue_management: {c: ['Реплики оператора связны и не противоречат друг другу', 'Клиенту не пришлось переспрашивать из-за формулировок или порядка ответов оператора', 'Оператор отвечал на вопросы в логичном порядке и не игнорировал сообщения', 'Перед ожиданием оператор предупредил клиента («минуту, проверю»)', 'Нет заметных ошибок и опечаток, нет фрагментов не на том языке'],
+    pass: [4, 7, 7, 7, 10]},
+  c07_closing: {c: ['В конце оператор подвёл итог или предложил дальнейшую помощь', 'Оператор попрощался'],
+    na: 'Клиент сам завершил разговор (вышел из чата, обрыв связи, положил трубку) раньше, чем оператор успел его закрыть'},
+  c08_gross_errors: {c: ['Оператор оскорбил, высмеял или унизил клиента', 'Оператор предложил услугу в обход компании (деньги лично ему, личный номер для платной консультации)', 'Оператор раскрыл конфиденциальную информацию (чужие данные, внутренняя информация, защищённые данные неверифицированному лицу)']}};
+const seedConds = id => (SEED[id]?.c || []).map((question, i) => { const o = {question}; if (SEED[id].pass) o.pass_score = SEED[id].pass[i]; return o; });
+/* conditions / na_gate / hint may be missing in checklists saved by an earlier version */
+function normCriteria(cl){ cl.criteria.forEach(c => {
+  (c.conditions || []).forEach((q, k, L) => { if (q.fail_score !== undefined) { if (q.pass_score === undefined && c.scale_steps) q.pass_score = k + 1 < L.length ? L[k + 1].fail_score : c.scale_max; delete q.fail_score; } }); if (!c.conditions) c.conditions = seedConds(c.id); if (c.na_gate === undefined) c.na_gate = SEED[c.id]?.na || ''; if (c.hint === undefined) c.hint = ''; }); return cl; }
 function defaultChecklist(){
   const c = clone(DATA.checklist);
   c.version = 1; c.saved_at = null;
-  c.criteria.forEach(x => { x.include = true; x.description = DESC[x.id] || ''; });
-  return c;
+  c.criteria.forEach(x => { x.include = true; });
+  return normCriteria(c);
 }
 const isScored = c => c.include !== false && c.answer_type !== 'flag';
 /* what the judge sees: included criteria and the categories they use */
@@ -1334,9 +1405,14 @@ function snapshot(cl){
           sections: clone(cl.sections.filter(s => criteria.some(c => c.section === s.id))), criteria};
 }
 const sigOf = cl => { const s = snapshot(cl); return JSON.stringify([s.sections.map(x => [x.id, x.name]),
-  s.criteria.map(c => [c.id, c.name, c.description || '', c.section, c.weight, c.answer_type, c.scale_steps || null])]); };
+  s.criteria.map(c => [c.id, c.name, c.section, c.weight, c.answer_type, c.scale_steps || null, c.conditions || [], c.na_gate || '', c.hint || ''])]); };
 const DEFAULT_SNAP = snapshot(defaultChecklist());
-let SAVED = lsGet(LS_CL) || defaultChecklist();
+/* a built-in criterion whose checking logic differs from the default is rebuilt from the editor fields by the server;
+   an untouched one keeps its hand-tuned JSON (weight and hint are still applied) */
+const DEFAULT_CRITS = Object.fromEntries(defaultChecklist().criteria.map(c => [c.id, c]));
+const logicSig = c => JSON.stringify([c.answer_type, c.scale_steps || null, (c.conditions || []).map(q => [q.question.trim(), q.pass_score ?? null]), (c.na_gate || '').trim()]);
+const isEdited = c => !DEFAULT_CRITS[c.id] || logicSig(c) !== logicSig(DEFAULT_CRITS[c.id]);
+let SAVED = normCriteria(lsGet(LS_CL) || defaultChecklist());
 let HISTORY = lsGet(LS_HIST) || [{version: 1, sig: sigOf(defaultChecklist())}];
 let EVALS = lsGet(LS_EV) || {};
 let draft = clone(SAVED);
@@ -1407,21 +1483,33 @@ function judge(rec, cl){
     return {criterion: c.id, value, evidence_turns: ev, rationale: P + why};
   })};
 }
-function assess(id){
+/* real judge through the server; simulated judge only when the server or its API key is missing */
+async function assess(id){
   const cl = snapshot(SAVED);
-  const res = judge(RECORDS[id], cl);
-  EVALS[id] = {...res, checklist: cl};
+  let res = null;
+  if (API_OK) {
+    try {
+      res = await api('/api/evaluate', {method: 'POST', body: JSON.stringify({conversation_id: id,
+        checklist: {...cl, criteria: cl.criteria.map(c => ({...c, edited: isEdited(c)}))}})});
+      if (res.errors?.length) toast(`Не оценены критерии: ${res.errors.map(e => e.criterion).join(', ')}`);
+    } catch (e) {
+      if (e.status !== 503) throw e;                 // 503 = no API key on the server
+      toast('На сервере нет OPENROUTER_API_KEY: показана имитация оценки');
+    }
+  }
+  if (!res) res = judge(RECORDS[id], cl);
+  EVALS[id] = {model: res.model, assessed_at: res.assessed_at, results: res.results, checklist: cl};
   delete stores[id];                         // old appeals and decisions belong to the replaced evaluation
   lsSet(LS_EV, EVALS);
 }
-function runAssessment(id, btn){
+async function runAssessment(id, btn){
+  const label = btn?.textContent;
   if (btn) { btn.disabled = true; btn.textContent = 'Оцениваем…'; }
-  setTimeout(() => {
-    const had = !!getEval(id);
-    assess(id);
-    toast(had ? `Оценка заменена: чек-лист v${SAVED.version}` : `Диалог оценён по чек-листу v${SAVED.version}`);
-    if (decodeURIComponent(location.hash.slice(1)) === id) openDialogue(id);
-  }, 650);
+  const had = !!getEval(id);
+  try { await assess(id); }
+  catch (e) { toast(`Оценка не выполнена: ${e.message}`); if (btn) { btn.disabled = false; btn.textContent = label; } return; }
+  toast(had ? `Оценка заменена: чек-лист v${SAVED.version}` : `Диалог оценён по чек-листу v${SAVED.version}`);
+  if (decodeURIComponent(location.hash.slice(1)) === id) openDialogue(id);
 }
 async function confirmReassess(id, btn){
   const ev = getEval(id), s = summaryOf(id);
@@ -1469,79 +1557,125 @@ const isDirty = () => JSON.stringify(draft) !== JSON.stringify(SAVED);
 const critById = id => draft.criteria.find(c => c.id === id);
 const TRASH = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h12M8 6V4h4v2M6 6l1 10h6l1-10"/></svg>';
 const scaleText = c => (c.scale_steps || []).join(', ');
+const TYPE_BADGE = {yes_no: 'Ответ: Да / Нет', yes_no_na: 'Ответ: Да / Нет / Не применимо', scale: 'Оценка по шагам', scale_na: 'Оценка по шагам или Не применимо', flag: 'Флаг нарушения, без баллов'};
+const passOf = (c, k) => { const st = c.scale_steps || [], v = c.conditions[k]?.pass_score; if (k === c.conditions.length - 1) return c.scale_max; return st.includes(v) ? v : st[Math.min(k + 1, st.length - 2)]; };
+function sumHtml(c){
+  const q = (c.conditions || []).map(x => x.question.trim()).filter(Boolean);
+  if (!q.length) return '<span class="sum-empty">Субкритериев пока нет. Нажмите «Изменить субкритерии».</span>';
+  const lead = c.answer_type === 'flag' ? 'Нарушение, если:' : 'Проверяем:';
+  return `<span class="sum-lead">${lead}</span><ul>${q.slice(0, 3).map(t => `<li>${esc(t)}</li>`).join('')}</ul>` + (q.length > 3 ? `<span class="sum-more">и ещё ${q.length - 3}</span>` : '');
+}
+const clShown = new Set();                      // optional boxes (N/A rule, hint) opened by the user: "<id>:na" / "<id>:hint"
+const nWord = n => `${n} ${plural(n, 'субкритерий', 'субкритерия', 'субкритериев')}`;
+function previewHtml(c){
+  const L = c.conditions || [], n = L.length;
+  if (!n) return 'Добавьте хотя бы один субкритерий, иначе ИИ-проверяющий будет ориентироваться только на подсказку.';
+  if (c.answer_type === 'flag') return `Флаг ставится, если выполнен хотя бы один из ${nWord(n)}.`;
+  if (c.answer_type.startsWith('scale')) {
+    const st = c.scale_steps || [], rng = k => k === 0 ? '1' : `1–${k + 1}`;
+    const items = [`<li><span>Ни один субкритерий</span><b>${st[0]}</b></li>`].concat(L.map((q, k) => `<li><span>${k === n - 1 ? (n === 1 ? 'Выполнен субкритерий 1' : `Выполнены все (${rng(k)})`) : `Выполнены ${rng(k)}`}</span><b>${passOf(c, k)}</b></li>`));
+    return `Оценка зависит от того, до какого субкритерия «да» идёт подряд:<ul class="ladder">${items.join('')}</ul>`;
+  }
+  return `«Да», если выполнены все ${nWord(n)}. Если хотя бы один не выполнен, «Нет».`;
+}
+function howHtml(c, ro){
+  const scale = c.answer_type.startsWith('scale'), na = c.answer_type.endsWith('_na'), flag = c.answer_type === 'flag';
+  const rows = c.conditions.map((q, k) => `<div class="cond" data-k="${k}">
+      <span class="cond-n">${k + 1}</span>
+      <textarea class="inp" rows="3" data-f="cond" aria-label="Субкритерий ${k + 1}"${ro}>${esc(q.question)}</textarea>
+      ${scale ? `<label class="cond-fail" title="Оценка, если выполнен этот пункт и все пункты выше">выполнено → оценка<select class="inp" data-f="condpass" aria-label="Баллы, если условие выполнено"${ro}${k === c.conditions.length - 1 ? ' disabled' : ''}>${c.scale_steps.map(v => `<option value="${v}"${v === passOf(c, k) ? ' selected' : ''}>${v}</option>`).join('')}</select></label>` : ''}
+      <span class="cond-btns"><button class="icon-btn" data-act="cup" aria-label="Выше"${ro}${k ? '' : ' disabled'}>↑</button><button class="icon-btn" data-act="cdown" aria-label="Ниже"${ro}${k < c.conditions.length - 1 ? '' : ' disabled'}>↓</button><button class="icon-btn" data-act="cdel" aria-label="Удалить условие"${ro}>×</button></span></div>`).join('');
+  return `<section class="how">
+    <h3>Субкритерии</h3>
+    <p class="help">Вопросы, на которые ИИ-проверяющий отвечает «да» или «нет». Итоговую оценку считает программа.</p>
+    <div class="cond-list">${rows || '<p class="help">Условий пока нет: оценщик будет ориентироваться только на подсказку ниже.</p>'}</div>
+    <button class="btn ghost small" data-act="cadd"${ro}>+ Добавить субкритерий</button>
+    <div class="how-preview" data-preview></div>
+    ${na ? `<label class="how-f">Когда ставить «Не применимо»<textarea class="inp" rows="2" data-f="na_gate" placeholder="Например: клиент ушёл раньше, чем оператор успел ответить"${ro}>${esc(c.na_gate || '')}</textarea></label>` : ''}
+    ${c.hint || clShown.has(c.id + ':hint') ? `<label class="how-f">Подсказка для ИИ-проверяющего<textarea class="inp hint" rows="4" data-f="hint" placeholder="Как трактовать спорные случаи, что не считать ошибкой"${ro}>${esc(c.hint || '')}</textarea></label>`
+      : `<button class="link-btn opt-link" data-act="showhint"${ro}>+ Подсказка для ИИ-проверяющего</button>`}
+  </section>`;
+}
+const clOpen = new Set();                       // at most one card is open: it gets the focus overlay
+const closeFocus = () => { if (!clOpen.size) return; clOpen.clear(); renderChecklists(); };
+document.body.insertAdjacentHTML('beforeend', '<div class="cl-backdrop" id="clBackdrop"></div>');
+/* the dim layer lets wheel and touch scrolling through to the page; a click outside the open card closes it instead */
+document.addEventListener('click', e => {
+  if (!clOpen.size || e.target.closest('.crit.focus, dialog, .toast')) return;
+  e.preventDefault(); e.stopPropagation(); closeFocus();
+}, true);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && clOpen.size && !document.querySelector('dialog[open]')) closeFocus(); });                       // ids of cards whose details are expanded
 function renderChecklists(flashId){
   const secOpts = sel => draft.sections.map(s => `<option value="${s.id}"${s.id === sel ? ' selected' : ''}>${esc(s.name)}</option>`).join('') + '<option value="__new">+ Новая категория…</option>';
   const typeOpts = sel => Object.entries(TYPES).map(([k, l]) => `<option value="${k}"${k === sel ? ' selected' : ''}>${l}</option>`).join('');
+  const html = [];
   let n = 0;
-  const rows = [];
-  // one flat list in category order; criteria switched off in the SAVED checklist go to the bottom
-  const secIdx = id => draft.sections.findIndex(s => s.id === id);
-  const savedOff = c => SAVED.criteria.find(x => x.id === c.id)?.include === false;
-  const key = clSort.key, dir = clSort.dir;
-  const cmp = (a, b) => {
-    if (!key) return 0;
-    const va = CSORT[key](a, secIdx), vb = CSORT[key](b, secIdx);
-    return (typeof va === 'string' ? va.localeCompare(vb, 'ru') : va - vb) * dir;
-  };
-  const ordered = draft.criteria.map((c, i) => ({c, i}))
-    .sort((a, b) => (savedOff(a.c) - savedOff(b.c)) || cmp(a.c, b.c) || (secIdx(a.c.section) - secIdx(b.c.section)) || (a.i - b.i))
-    .map(x => x.c);
-  document.querySelectorAll('.cl-table th[data-csort]').forEach(th => {
-    if (key && th.dataset.csort === key) th.setAttribute('aria-sort', dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort');
-  });
-  ordered.forEach(c => {
+  draft.sections.forEach(s => {
+    const list = draft.criteria.filter(c => c.section === s.id);
+    if (!list.length) return;
+    html.push(`<h2 class="crit-sec">${esc(s.name)}</h2>`);
+    list.forEach(c => {
       n++;
       const on = c.include !== false, flag = c.answer_type === 'flag', scale = c.answer_type.startsWith('scale');
-      const ro = on ? '' : ' disabled';                     // switched-off rows are read-only, only the switch works
-      rows.push(`<tr data-id="${c.id}" class="${on ? '' : 'off'}${c.id === flashId ? ' flash' : ''}">
-        <td class="n-cell">${n}</td>
-        <td class="name-cell"><input class="inp" data-f="name" value="${esc(c.name)}" aria-label="Название критерия"${ro}>
-          <textarea class="inp desc" data-f="description" rows="2" placeholder="Добавьте условие: когда ставить «Да», «Нет» или Н/П" aria-label="Условие оценки"${ro}>${esc(c.description || '')}</textarea></td>
-        <td><select class="inp" data-f="section" aria-label="Категория"${ro}>${secOpts(c.section)}</select></td>
-        <td><select class="inp" data-f="answer_type" aria-label="Тип ответа"${ro}>${typeOpts(c.answer_type)}</select></td>
-        <td>${scale ? `<input class="inp scale" data-f="scale" value="${scaleText(c)}" aria-label="Ступени шкалы" title="Ступени через запятую. Верхняя ступень даёт полный вес"${ro}>` : '<span class="muted-cell">—</span>'}</td>
-        <td class="num">${flag ? '<span class="muted-cell">без баллов</span>' : `<input class="inp w" type="number" min="0" max="100" step="1" data-f="weight" value="${c.weight}" aria-label="Вес"${ro}>`}</td>
-        <td class="num share" data-share="${c.id}"></td>
-        <td class="inc-cell"><button class="sw" role="switch" data-act="inc" aria-checked="${on}" aria-label="Включить в оценку: ${esc(c.name)}" title="${on ? 'Участвует в оценке' : 'Не участвует в оценке'}"><span></span></button></td>
-        <td class="del-cell"><button class="icon-btn" data-act="del" aria-label="Удалить критерий ${esc(c.name)}" title="${on ? 'Удалить критерий' : 'Включите критерий, чтобы его изменить или удалить'}"${ro}>${TRASH}</button></td></tr>`);
+      const ro = on ? '' : ' disabled', open = clOpen.has(c.id);
+      html.push(`<article class="crit${on ? '' : ' off'}${c.id === flashId ? ' flash' : ''}${open ? ' focus' : ''}" data-id="${c.id}">
+        <div class="crit-head">
+          <span class="crit-n">${n}</span>
+          <div class="crit-main">
+            <input class="inp name" data-f="name" value="${esc(c.name)}" aria-label="Название критерия"${ro}>
+            <div class="crit-sum" data-sum></div>
+          </div>
+          <div class="crit-side">
+            ${flag ? '<span class="muted-cell">без баллов</span>' : `<div class="stepper" role="group" aria-label="Вес критерия"><span class="unit unit-l">Вес</span>
+              <button data-act="wdec" aria-label="Уменьшить вес"${ro}>−</button>
+              <input class="inp w" type="number" min="0" max="100" step="1" data-f="weight" value="${c.weight}" aria-label="Вес в баллах"${ro}>
+              <button data-act="winc" aria-label="Увеличить вес"${ro}>+</button><span class="unit">баллов</span></div>`}
+            <button class="sw" role="switch" data-act="inc" aria-checked="${on}" aria-label="Учитывать в оценке: ${esc(c.name)}" title="${on ? 'Учитывается в оценке' : 'Не учитывается в оценке'}"><span></span></button>
+          </div>
+        </div>
+        <div class="crit-foot">
+          <span class="crit-badge">${TYPE_BADGE[c.answer_type] || ''}</span>
+          <span class="muted-cell" data-share="${c.id}"></span>
+          <span class="crit-btns">
+            <button class="btn ghost small" data-act="more" data-key="how" aria-expanded="${open}">${open ? 'Готово' : 'Изменить субкритерии <span class="chev">▾</span>'}</button>
+          </span>
+        </div>
+        <div class="crit-how"${open ? '' : ' hidden'}>${howHtml(c, ro)}
+        <h3 class="params-h">Параметры критерия</h3>
+        <div class="crit-details">
+          <label>Категория<select class="inp" data-f="section"${ro}>${secOpts(c.section)}</select>
+            <span class="help">В какой блок попадает критерий в итоговой карточке.</span></label>
+          <label>Тип ответа<select class="inp" data-f="answer_type"${ro}>${typeOpts(c.answer_type)}</select>
+            <span class="help">«Н/П» — когда критерий не применим к диалогу. Флаг — отметка нарушения без баллов.</span></label>
+          ${scale ? `<label>Шаги оценки<input class="inp scale" data-f="scale" value="${scaleText(c)}"${ro}>
+            <span class="help">Баллы через запятую, например 0, 5, 10. Верхний шаг даёт полный вес.</span></label>` : ''}
+          <div class="del-wrap"><button class="btn ghost" data-act="del"${ro} title="${on ? 'Удалить критерий' : 'Включите критерий, чтобы его удалить'}">${TRASH} Удалить критерий</button></div>
+        </div></div>
+      </article>`);
+    });
   });
-  $('clBody').innerHTML = rows.join('');
+  $('clBody').innerHTML = html.join('');
+  [...clOpen].forEach(id => { if (!critById(id)) clOpen.delete(id); });   // the open card was deleted or discarded
+  $('clBackdrop').classList.toggle('on', !!$('clBody').querySelector('.crit.focus'));
   renderCats(); renderClStatus();
-  if (flashId) $('clBody').querySelector(`tr[data-id="${flashId}"]`)?.scrollIntoView({block: 'center', behavior: 'smooth'});
+  if (flashId) $('clBody').querySelector(`.crit[data-id="${flashId}"]`)?.scrollIntoView({block: 'center', behavior: 'smooth'});
 }
-/* column sorting: first click sorts (text A→Я, numbers high→low), second reverses, "№" returns to the default order.
-   Criteria switched off in the saved checklist always stay at the bottom. */
-const clSort = {key: null, dir: 1};
-const CSORT = {
-  name: c => (c.name || '').toLowerCase(),
-  section: (c, secIdx) => secIdx(c.section),
-  type: c => Object.keys(TYPES).indexOf(c.answer_type),
-  scale: c => c.scale_steps ? c.scale_max : -1,
-  weight: c => isScored(c) ? +c.weight || 0 : -1,
-  share: c => isScored(c) ? +c.weight || 0 : -1,
-  inc: c => c.include !== false ? 1 : 0};
-document.querySelectorAll('.cl-table th[data-csort]').forEach(th => th.onclick = () => {
-  const k = th.dataset.csort;
-  if (k === 'n') { clSort.key = null; clSort.dir = 1; }
-  else if (clSort.key === k) clSort.dir = -clSort.dir;
-  else { clSort.key = k; clSort.dir = ['weight', 'share', 'scale', 'inc'].includes(k) ? -1 : 1; }
-  renderChecklists();
-});
 function renderClStatus(){
   const scored = draft.criteria.filter(isScored), sum = scored.reduce((s, c) => s + (+c.weight || 0), 0);
   $('clBody').querySelectorAll('[data-share]').forEach(td => {
     const c = critById(td.dataset.share);
-    td.textContent = c && isScored(c) && sum ? fmt.format(Math.round(c.weight / sum * 10000) / 100) : '—';
+    td.textContent = c && isScored(c) && sum ? `Даёт ${fmt.format(Math.round(c.weight / sum * 10000) / 100)} из 100 в итоге` : '';
   });
-  $('clBody').querySelectorAll('tr[data-id]').forEach(tr => {
-    const a = critById(tr.dataset.id), b = SAVED.criteria.find(c => c.id === tr.dataset.id);
-    tr.classList.toggle('dirty', !b || JSON.stringify(a) !== JSON.stringify(b));
+  $('clBody').querySelectorAll('.crit[data-id]').forEach(el => {
+    const a = critById(el.dataset.id), b = SAVED.criteria.find(c => c.id === el.dataset.id);
+    el.classList.toggle('dirty', !b || JSON.stringify(a) !== JSON.stringify(b));
   });
-  const ok = Math.abs(sum - 100) < 0.001;
-  $('clSum').className = 'cl-sum' + (ok ? '' : ' warn');
-  $('clSum').innerHTML = `<span>Сумма весов включённых критериев: <b>${fmt.format(sum)}</b> из 100</span>`
-    + (!ok && sum > 0 ? '<button class="link-btn" id="clNorm">Привести к 100 пропорционально</button>' : '')
-    + (!ok ? '<span>Итог диалога всё равно пересчитывается к 100, но веса читаются проще, когда их сумма равна 100.</span>' : '');
+  $('clBody').querySelectorAll('.crit[data-id]').forEach(el => { const pv = el.querySelector('[data-preview]'), c = critById(el.dataset.id); if (pv && c) pv.innerHTML = previewHtml(c); });
+  $('clBody').querySelectorAll('.crit[data-id]').forEach(el => { const sm = el.querySelector('[data-sum]'), c = critById(el.dataset.id); if (sm && c) sm.innerHTML = sumHtml(c); });
+  const ok = Math.abs(sum - 100) < 0.001, diff = Math.round((100 - sum) * 100) / 100;
+  $('clSum').className = 'cl-sum card' + (ok ? '' : ' warn');
+  $('clSum').innerHTML = `<span class="sum-main">Сумма весов: <b>${fmt.format(sum)}</b> из 100 ${ok ? '✓' : ''}</span>`
+    + (!ok && sum > 0 ? `<span>${diff > 0 ? `Не хватает ${fmt.format(diff)} ${plural(Math.round(diff), 'балл', 'балла', 'баллов')}.` : `Лишних ${fmt.format(-diff)} ${plural(Math.round(-diff), 'балл', 'балла', 'баллов')}.`} Итог диалога всё равно считается из 100.</span><button class="link-btn" id="clNorm">Привести к 100 автоматически</button>` : '');
   $('clNorm')?.addEventListener('click', () => { scaleWeights(draft.criteria.filter(isScored), 100); renderChecklists(); });
   const dirty = isDirty();
   $('clSave').disabled = !dirty; $('clDiscard').disabled = !dirty;
@@ -1568,15 +1702,17 @@ function renderCats(){
 const plural = (n, a, b, c) => { const m = n % 10, h = n % 100; return m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 12 || h > 14) ? b : c; };
 /* table edits */
 $('clBody').addEventListener('input', e => {
-  const tr = e.target.closest('tr[data-id]'), f = e.target.dataset.f; if (!tr || !f) return;
+  const tr = e.target.closest('.crit[data-id]'), f = e.target.dataset.f; if (!tr || !f) return;
   const c = critById(tr.dataset.id);
   if (f === 'name' || f === 'description') c[f] = e.target.value;
+  else if (f === 'cond') { const q = c.conditions[+e.target.closest('.cond').dataset.k]; if (q) q.question = e.target.value; }
+  else if (f === 'na_gate' || f === 'hint') c[f] = e.target.value;
   else if (f === 'weight') { const v = parseFloat(e.target.value); c.weight = isFinite(v) && v >= 0 ? v : 0; e.target.classList.toggle('bad', !(isFinite(v) && v >= 0)); }
   else return;
   renderClStatus();
 });
 $('clBody').addEventListener('change', e => {
-  const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+  const tr = e.target.closest('.crit[data-id]'); if (!tr) return;
   const f = e.target.dataset.f; if (!f) return;
   const c = critById(tr.dataset.id);
   if (f === 'name') { c.name = e.target.value.trim(); if (!c.name) e.target.classList.add('bad'); else e.target.classList.remove('bad'); renderCats(); return; }
@@ -1584,6 +1720,7 @@ $('clBody').addEventListener('change', e => {
     if (e.target.value === '__new') { e.target.value = c.section; openCats(c.id); return; }
     c.section = e.target.value; renderChecklists(c.id); return;
   }
+  if (f === 'condpass') { const q = c.conditions[+e.target.closest('.cond').dataset.k]; if (q) q.pass_score = +e.target.value; renderClStatus(); return; }
   if (f === 'answer_type') { setType(c, e.target.value); renderChecklists(c.id); return; }
   if (f === 'scale') {
     const steps = parseSteps(e.target.value);
@@ -1592,9 +1729,32 @@ $('clBody').addEventListener('change', e => {
   }
 });
 $('clBody').addEventListener('click', async e => {
-  const b = e.target.closest('button[data-act]'), tr = e.target.closest('tr[data-id]'); if (!b || !tr) return;
+  let b = e.target.closest('button[data-act]'), tr = e.target.closest('.crit[data-id]'); if (!b || !tr) return;
   const c = critById(tr.dataset.id);
   if (b.dataset.act === 'inc') { c.include = c.include === false; renderChecklists(); return; }
+  if (['cadd', 'cdel', 'cup', 'cdown'].includes(b.dataset.act)) {
+    const k = +b.closest('.cond')?.dataset.k, L = c.conditions;
+    if (b.dataset.act === 'cadd') L.push({question: ''});
+    else if (b.dataset.act === 'cdel') L.splice(k, 1);
+    else { const j = b.dataset.act === 'cup' ? k - 1 : k + 1; if (L[j]) [L[k], L[j]] = [L[j], L[k]]; }
+    renderChecklists(); tr = document.querySelector(`.crit[data-id="${c.id}"]`);
+    if (b.dataset.act === 'cadd') tr?.querySelector('.cond:last-child textarea')?.focus();
+    return;
+  }
+  if (b.dataset.act === 'showna' || b.dataset.act === 'showhint') {
+    const f = b.dataset.act === 'showna' ? 'na' : 'hint';
+    clShown.add(c.id + ':' + f); renderChecklists();
+    document.querySelector(`.crit[data-id="${c.id}"] [data-f="${f === 'na' ? 'na_gate' : 'hint'}"]`)?.focus();
+    return;
+  }
+  if (b.dataset.act === 'more') { const wasOpen = clOpen.has(c.id); clOpen.clear(); if (!wasOpen) clOpen.add(c.id);
+    renderChecklists();
+    if (!wasOpen) document.querySelector(`.crit[data-id="${c.id}"]`)?.scrollIntoView({block: 'start', behavior: 'smooth'});
+    return; }
+  if (b.dataset.act === 'wdec' || b.dataset.act === 'winc') {
+    c.weight = Math.max(0, Math.min(100, (+c.weight || 0) + (b.dataset.act === 'winc' ? 1 : -1)));
+    tr.querySelector('input[data-f="weight"]').value = c.weight; renderClStatus(); return;
+  }
   if (b.dataset.act === 'del') {
     const others = draft.criteria.filter(x => x !== c && isScored(x));
     const canSpread = isScored(c) && c.weight > 0 && others.length;
@@ -1692,7 +1852,7 @@ $('critForm').addEventListener('submit', e => {
   const t = $('ncType').value, {w, others, target} = ncCalc();
   if (!$('ncWeight').disabled && (w > 100 || w < 0)) { e.preventDefault(); toast('Вес от 0 до 100'); return; }
   const c = {id: 'cx_' + Date.now().toString(36), name, section: $('ncSec').value, weight: w, answer_type: t, na_allowed: t.endsWith('_na'),
-             include: true, description: $('ncDesc').value.trim()};
+             include: true, conditions: $('ncDesc').value.trim() ? [{question: $('ncDesc').value.trim()}] : [], na_gate: '', hint: ''};
   if (t.startsWith('scale')) {
     const steps = parseSteps($('ncScale').value);
     if (!steps) { e.preventDefault(); toast('Шкала: минимум две ступени через запятую, например 0, 5, 10'); return; }
@@ -1710,14 +1870,19 @@ function validateDraft(){
   if (draft.criteria.some(c => !draft.sections.some(s => s.id === c.section))) return 'У каждого критерия должна быть категория';
   return null;
 }
-$('clSave').onclick = () => {
+$('clSave').onclick = async () => {
   const err = validateDraft(); if (err) { toast(err); return; }
   draft.criteria.forEach(c => c.name = c.name.trim());
   const sig = sigOf(draft);
   const known = HISTORY.find(h => h.sig === sig);           // returning to an earlier version keeps its number
   const version = known ? known.version : Math.max(...HISTORY.map(h => h.version)) + 1;
-  if (!known) HISTORY.push({version, sig});
-  SAVED = {...clone(draft), version, saved_at: new Date().toISOString()};
+  const next = {...clone(draft), version, saved_at: new Date().toISOString()}, hist = known ? HISTORY : [...HISTORY, {version, sig}];
+  if (API_OK) {                                              // the server refuses a checklist the judge cannot run
+    try { await api('/api/checklist', {method: 'PUT', body: JSON.stringify({checklist: next, history: hist})}); }
+    catch (e) { toast(e.message); return; }
+  }
+  HISTORY = hist;
+  SAVED = next;
   draft = clone(SAVED);
   const okLs = lsSet(LS_CL, SAVED) && lsSet(LS_HIST, HISTORY);
   renderChecklists();
@@ -1755,7 +1920,18 @@ new ResizeObserver(fitGrid).observe(document.querySelector('main'));
 new ResizeObserver(fitGrid).observe($('top'));
 new ResizeObserver(fitGrid).observe($('player'));
 window.addEventListener('resize', () => { if (!$('viewCard').hidden && D && isVoice()) renderTrack(); });
-loadAll().then(route);
+async function syncFromServer(){
+  try {
+    const st = await api('/api/state'); API_OK = true;
+    if (st.checklist) { SAVED = normCriteria(st.checklist); draft = clone(SAVED); if (st.history) HISTORY = st.history; lsSet(LS_CL, SAVED); lsSet(LS_HIST, HISTORY); }
+    EVALS = {...EVALS, ...(st.evaluations || {})};
+    for (const ev of Object.values(EVALS)) if (ev.checklist) normCriteria(ev.checklist);
+    const dl = await api('/api/dialogues');
+    dl.records.forEach(r => { if (!RECORDS[r.conversation_id]) { RECORDS[r.conversation_id] = r; DATA.dialogues.push(r); } });
+    route();
+  } catch { API_OK = false; }
+}
+loadAll().then(route).then(syncFromServer);
 </script>
 </body>
 </html>
