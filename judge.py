@@ -80,19 +80,19 @@ DEFAULT_CRITERIA = enabled_criteria()
 DEFAULT_MODEL = "deepseek/deepseek-v4.1-flash-1017"
 # keys of the criterion file shown to the model (scoring/decision rules stay in code)
 SPEC_KEYS = ("name_en", "official_rule", "na_gate", "na", "scope", "conditions", "preparation_step",
-             "scale", "subcriteria", "parameters", "evidence")
+             "scale", "subcriteria", "parameters", "evidence", "hint")
 HIDDEN_SUB_KEYS = {"on_fail_score", "severity"}
 EXPLANATION_LANG = "Russian"  # language of the model's explanations (-> `rationale` in the results file)
 # criterion file -> criterion_id required by the results appendix (do not rename)
 CRITERION_CODES = {
     "contact": "contact", "needs": "discovery", "identification": "identification",
     "consultation": "consultation", "empathy": "empathy", "dialogue_management": "dialogue",
-    "closing": "closing", "gross_errors": "critical",
+    "closing": "closure", "gross_errors": "critical",
 }
 ALLOWED_VALUES = {  # None = N/A
     "contact": {True, False}, "discovery": {True, False, None}, "identification": {True, False, None},
     "consultation": {0, 5, 10, 15, 20, None}, "empathy": {True, False}, "dialogue": {0, 4, 7, 10},
-    "closing": {True, False, None}, "critical": {True, False},
+    "closure": {True, False, None}, "critical": {True, False},
 }
 
 
@@ -804,7 +804,7 @@ def validate_submission(payload, expected_ids, n_turns, expect_count=None):
             continue
         for c in r["criteria"]:
             v, code = c["value"], c["criterion_id"]
-            is_bool_code = code in ("contact", "discovery", "identification", "empathy", "closing", "critical")
+            is_bool_code = code in ("contact", "discovery", "identification", "empathy", "closure", "critical")
             if v is not None and (isinstance(v, bool) != is_bool_code):
                 errs.append(f"{cid}.{code}: wrong value type {v!r}")
             elif v not in ALLOWED_VALUES[code]:
