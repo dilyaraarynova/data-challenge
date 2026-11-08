@@ -3,7 +3,7 @@
 
 One LLM call per (dialogue, criterion). The model only returns booleans + evidence;
 the final answer/step/points are computed here from the criterion file's own rules.
-Supported criterion shapes (checklist_iter1/*.json, any file with a `criterion_id`; `"enabled": false` skips it):
+Supported criterion shapes (checklists/*.json, any file with a `criterion_id`; `"enabled": false` skips it):
   - conditions + boolean decision (AND/OR/NOT) (+ optional na_gate)  e.g. contact, needs, identification, empathy,
     closing, gross_errors (gross_errors is a flag: no points, excluded from the total, reported separately)
   - subcriteria as ordered gates, first failed gate sets score    e.g. consultation (na_gate_then_ordered_gates)
@@ -14,17 +14,26 @@ A per-dialogue total (0-100) is computed over the criteria that were run, redist
 Transcript turns are numbered from 1 over the ORIGINAL transcript array (client, bot and system turns included),
 as the results appendix (CQA_Student_Guide_Appendix_Results.pdf) requires for `evidence_turns`.
 
+Datasets: dialogues/<set>.json (organisers' API responses saved as is), e.g. dev, prod, swap. `--set` picks one.
+
 Usage:
-    python judge.py                         # all dialogues in test_subset.json, all enabled criteria
-    python judge.py --criteria contact needs consultation dialogue_management
-    python judge.py --ids p1-ru-010 p4-ru-002 --criteria contact
+    python judge.py --set swap --ui         # whole swap set, all enabled criteria, results shown in the web UI
+    python judge.py --set dev --ids p1-ru-010 p4-ru-002 --criteria contact
+    python judge.py --subset some_ids.json  # only the dialogues listed in {"dialogues": [{"conversation_id": ...}]}
     python judge.py --dry-run --ids p1-ru-010   # print prompts, no API calls
 
+  --ui also stores the results in judge_results.json (what the web UI shows). Restart server.py afterwards:
+  a running server keeps its own copy of that file in memory.
+
 Submission files (format JSON 1.0, one record per dialogue of the whole set, exactly one model):
-    python judge.py --submit dev --models <model> --team-name "<team>"
-        -> results/dev/results.json  (all 65 records of dialogues.json)
-    python judge.py --submit prod --input prod_dataset.json --models <model> --team-name "<team>"
-        -> results/prod/results.json (the 10 control chats, saved from the organisers' API response)
+    python judge.py --submit dev --team-name "<team>"     [--models <model>]
+        -> results/dev/results.json  (all 65 records of dialogues/dev.json)
+    python judge.py --submit prod --team-name "<team>"
+        -> results/prod/results.json (the 10 control chats of dialogues/prod.json)
+  Each record follows the appendix exactly (schema_version, team_name, model{mode,name}, results[{conversation_id,
+  status, criteria[{criterion_id, value, rationale, evidence_turns}], score{final_score, critical_flag}}]);
+  extra fields are only ADDED: record.channel/language, criterion.weight/points/evidence[{item, turns, timestamps,
+  speaker, quote}].
 
 Env (or .env): OPENROUTER_API_KEY (required), OPENROUTER_MODEL (optional default).
 """
@@ -47,7 +56,7 @@ ROOT = Path(__file__).parent
 def load_json(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
-CHECKLIST_DIR = ROOT / "checklist_iter1"
+CHECKLIST_DIR = ROOT / "checklists"
 
 
 def criterion_files(directory=CHECKLIST_DIR):
@@ -97,14 +106,40 @@ ALLOWED_VALUES = {  # None = N/A
 
 
 # --------------------------------------------------------------------------- data
+DIALOGUES_DIR = ROOT / "dialogues"
+
+
+def dataset_names():
+    """Dataset names = file stems in dialogues/ (dev, prod, swap, ...), dev first."""
+    return sorted((p.stem for p in DIALOGUES_DIR.glob("*.json")), key=lambda n: (n != "dev", n))
+
+
+def dataset_path(name):
+    return DIALOGUES_DIR / f"{name}.json"
+
+
 def load_records(path=None):
     """Records from the organisers' API response ({data:{records}}) or from a plain list of records."""
-    data = load_json(path or ROOT / "dialogues.json")
+    path = Path(path or dataset_path("dev"))
+    if not path.read_text(encoding="utf-8").strip():
+        sys.exit(f"{path} is empty: save the organisers' API response into it first.")
+    data = load_json(path)
     if isinstance(data, list):
         return data
     if data.get("isSuccess") is False:
         sys.exit(f"{path}: API response has isSuccess=false: {data.get('error')}")
     return data["data"]["records"] if "data" in data else data["records"]
+
+
+def load_all_records():
+    """{set name: records} of every dataset in dialogues/. Empty or unreadable files are skipped with a warning."""
+    out = {}
+    for name in dataset_names():
+        try:
+            out[name] = load_records(dataset_path(name))
+        except (SystemExit, Exception) as e:  # noqa: BLE001 - one bad file must not hide the others
+            print(f"WARNING: dialogues/{name}.json skipped: {e}", file=sys.stderr)
+    return out
 
 
 def boilerplate_texts(records, min_count=10):
@@ -625,6 +660,25 @@ def turns_for(raw, item_ids, crit, msgs, n_turns):
     return sorted(turns)
 
 
+def evidence_details(raw, item_ids, crit, msgs, record):
+    """Extra (non-appendix) detail behind evidence_turns: per decisive item the cited turn(s), the ORIGINAL transcript
+    timestamp(s) and the model's verbatim quote. Merged voice turns list all their original turn numbers."""
+    tr = record["transcript"]
+    out = []
+    for iid in item_ids:
+        ev = item_of(raw, iid, crit).get("evidence")
+        if not ev:
+            continue
+        hit = [m for m in msgs if ev["index"] in m["idx"]]
+        turns = hit[0]["idx"] if hit else ([ev["index"]] if 1 <= ev["index"] <= len(tr) else [])
+        if not turns:
+            continue
+        out.append({"item": iid, "turns": list(turns),
+                    "timestamps": [tr[t - 1]["timestamp"] for t in turns],
+                    "speaker": tr[turns[0] - 1]["speaker"], "quote": ev["quote"]})
+    return out
+
+
 def rationale_text(raw, item_ids, crit, limit=600):
     parts = []
     for iid in item_ids:
@@ -699,7 +753,7 @@ def slug(s):
     return re.sub(r"[^A-Za-z0-9._-]+", "_", s)
 
 
-def write_reports(d, info, crits, ids, meta, by_id, runs):
+def write_reports(d, info, crits, ids, by_id, runs):
     """Report files of one judge.py run, written into its own directory `d` (never overwrites earlier runs):
       summary.md            human-readable: setup, per-model stats, verdict table, errors
       results.csv           one row per (model, dialogue): verdict per criterion + total (opens in Excel)
@@ -716,7 +770,7 @@ def write_reports(d, info, crits, ids, meta, by_id, runs):
           f"- dialogues: {len(ids)} (input: {info['input']})", ""]
     with open(d / "results.csv", "w", newline="", encoding="utf-8-sig") as f:  # utf-8-sig: Excel reads Cyrillic
         w = csv.writer(f)
-        w.writerow(["model", "conversation_id", "label", "gross_error", "channel", "language", *cols, "total"])
+        w.writerow(["model", "conversation_id", "channel", "language", *cols, "total"])
         for m, r in runs.items():
             dump(d / f"details_{slug(m)}.json", {"run": info, "model": m, "output_mode": r["output_mode"],
                                                  "stats": r["stats"], "totals": r["totals"], "results": r["results"]})
@@ -728,15 +782,13 @@ def write_reports(d, info, crits, ids, meta, by_id, runs):
             md += [f"## {m}", "", f"Output mode: {r['output_mode']}. {len(r['results']) - len(errs)}/"
                    f"{len(r['results'])} jobs ok, {len(errs)} errors, {warns} evidence warnings.", "",
                    "```", *stats_lines(r["stats"]), "```", "",
-                   "| conversation | label | " + " | ".join(cols) + " | total |",
-                   "|---|---|" + "---|" * (len(cols) + 1)]
+                   "| conversation | " + " | ".join(cols) + " | total |",
+                   "|---|" + "---|" * (len(cols) + 1)]
             for cid in ids:
                 cells = ["ERROR" if "error" in table[cid][c] else table[cid][c]["answer"] for c in cols]
                 total = "" if r["totals"][cid] is None else r["totals"][cid]
-                label = meta.get(cid, {}).get("label", "")
-                w.writerow([m, cid, label, meta.get(cid, {}).get("gross_error", ""), by_id[cid]["channel"],
-                            by_id[cid]["language"], *cells, total])
-                md.append(f"| {cid} | {label} | " + " | ".join(cells) + f" | {'-' if total == '' else total} |")
+                w.writerow([m, cid, by_id[cid]["channel"], by_id[cid]["language"], *cells, total])
+                md.append(f"| {cid} | " + " | ".join(cells) + f" | {'-' if total == '' else total} |")
             md.append("")
             if errs:
                 md += ["Errors:", *(f"- {x['conversation_id']} / {x['criterion']}: {x['error'][:200]}" for x in errs), ""]
@@ -759,24 +811,33 @@ def judge_one(client, model, crit, shared, record, msgs):
     res.update(criterion=crit["criterion_id"], conversation_id=record["conversation_id"], raw=raw, usage=usage,
                evidence_warnings=check_evidence(raw, msgs),
                value=result_value(res), rationale=rationale_text(raw, dec, crit),
-               evidence_turns=turns_for(raw, dec, crit, msgs, len(record["transcript"])))
+               evidence_turns=turns_for(raw, dec, crit, msgs, len(record["transcript"])),
+               evidence=evidence_details(raw, dec, crit, msgs, record))
     return res
 
 
 # --------------------------------------------------------------------------- submission (results appendix, JSON 1.0)
-def submission_record(cid, per_crit, stems):
+def submission_record(cid, per_crit, stems, record=None):
     """One record per dialogue. status=ok needs all 8 criteria; otherwise status=error with empty criteria,
-    score=null and the reason (an error is never replaced by a zero score)."""
+    score=null and the reason (an error is never replaced by a zero score).
+    Appendix fields keep their names/types/order; our extra fields are appended after them:
+      record:    channel, language
+      criterion: weight, points (weighted, null for N/A and for critical), evidence (turns+timestamps+quotes)"""
+    extra = {"channel": record["channel"], "language": record["language"]} if record else {}
     bad = [s for s in stems if s not in per_crit or "error" in per_crit[s]]
     if bad:
         reasons = "; ".join(f"{s}: {per_crit[s]['error']}" if s in per_crit else f"{s}: not evaluated" for s in bad)
-        return {"conversation_id": cid, "status": "error", "criteria": [], "score": None, "error": reasons[:500]}
+        return {"conversation_id": cid, "status": "error", "criteria": [], "score": None, "error": reasons[:500],
+                **extra}
     criteria = [{"criterion_id": CRITERION_CODES[s], "value": per_crit[s]["value"],
-                 "rationale": per_crit[s]["rationale"], "evidence_turns": per_crit[s]["evidence_turns"]}
+                 "rationale": per_crit[s]["rationale"], "evidence_turns": per_crit[s]["evidence_turns"],
+                 "weight": None if CRITERION_CODES[s] == "critical" else per_crit[s]["weight"],
+                 "points": per_crit[s]["points"], "evidence": per_crit[s].get("evidence", [])}
                 for s in stems]
     return {"conversation_id": cid, "status": "ok", "criteria": criteria,
             "score": {"final_score": total_score([per_crit[s] for s in stems]),
-                      "critical_flag": per_crit["gross_errors"]["value"]}}
+                      "critical_flag": per_crit["gross_errors"]["value"]},
+            **extra}
 
 
 def validate_submission(payload, expected_ids, n_turns, expect_count=None):
@@ -824,22 +885,44 @@ def validate_submission(payload, expected_ids, n_turns, expect_count=None):
     return errs
 
 
+def save_to_ui(model, crits, ids, table):
+    """Store the evaluations in judge_results.json exactly as the web UI's own runs do (current checklist version;
+    appeals of a replaced evaluation are dropped)."""
+    import server  # noqa: PLC0415 - only needed here; importing it does not start the HTTP server
+    import checklist_store as cs  # noqa: PLC0415
+    unknown = [cid for cid in ids if cid not in server.BY_ID]
+    if unknown:
+        print(f"WARNING: not in dialogues/, not shown in the UI: {unknown}", file=sys.stderr)
+    results, reviews, version = server.Results(), server.Reviews(), cs.current_version()
+    order = {c["criterion_id"]: i for i, c in enumerate(crits)}
+    for cid in ids:
+        if cid in unknown:
+            continue
+        rows = sorted(table[cid].values(), key=lambda r: order[r["criterion"]])
+        results.put(cid, model, MODE.get(model), rows, version)
+        reviews.drop(cid)
+    print(f"\nSaved {len(ids) - len(unknown)} evaluation(s) to judge_results.json (checklist v{version}). "
+          "Restart server.py to see them.")
+
+
 # --------------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--subset", default=str(ROOT / "test_subset.json"))
+    ap.add_argument("--set", default="dev", help=f"dataset in dialogues/ (now: {', '.join(dataset_names())})")
+    ap.add_argument("--subset", default=None, help='optional {"dialogues": [{"conversation_id": ...}]} file: '
+                                                   "run only these dialogues of the set")
     ap.add_argument("--ids", nargs="*", help="override: only these conversation_ids")
     ap.add_argument("--criteria", nargs="*", default=DEFAULT_CRITERIA,
                     help="criterion ids (`criterion_id` of the files; default: the enabled criteria)")
     ap.add_argument("--models", nargs="*", default=None,
                     help="OpenRouter model ids; several allowed, each is run and reported separately "
                          "(default: $OPENROUTER_MODEL or " + DEFAULT_MODEL + ")")
-    ap.add_argument("--input", default=None, help="dataset file: organiser API response or list of records "
-                                                  "(default: dialogues.json = DEV)")
-    ap.add_argument("--all", action="store_true", help="run every record of the input instead of test_subset.json")
+    ap.add_argument("--input", default=None, help="dataset file outside dialogues/ (overrides --set)")
     ap.add_argument("--submit", choices=["dev", "prod"],
-                    help="write results/<set>/results.json (appendix format). Runs the WHOLE input set, all 8 "
-                         "criteria and exactly one model")
+                    help="write results/<set>/results.json (appendix format) for dialogues/<set>.json. Runs the "
+                         "WHOLE set, all 8 criteria and exactly one model")
+    ap.add_argument("--ui", action="store_true",
+                    help="also store the results in judge_results.json so the web UI shows them (one model only)")
     ap.add_argument("--team-name", default=os.environ.get("TEAM_NAME"), help="team_name for the results file")
     ap.add_argument("--mode", choices=["local", "external_api", "hybrid"], default="external_api",
                     help="model.mode in the results file (OpenRouter = external_api)")
@@ -861,23 +944,27 @@ def main():
             sys.exit("--submit needs exactly one model (the results file names the model that produced it).")
         if args.ids or (args.criteria and sorted(args.criteria) != sorted(CRITERION_CODES)):
             sys.exit("--submit must cover all 8 criteria and the whole dataset: drop --ids/--criteria.")
-        if args.submit == "prod" and not args.input:
-            sys.exit("--submit prod needs --input <file with the control set saved from the organisers' API>.")
+        if args.subset:
+            sys.exit("--submit runs the whole set: drop --subset.")
+        args.set = args.submit
         if not args.team_name:
             print("WARNING: no --team-name / TEAM_NAME given, writing a placeholder.", file=sys.stderr)
-        args.all = True
+    if args.ui and len(models) != 1:
+        sys.exit("--ui needs exactly one model (the UI shows one evaluation per dialogue).")
+    if not args.input and args.set not in dataset_names():
+        sys.exit(f"Unknown set {args.set!r}: dialogues/ has {', '.join(dataset_names())}.")
 
-    records = load_records(args.input)
+    input_path = Path(args.input) if args.input else dataset_path(args.set)
+    records = load_records(input_path)
     by_id = {r["conversation_id"]: r for r in records}
     if len(by_id) != len(records):
         sys.exit("duplicate conversation_id in the input dataset")
-    # bot boilerplate is detected over DEV + input (a 10-chat control set alone is too small to detect it)
-    pool = {r["conversation_id"]: r for r in load_records()}
+    # bot boilerplate is detected over all sets (a 10-chat control set alone is too small to detect it)
+    pool = {r["conversation_id"]: r for recs in load_all_records().values() for r in recs}
     pool.update(by_id)
     boiler = boilerplate_texts(list(pool.values()))
-    subset = load_json(args.subset)["dialogues"]
-    meta = {d["conversation_id"]: d for d in subset}
-    ids = args.ids or (list(by_id) if args.all else [d["conversation_id"] for d in subset])
+    ids = args.ids or ([d["conversation_id"] for d in load_json(args.subset)["dialogues"]] if args.subset
+                       else list(by_id))
     missing = [i for i in ids if i not in by_id]
     if missing:
         sys.exit(f"Unknown conversation ids: {missing}")
@@ -897,7 +984,8 @@ def main():
     started = datetime.now()
     report_dir = Path(args.report_dir) if args.report_dir else (
         ROOT / "reports" / (started.strftime("%Y%m%d-%H%M%S") + (f"_submit-{args.submit}" if args.submit else "")))
-    info = {"started": started.isoformat(timespec="seconds"), "input": args.input or "dialogues.json",
+    info = {"started": started.isoformat(timespec="seconds"), "input": str(input_path.relative_to(ROOT)
+                                                                          if input_path.is_relative_to(ROOT) else input_path),
             "criteria": args.criteria, "dialogues": len(ids), "models": models, "workers": args.workers,
             "submit": args.submit}
     runs = {}
@@ -925,14 +1013,14 @@ def main():
 
         w = max(12, *(len(c["criterion_id"]) for c in crits))
         print(f"\n=== {model}  (output mode: {MODE.get(model)})")
-        print(f"{'conversation':<12} {'label':<8} " + " ".join(f"{c['criterion_id']:<{w}}" for c in crits) + " total")
+        print(f"{'conversation':<12} " + " ".join(f"{c['criterion_id']:<{w}}" for c in crits) + " total")
         for cid in ids:
             cells = []
             for c in crits:
                 r = table[cid][c["criterion_id"]]
                 cells.append(f"{'ERROR' if 'error' in r else r['answer']:<{w}}")
             t = totals[cid]
-            print(f"{cid:<12} {meta.get(cid, {}).get('label', ''):<8} " + " ".join(cells)
+            print(f"{cid:<12} " + " ".join(cells)
                   + f" {'-' if t is None else t}")
         errs = [r for r in results if "error" in r]
         warns = sum(len(r.get("evidence_warnings", [])) for r in results)
@@ -940,13 +1028,13 @@ def main():
         print("\n".join(stats_lines(stats)))
         for e in errs:
             print("ERROR", e["conversation_id"], e["criterion"], e["error"], file=sys.stderr)
-        write_reports(report_dir, info, crits, ids, meta, by_id, runs)
+        write_reports(report_dir, info, crits, ids, by_id, runs)
 
         if args.submit:
             stems = [c["criterion_id"] for c in sorted(crits, key=lambda c: c["order"])]
             payload = {"schema_version": "1.0", "team_name": args.team_name or "TODO-team-name",
                        "model": {"mode": args.mode, "name": model},
-                       "results": [submission_record(cid, table[cid], stems) for cid in ids]}
+                       "results": [submission_record(cid, table[cid], stems, by_id[cid]) for cid in ids]}
             n_turns = {cid: len(by_id[cid]["transcript"]) for cid in ids}
             problems = validate_submission(payload, list(by_id), n_turns, 10 if args.submit == "prod" else None)
             out_path = ROOT / "results" / args.submit / "results.json"
@@ -960,6 +1048,9 @@ def main():
                 n_err = sum(r["status"] == "error" for r in payload["results"])
                 print(f"\nSubmission written: {out_path} ({len(ids)} records, {n_err} with status=error). "
                       "Commit AND push it before the stop-code.")
+
+        if args.ui:
+            save_to_ui(model, crits, ids, table)
 
     print(f"\nReports: {report_dir}  (summary.md, results.csv, stats.json, details_<model>.json)")
     print("total = 0-100 over the criteria run only (N/A weight redistributed; errored criteria excluded). "

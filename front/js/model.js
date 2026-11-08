@@ -1,5 +1,5 @@
 /* ---------------- checklist model ----------------
-   The saved checklist comes from the server (checklist_iter1/ via checklist_store.py) and is written back by
+   The saved checklist comes from the server (checklists/ via checklist_store.py) and is written back by
    «Сохранить чек-лист». Every evaluation keeps a snapshot of the checklist version it was made with, so old
    scores never change when the checklist changes; a dialogue evaluated with an older version can be
    re-evaluated, which replaces its evaluation. Versions are numbered by the server (same content = same number). */

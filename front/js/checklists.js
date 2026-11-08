@@ -89,7 +89,7 @@ function renderChecklists(flashId){
   });
   $('clBody').innerHTML = html.join('');
   $('clBackdrop').classList.toggle('on', !!$('clBody').querySelector('.crit.focus'));
-  $('clShared').innerHTML = draft.shared ? `<p class="sp-hint">Правила из checklist_iter1/shared_rules.json добавляются в начало каждого запроса judge.py, для любого критерия.</p>
+  $('clShared').innerHTML = draft.shared ? `<p class="sp-hint">Правила из checklists/shared_rules.json добавляются в начало каждого запроса judge.py, для любого критерия.</p>
     <div class="spec">${specHtml(draft.shared, [], 'shared', null, false)}</div>` : '';
   $('clTrErr').hidden = !SAVED.translation_error;
   $('clTrErr').textContent = SAVED.translation_error ? `Перевод недоступен, часть текстов показана на английском. ${SAVED.translation_error}` : '';
@@ -124,7 +124,7 @@ function renderClStatus(){
   $('clSave').disabled = !dirty; $('clDiscard').disabled = !dirty;
   $('clDefault').disabled = !!STANDARD && sigOf(draft) === sigOf(STANDARD);
   const nInc = draft.criteria.filter(c => c.include !== false).length;
-  $('clMeta').innerHTML = `Действует <b>v${SAVED.version}</b>${SAVED.saved_at ? ` · сохранён ${fmtDate(SAVED.saved_at)}` : ' · стандартный чек-лист хакатона'} · файлы ${esc(CONFIG.criteria_dir || 'checklist_iter1')}/ · в оценке ${nInc} из ${draft.criteria.length} критериев`
+  $('clMeta').innerHTML = `Действует <b>v${SAVED.version}</b>${SAVED.saved_at ? ` · сохранён ${fmtDate(SAVED.saved_at)}` : ' · стандартный чек-лист хакатона'} · файлы ${esc(CONFIG.criteria_dir || 'checklists')}/ · в оценке ${nInc} из ${draft.criteria.length} критериев`
     + (dirty ? ' · <span class="unsaved">есть несохранённые изменения</span>' : '');
   $('clDot').hidden = !dirty;
 }
@@ -333,17 +333,17 @@ $('clSave').onclick = async () => {
   const btn = $('clSave'), prev = SAVED.version;
   btn.disabled = true; btn.textContent = 'Сохраняем…';
   try {
-    setSaved(await API.saveChecklist(draft));            // server translates new Russian texts and rewrites checklist_iter1/
+    setSaved(await API.saveChecklist(draft));            // server translates new Russian texts and rewrites checklists/
     openSpecs.forEach(id => { if (!critById(id)) openSpecs.delete(id); });
-    toast(SAVED.version === prev ? `Сохранено в checklist_iter1/. Версия v${SAVED.version}: то, что видит модель, не изменилось`
-                                 : `Чек-лист v${SAVED.version} сохранён в checklist_iter1/. «Оценить диалог» теперь использует его`);
+    toast(SAVED.version === prev ? `Сохранено в checklists/. Версия v${SAVED.version}: то, что видит модель, не изменилось`
+                                 : `Чек-лист v${SAVED.version} сохранён в checklists/. «Оценить диалог» теперь использует его`);
   } catch (e) { toast(e.message); }
   btn.textContent = 'Сохранить чек-лист';
   renderChecklists();
 };
 $('clDiscard').onclick = () => { draft = clone(SAVED); renderChecklists(); toast('Изменения отменены'); };
 $('clDefault').onclick = async () => {
-  if (!await ask('Вернуть стандартный чек-лист?', '<p>Таблица вернётся к восьми критериям хакатона с исходными весами и правилами из checklist_iter1/standard/. Изменение начнёт действовать после сохранения.</p>', 'Вернуть')) return;
+  if (!await ask('Вернуть стандартный чек-лист?', '<p>Таблица вернётся к восьми критериям хакатона с исходными весами и правилами из checklists/standard/. Изменение начнёт действовать после сохранения.</p>', 'Вернуть')) return;
   try { await ensureStandard(); } catch (e) { toast(e.message); return; }
   draft = {...clone(STANDARD), version: SAVED.version, saved_at: SAVED.saved_at, prompt_keys: SAVED.prompt_keys};
   renderChecklists();
@@ -421,10 +421,10 @@ function specHtml(node, path, scope, parent, ro){
   }).join('');
 }
 function specPanel(c, on){
-  if (!c.spec) return `<div class="spec"><p class="sp-hint">Файл checklist_iter1/&lt;id&gt;.json появится после сохранения чек-листа: условие оценки${c.na_allowed ? ', условие Н/П' : ''}${c.answer_type.startsWith('scale') ? ' и описания ступеней' : ''} будут переведены на английский и станут правилами для модели. Потом здесь можно будет править все поля файла.</p></div>`;
+  if (!c.spec) return `<div class="spec"><p class="sp-hint">Файл checklists/&lt;id&gt;.json появится после сохранения чек-листа: условие оценки${c.na_allowed ? ', условие Н/П' : ''}${c.answer_type.startsWith('scale') ? ' и описания ступеней' : ''} будут переведены на английский и станут правилами для модели. Потом здесь можно будет править все поля файла.</p></div>`;
   const saved = SAVED.criteria.find(x => x.id === c.id);
   const typeNote = saved && saved.answer_type !== c.answer_type ? '<p class="sp-hint warn">Тип ответа изменён: после сохранения структура правил обновится под новый тип.</p>' : '';
-  return `<div class="spec"><p class="sp-hint">Файл <b>checklist_iter1/${esc(c.id)}.json</b>. Тексты показаны по-русски; изменённые тексты при сохранении переводятся на английский и записываются в файл. «В промпте» — поле уходит модели, «в расчёте» — по нему judge.py считает ответ.</p>${typeNote}
+  return `<div class="spec"><p class="sp-hint">Файл <b>checklists/${esc(c.id)}.json</b>. Тексты показаны по-русски; изменённые тексты при сохранении переводятся на английский и записываются в файл. «В промпте» — поле уходит модели, «в расчёте» — по нему judge.py считает ответ.</p>${typeNote}
     ${specHtml(c.spec, [], 'crit', null, !on)}</div>`;
 }
 function setIn(obj, path, v){ path.slice(0, -1).reduce((o, k) => o[k], obj)[path.at(-1)] = v; }

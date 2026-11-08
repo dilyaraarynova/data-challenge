@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The checklist as the web UI sees it, stored in checklist_iter1/.
+"""The checklist as the web UI sees it, stored in checklists/.
 
 Source of truth = the criterion files (English, what judge.py sends to the model) + checklist.json
 (checklist name, categories, version history). The UI works in Russian:

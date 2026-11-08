@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-CACHE_PATH = ROOT / "checklist_iter1" / "translations_ru.json"
+CACHE_PATH = ROOT / "checklists" / "translations_ru.json"
 DEFAULT_MODEL = "google/gemma-3-12b-it"
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
 BATCH = 12  # strings per request (batches run in parallel)

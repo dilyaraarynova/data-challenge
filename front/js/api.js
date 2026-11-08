@@ -24,7 +24,7 @@ const API = (() => {
     bootstrap: () => call('GET', 'bootstrap'),
     checklist: () => call('GET', 'checklist'),
     standardChecklist: () => call('GET', 'checklist/standard'),
-    /* writes checklist_iter1/: one JSON file per criterion; returns the saved checklist with its version */
+    /* writes checklists/: one JSON file per criterion; returns the saved checklist with its version */
     saveChecklist: cl => call('PUT', 'checklist', cl),
     evaluations: () => call('GET', 'evaluations'),
     /* runs judge.py for the dialogues with the saved checklist; returns a job, poll it with job() */

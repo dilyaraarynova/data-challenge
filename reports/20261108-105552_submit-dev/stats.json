@@ -1,0 +1,173 @@
+{
+  "run": {
+    "started": "2026-11-08T10:55:52",
+    "input": "dialogues.json",
+    "criteria": [
+      "contact",
+      "needs",
+      "identification",
+      "consultation",
+      "empathy",
+      "dialogue_management",
+      "closing",
+      "gross_errors"
+    ],
+    "dialogues": 65,
+    "models": [
+      "deepseek/deepseek-v4.1-flash-1017"
+    ],
+    "workers": 8,
+    "submit": "dev"
+  },
+  "models": {
+    "deepseek/deepseek-v4.1-flash-1017": {
+      "jobs": 520,
+      "api_calls": 520,
+      "input_tokens": 967644,
+      "output_tokens": 650414,
+      "total_tokens": 1618058,
+      "cost_usd": 0.429771,
+      "jobs_without_cost": 0,
+      "latency_s": {
+        "total": 2762.79,
+        "mean": 5.31,
+        "median": 3.59,
+        "p95": 12.65,
+        "max": 319.19
+      },
+      "wall_time_s": 540.36,
+      "dialogues": 65,
+      "cost_per_dialogue_usd": 0.006612,
+      "per_criterion": {
+        "closing": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 114930,
+          "output_tokens": 48160,
+          "total_tokens": 163090,
+          "cost_usd": 0.03833,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 230.39,
+            "mean": 3.54,
+            "median": 2.71,
+            "p95": 5.59,
+            "max": 25.42
+          }
+        },
+        "consultation": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 169281,
+          "output_tokens": 131695,
+          "total_tokens": 300976,
+          "cost_usd": 0.087045,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 538.26,
+            "mean": 8.28,
+            "median": 6.1,
+            "p95": 21.21,
+            "max": 27.61
+          }
+        },
+        "contact": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 101801,
+          "output_tokens": 20824,
+          "total_tokens": 122625,
+          "cost_usd": 0.016803,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 106.31,
+            "mean": 1.64,
+            "median": 1.52,
+            "p95": 2.32,
+            "max": 3.59
+          }
+        },
+        "dialogue_management": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 160294,
+          "output_tokens": 197976,
+          "total_tokens": 358270,
+          "cost_usd": 0.117026,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 715.58,
+            "mean": 11.01,
+            "median": 4.96,
+            "p95": 15.13,
+            "max": 319.19
+          }
+        },
+        "empathy": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 92960,
+          "output_tokens": 65511,
+          "total_tokens": 158471,
+          "cost_usd": 0.041675,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 292.25,
+            "mean": 4.5,
+            "median": 3.45,
+            "p95": 9.33,
+            "max": 20.11
+          }
+        },
+        "gross_errors": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 98465,
+          "output_tokens": 30986,
+          "total_tokens": 129451,
+          "cost_usd": 0.023209,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 184.11,
+            "mean": 2.83,
+            "median": 2.1,
+            "p95": 5.67,
+            "max": 16.52
+          }
+        },
+        "identification": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 123198,
+          "output_tokens": 62751,
+          "total_tokens": 185949,
+          "cost_usd": 0.041535,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 304.99,
+            "mean": 4.69,
+            "median": 3.63,
+            "p95": 10.01,
+            "max": 25.82
+          }
+        },
+        "needs": {
+          "jobs": 65,
+          "api_calls": 65,
+          "input_tokens": 106715,
+          "output_tokens": 92511,
+          "total_tokens": 199226,
+          "cost_usd": 0.064149,
+          "jobs_without_cost": 0,
+          "latency_s": {
+            "total": 390.91,
+            "mean": 6.01,
+            "median": 4.96,
+            "p95": 12.1,
+            "max": 29.99
+          }
+        }
+      }
+    }
+  }
+}

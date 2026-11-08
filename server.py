@@ -5,16 +5,17 @@
     python server.py --port 8080 --workers 8
 
 Files it reads and writes
-  dialogues.json            dialogues (read only)            audio_urls.json  audio link per voice call (read only)
-  checklist_iter1/*.json    criteria the judge runs           (checklist_store.py; translations_ru.json = RU cache)
+  dialogues/<set>.json      dialogues of every set: dev, prod, swap, ... (read only; each record gets `dataset`)
+  audio_urls.json           audio link per voice call (read only)
+  checklists/*.json    criteria the judge runs           (checklist_store.py; translations_ru.json = RU cache)
   judge_results.json        judge.py results per dialogue     (runs[model].results + evaluations index)
   reviews.json              appeals and reviewer decisions
 
 API (all JSON)
   GET  /api/bootstrap                 everything the UI needs at start
   GET  /api/checklist                 current checklist (UI shape, Russian)
-  PUT  /api/checklist                 save the checklist -> rewrites checklist_iter1/
-  GET  /api/checklist/standard        the standard hackathon checklist (checklist_iter1/standard/)
+  PUT  /api/checklist                 save the checklist -> rewrites checklists/
+  GET  /api/checklist/standard        the standard hackathon checklist (checklists/standard/)
   GET  /api/evaluations               evaluations of all dialogues (UI shape)
   POST /api/evaluate {"ids": [...]}   run judge.py on these dialogues with the saved checklist -> job
   GET  /api/jobs/<id>                 progress of a judge job
@@ -43,7 +44,6 @@ FRONT = ROOT / "front"
 RESULTS_PATH = ROOT / "judge_results.json"
 REVIEWS_PATH = ROOT / "reviews.json"
 AUDIO_PATH = ROOT / "audio_urls.json"
-DIALOGUES_PATH = ROOT / "dialogues.json"
 
 
 def now():
@@ -64,7 +64,23 @@ def write(path, obj):
 
 
 # --------------------------------------------------------------------------- dialogues
-RECORDS = judge.load_records(DIALOGUES_PATH)
+def load_dialogues():
+    """All records of dialogues/*.json, each tagged with its set name. A conversation_id present in two sets is
+    kept once (first set wins: dev, then alphabetical) and reported."""
+    out, seen = [], {}
+    for name, recs in judge.load_all_records().items():
+        for r in recs:
+            cid = r["conversation_id"]
+            if cid in seen:
+                print(f"WARNING: {cid} is in both {seen[cid]} and {name}; showing the {seen[cid]} copy",
+                      file=sys.stderr)
+                continue
+            seen[cid] = name
+            out.append({**r, "dataset": name})
+    return out
+
+
+RECORDS = load_dialogues()
 BY_ID = {r["conversation_id"]: r for r in RECORDS}
 BOILER = judge.boilerplate_texts(RECORDS)
 

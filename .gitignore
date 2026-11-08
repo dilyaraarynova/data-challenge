@@ -1,3 +1,6 @@
 .env
 __pycache__/
 context/
+# reference material and presentation assets (not part of the solution)
+*.pdf
+docs/

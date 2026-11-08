@@ -1,5 +1,5 @@
 /* ---------------- dialogue list ---------------- */
-const listState = {q: '', channel: 'all', language: 'all', status: 'all', sort: 'score', dir: -1};
+const listState = {q: '', dataset: 'all', channel: 'all', language: 'all', status: 'all', sort: 'score', dir: -1};
 const selected = new Set();                 // dialogues ticked for «Оценить выбранные»
 let visibleIds = [];
 const CH_ICON = {
@@ -9,7 +9,7 @@ function rowInfo(r){
   const tr = r.transcript, t0 = parseTs(tr[0].timestamp);
   const length = Math.max(...tr.map(m => parseTs(m.timestamp) - t0));
   const first = tr.find(m => m.speaker === 'client');
-  return {id: r.conversation_id, channel: r.channel, language: r.language, length, preview: first ? first.text : '', sum: summaryOf(r.conversation_id),
+  return {id: r.conversation_id, dataset: r.dataset || '', channel: r.channel, language: r.language, length, preview: first ? first.text : '', sum: summaryOf(r.conversation_id),
           text: tr.map(m => m.text).join(' ').toLowerCase()};
 }
 function statusMatch(s, f){
@@ -18,11 +18,13 @@ function statusMatch(s, f){
 }
 function renderFilters(rows){
   const count = (key, val) => rows.filter(r => val === 'all' || r[key] === val).length;
+  const sets = [...new Set(rows.map(r => r.dataset).filter(Boolean))];   // dialogues/<set>.json: dev, prod, swap…
   const groups = [
+    ...(sets.length > 1 ? [['Набор', 'dataset', [['all','Все'], ...sets.map(s => [s, s.toUpperCase()])]]] : []),
     ['Канал', 'channel', [['all','Все'], ['agent chat','Чаты'], ['voice call','Звонки']]],
     ['Язык', 'language', [['all','Все'], ['RU','RU'], ['KZ','KZ'], ['EN','EN']]],
     ['Статус', 'status', [['all','Все'], ['evaluated','Оценены'], ['pending','Без оценки'], ['gross','Грубая ошибка'], ['appeal','Апелляция'], ['outdated','Старый чек-лист']]]];
-  const active = listState.channel !== 'all' || listState.language !== 'all' || listState.status !== 'all' || listState.q;
+  const active = listState.dataset !== 'all' || listState.channel !== 'all' || listState.language !== 'all' || listState.status !== 'all' || listState.q;
   $('filters').innerHTML = groups.map(([label, key, opts]) => `<div class="fgroup ${key}" role="group" aria-label="${label}"><span class="fl">${label}</span><div class="seg">${
     opts.map(([v, l]) => {
       const n = key === 'status' ? rows.filter(r => statusMatch(r.sum, v)).length : count(key, v);
@@ -41,7 +43,8 @@ function renderList(){
   const all = DATA.dialogues.map(rowInfo);
   renderFilters(all);
   const q = listState.q.trim().toLowerCase();
-  let rows = all.filter(r => (listState.channel === 'all' || r.channel === listState.channel)
+  let rows = all.filter(r => (listState.dataset === 'all' || r.dataset === listState.dataset)
+    && (listState.channel === 'all' || r.channel === listState.channel)
     && (listState.language === 'all' || r.language === listState.language)
     && statusMatch(r.sum, listState.status)
     && (!q || r.id.toLowerCase().includes(q) || r.text.includes(q)));
@@ -122,4 +125,4 @@ document.querySelectorAll('.dlg-table th[data-sort]').forEach(th => th.onclick =
   listState.sort = k; renderList();
 });
 $('q').addEventListener('input', e => { listState.q = e.target.value; renderList(); });
-$('fReset').onclick = () => { Object.assign(listState, {channel:'all', language:'all', status:'all', q:''}); $('q').value = ''; renderList(); };
+$('fReset').onclick = () => { Object.assign(listState, {dataset:'all', channel:'all', language:'all', status:'all', q:''}); $('q').value = ''; renderList(); };

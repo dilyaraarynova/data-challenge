@@ -1371,7 +1371,7 @@ async function api(path, opts = {}){
 }
 const clone = o => JSON.parse(JSON.stringify(o));
 const TYPES = {yes_no: 'Да / Нет', yes_no_na: 'Да / Нет / Н/П', scale: 'Шкала', scale_na: 'Шкала / Н/П', flag: 'Флаг, без баллов'};
-/* "How we check": per-criterion yes/no questions for the judge (same idea as conditions[] / subcriteria in checklist_iter1/*.json).
+/* "How we check": per-criterion yes/no questions for the judge (same idea as conditions[] / subcriteria in checklists/*.json).
    yes_no: all must hold -> Да. flag: any holds -> violation. scale: checked in order; the score is the pass_score of the last condition reached by consecutive "yes" answers (lowest step if the first is "no"). */
 const SEED = {
   c01_contact: {c: ['В первом ответе оператор поздоровался', 'Приветствие на языке клиента', 'Оператор назвал своё имя (одного названия компании недостаточно)']},
