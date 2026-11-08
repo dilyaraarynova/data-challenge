@@ -1,0 +1,2335 @@
+{
+  "run": {
+    "started": "2026-11-08T11:59:17",
+    "input": "dialogues/swap.json",
+    "criteria": [
+      "contact",
+      "needs",
+      "identification",
+      "consultation",
+      "empathy",
+      "dialogue_management",
+      "closing",
+      "gross_errors"
+    ],
+    "dialogues": 3,
+    "models": [
+      "deepseek/deepseek-v4.1-flash-1017"
+    ],
+    "workers": 8,
+    "submit": null
+  },
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "output_mode": "json_schema",
+  "stats": {
+    "jobs": 24,
+    "api_calls": 24,
+    "input_tokens": 42863,
+    "output_tokens": 21283,
+    "total_tokens": 64146,
+    "cost_usd": 0.014718,
+    "jobs_without_cost": 0,
+    "latency_s": {
+      "total": 91.88,
+      "mean": 3.83,
+      "median": 3.56,
+      "p95": 7.19,
+      "max": 10.52
+    },
+    "wall_time_s": 13.81,
+    "dialogues": 3,
+    "cost_per_dialogue_usd": 0.004906,
+    "per_criterion": {
+      "closing": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 5243,
+        "output_tokens": 2476,
+        "total_tokens": 7719,
+        "cost_usd": 0.001319,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 8.99,
+          "mean": 3.0,
+          "median": 2.51,
+          "p95": 4.88,
+          "max": 4.88
+        }
+      },
+      "consultation": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 8081,
+        "output_tokens": 3667,
+        "total_tokens": 11748,
+        "cost_usd": 0.002342,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 19.81,
+          "mean": 6.6,
+          "median": 5.24,
+          "p95": 10.52,
+          "max": 10.52
+        }
+      },
+      "contact": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 4679,
+        "output_tokens": 851,
+        "total_tokens": 5530,
+        "cost_usd": 0.001379,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 4.84,
+          "mean": 1.61,
+          "median": 1.42,
+          "p95": 2.38,
+          "max": 2.38
+        }
+      },
+      "dialogue_management": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 6907,
+        "output_tokens": 3640,
+        "total_tokens": 10547,
+        "cost_usd": 0.003049,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 12.97,
+          "mean": 4.32,
+          "median": 4.58,
+          "p95": 4.83,
+          "max": 4.83
+        }
+      },
+      "empathy": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 3919,
+        "output_tokens": 2810,
+        "total_tokens": 6729,
+        "cost_usd": 0.001818,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 10.14,
+          "mean": 3.38,
+          "median": 2.93,
+          "p95": 4.62,
+          "max": 4.62
+        }
+      },
+      "gross_errors": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 4012,
+        "output_tokens": 1490,
+        "total_tokens": 5502,
+        "cost_usd": 0.001107,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 6.95,
+          "mean": 2.32,
+          "median": 2.66,
+          "p95": 2.76,
+          "max": 2.76
+        }
+      },
+      "identification": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 5206,
+        "output_tokens": 2486,
+        "total_tokens": 7692,
+        "cost_usd": 0.001413,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 11.31,
+          "mean": 3.77,
+          "median": 3.29,
+          "p95": 5.08,
+          "max": 5.08
+        }
+      },
+      "needs": {
+        "jobs": 3,
+        "api_calls": 3,
+        "input_tokens": 4816,
+        "output_tokens": 3863,
+        "total_tokens": 8679,
+        "cost_usd": 0.00229,
+        "jobs_without_cost": 0,
+        "latency_s": {
+          "total": 16.87,
+          "mean": 5.62,
+          "median": 6.01,
+          "p95": 7.19,
+          "max": 7.19
+        }
+      }
+    }
+  },
+  "totals": {
+    "p3-ru-001": 93.08,
+    "p3-kz-001": 32.31,
+    "p3-en-001": 94.38
+  },
+  "results": [
+    {
+      "weight": 10,
+      "step": null,
+      "answer": "yes",
+      "points": 10,
+      "conditions": {
+        "greeted": true,
+        "client_language": true,
+        "introduced_self": true
+      },
+      "criterion": "contact",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "conditions": {
+          "client_language": {
+            "evidence": {
+              "index": 10,
+              "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker.",
+              "timestamp": "01:22"
+            },
+            "explanation": "Клиент пишет на русском языке, и приветствие оператора также на русском.",
+            "value": true
+          },
+          "greeted": {
+            "evidence": {
+              "index": 10,
+              "quote": "Здравствуйте!",
+              "timestamp": "01:22"
+            },
+            "explanation": "Первое сообщение оператора [10] начинается с приветствия «Здравствуйте!»; приветствие бота [4] не учитывается.",
+            "value": true
+          },
+          "introduced_self": {
+            "evidence": {
+              "index": 10,
+              "quote": "Меня зовут Дарья, поддержка Freedom Broker.",
+              "timestamp": "01:22"
+            },
+            "explanation": "Оператор называет своё имя в первом же ответе, дополнительно указывая компанию.",
+            "value": true
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1371,
+        "completion": 328,
+        "cost": 0.000187426,
+        "latency_s": 2.3834411669522524,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Первое сообщение оператора [10] начинается с приветствия «Здравствуйте!»; приветствие бота [4] не учитывается. Клиент пишет на русском языке, и приветствие оператора также на русском. Оператор называет своё имя в первом же ответе, дополнительно указывая компанию.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "greeted",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Здравствуйте!"
+        },
+        {
+          "item": "client_language",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker."
+        },
+        {
+          "item": "introduced_self",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Меня зовут Дарья, поддержка Freedom Broker."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "na",
+      "points": null,
+      "criterion": "needs",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "na_gate": {
+          "value": true,
+          "explanation": "Клиент сразу указал, что нужен брокерский отчёт за прошлый месяц и где он искал; бот уже назвал раздел «Отчёты и документы», поэтому для ответа не требовалось дополнительных уточнений.",
+          "evidence": {
+            "index": 1,
+            "timestamp": "00:00",
+            "quote": "Где в приложении скачать брокерский отчёт за прошлый месяц?"
+          }
+        },
+        "conditions": {
+          "used_known_details": {
+            "value": true,
+            "explanation": "Оператор не переспрашивала уже известные данные (период и раздел), а сразу дала точный путь к отчёту.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+            }
+          },
+          "clarified_before_answer": {
+            "value": true,
+            "explanation": "Недостающей для корректного ответа информации не было; оператор ответила без лишних уточняющих вопросов.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1832,
+        "completion": 1309,
+        "cost": 0.000784836,
+        "latency_s": 7.19029691698961,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": null,
+      "rationale": "Клиент сразу указал, что нужен брокерский отчёт за прошлый месяц и где он искал; бот уже назвал раздел «Отчёты и документы», поэтому для ответа не требовалось дополнительных уточнений.",
+      "evidence_turns": [
+        1
+      ],
+      "evidence": [
+        {
+          "item": "na_gate",
+          "turns": [
+            1
+          ],
+          "timestamps": [
+            "00:00"
+          ],
+          "speaker": "client",
+          "quote": "Где в приложении скачать брокерский отчёт за прошлый месяц?"
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": null,
+      "answer": "na",
+      "points": null,
+      "criterion": "identification",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "conditions": {
+          "confirmed_before_disclosure": {
+            "evidence": {
+              "index": 10,
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера».",
+              "timestamp": "01:22"
+            },
+            "explanation": "Подтверждения верификации не было ни до, ни после ответа оператора; при этом раскрытия защищённых данных не произошло, поэтому условие не выполнено.",
+            "value": false
+          },
+          "verification_confirmed": {
+            "evidence": {
+              "index": 10,
+              "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker.",
+              "timestamp": "01:22"
+            },
+            "explanation": "В чате нет ни системного события верификации, ни явного подтверждения успешной идентификации от оператора.",
+            "value": false
+          },
+          "verification_initiated": {
+            "evidence": {
+              "index": 10,
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера».",
+              "timestamp": "01:22"
+            },
+            "explanation": "Оператор сразу дал навигационную инструкцию, не запрашивая идентификацию, и системных событий верификации в чате нет.",
+            "value": false
+          }
+        },
+        "na_gate": {
+          "evidence": {
+            "index": 10,
+            "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера».",
+            "timestamp": "01:22"
+          },
+          "explanation": "Оператор только объяснил навигацию по приложению для самостоятельного скачивания отчёта; данные счёта не раскрывались и действий по счёту не выполнялось.",
+          "value": true
+        }
+      },
+      "usage": {
+        "prompt": 1690,
+        "completion": 671,
+        "cost": 0.00037088,
+        "latency_s": 3.2928896660450846,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": null,
+      "rationale": "Оператор только объяснил навигацию по приложению для самостоятельного скачивания отчёта; данные счёта не раскрывались и действий по счёту не выполнялось.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "na_gate",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": 20,
+      "answer": "20",
+      "points": 20.0,
+      "passed": {
+        "4.1": true,
+        "4.2": true,
+        "4.3": true,
+        "4.4": true,
+        "4.5": true
+      },
+      "criterion": "consultation",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "client_questions": [
+          {
+            "text": "Где в приложении скачать брокерский отчёт за прошлый месяц (в разделе с портфелем не находит)",
+            "tag": "main"
+          },
+          {
+            "text": "Что выбрать дальше после открытия раздела отчётов (уточнение по шагам)",
+            "tag": "material"
+          }
+        ],
+        "na_gate": {
+          "value": false,
+          "explanation": "Клиент сформулировал конкретный запрос о том, где скачать брокерский отчёт за прошлый месяц, и запросил оператора для уточнения дальнейших шагов.",
+          "evidence": {
+            "index": 1,
+            "timestamp": "00:00",
+            "quote": "Где в приложении скачать брокерский отчёт за прошлый месяц? В разделе с портфелем не вижу."
+          }
+        },
+        "subcriteria": {
+          "4.1": {
+            "passed": true,
+            "explanation": "Оператор дал конкретный путь в приложении и следующий шаг — выбор периода и скачивание отчёта.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+            }
+          },
+          "4.2": {
+            "passed": true,
+            "explanation": "Рекомендация процедурно корректна: отчёт брокера находится в разделе «Отчёты и документы», формируется за выбранный период; ошибок в ключевой рекомендации нет.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Выберите нужный период и скачайте отчёт. Этот документы будет за выбранные даты."
+            }
+          },
+          "4.3": {
+            "passed": true,
+            "explanation": "Клиент получил пошаговую инструкцию и подтвердил, что успешно скачал отчёт.",
+            "evidence": {
+              "index": 13,
+              "timestamp": "02:37",
+              "quote": "Скачал, всё получилось."
+            }
+          },
+          "4.4": {
+            "passed": true,
+            "explanation": "Основной вопрос (где скачать отчёт) и уточнение о дальнейших шагах (выбор периода) закрыты, клиент подтвердил результат.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Выберите нужный период и скачайте отчёт."
+            }
+          },
+          "4.5": {
+            "passed": true,
+            "explanation": "Оператор пояснил, что документ формируется за выбранные даты, то есть охватил релевантную второстепенную деталь о периоде отчёта.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Этот документы будет за выбранные даты."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 2364,
+        "completion": 995,
+        "cost": 0.001069296,
+        "latency_s": 4.052282374992501,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 20,
+      "rationale": "Оператор дал конкретный путь в приложении и следующий шаг — выбор периода и скачивание отчёта. Рекомендация процедурно корректна: отчёт брокера находится в разделе «Отчёты и документы», формируется за выбранный период; ошибок в ключевой рекомендации нет. Клиент получил пошаговую инструкцию и подтвердил, что успешно скачал отчёт. Основной вопрос (где скачать отчёт) и уточнение о дальнейших шагах (выбор периода) закрыты, клиент подтвердил результат. Оператор пояснил, что документ формируется за выбранные даты, то есть охватил релевантную второстепенную деталь о периоде отчёта.",
+      "evidence_turns": [
+        10,
+        12,
+        13
+      ],
+      "evidence": [
+        {
+          "item": "4.1",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+        },
+        {
+          "item": "4.2",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:05"
+          ],
+          "speaker": "operator",
+          "quote": "Выберите нужный период и скачайте отчёт. Этот документы будет за выбранные даты."
+        },
+        {
+          "item": "4.3",
+          "turns": [
+            13
+          ],
+          "timestamps": [
+            "02:37"
+          ],
+          "speaker": "client",
+          "quote": "Скачал, всё получилось."
+        },
+        {
+          "item": "4.4",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:05"
+          ],
+          "speaker": "operator",
+          "quote": "Выберите нужный период и скачайте отчёт."
+        },
+        {
+          "item": "4.5",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:05"
+          ],
+          "speaker": "operator",
+          "quote": "Этот документы будет за выбранные даты."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "yes",
+      "points": 15,
+      "conditions": {
+        "polite": true,
+        "client_dissatisfied": true,
+        "reacted_to_problem": true
+      },
+      "criterion": "empathy",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "conditions": {
+          "client_dissatisfied": {
+            "evidence": {
+              "index": 1,
+              "quote": "В разделе с портфелем не вижу.",
+              "timestamp": "00:00"
+            },
+            "explanation": "Клиент сообщил о затруднении: не может найти отчёт в разделе с портфелем, что является описанным неудобством.",
+            "value": true
+          },
+          "polite": {
+            "evidence": {
+              "index": 10,
+              "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker.",
+              "timestamp": "01:22"
+            },
+            "explanation": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента.",
+            "value": true
+          },
+          "reacted_to_problem": {
+            "evidence": {
+              "index": 10,
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера».",
+              "timestamp": "01:22"
+            },
+            "explanation": "Оператор конкретно отреагировал на проблему клиента: дал точный путь к разделу и пояснил, как выбрать период и скачать отчёт.",
+            "value": true
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1261,
+        "completion": 657,
+        "cost": 0.000358414,
+        "latency_s": 2.9259952920256183,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Все сообщения оператора вежливые, без грубости, сарказма или обвинений в адрес клиента. Оператор конкретно отреагировал на проблему клиента: дал точный путь к разделу и пояснил, как выбрать период и скачать отчёт.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "polite",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker."
+        },
+        {
+          "item": "reacted_to_problem",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": 7,
+      "answer": "7",
+      "points": 10.5,
+      "passed": {
+        "6.1": true,
+        "6.2": true,
+        "6.3": true,
+        "6.4": null,
+        "6.5": false
+      },
+      "criterion": "dialogue_management",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "subcriteria": {
+          "6.1": {
+            "passed": true,
+            "explanation": "Ответы оператора последовательны и не противоречат друг другу: сначала указан путь к отчёту, затем уточнён выбор периода.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+            }
+          },
+          "6.2": {
+            "passed": true,
+            "explanation": "Клиент не переспрашивал из-за формулировок оператора, а сразу подтвердил успешное скачивание.",
+            "evidence": {
+              "index": 13,
+              "timestamp": "02:37",
+              "quote": "Скачал, всё получилось."
+            }
+          },
+          "6.3": {
+            "passed": true,
+            "explanation": "Оператор ответил на вопрос клиента по порядку: дал путь к разделу, а после уточнения клиента про окно с датами объяснил, что делать дальше.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Выберите нужный период и скачайте отчёт."
+            }
+          },
+          "6.4": {
+            "applies": false,
+            "passed": true,
+            "explanation": "Оператор не объявлял проверку информации, события удержания в чате нет, а паузы в диалоге не превышают 120 секунд; ожидание подключения оператора было озвучено ботом.",
+            "evidence": null
+          },
+          "6.5": {
+            "passed": false,
+            "explanation": "В сообщении оператора есть грамматическая ошибка согласования: «Этот документы будет».",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Этот документы будет за выбранные даты."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 2257,
+        "completion": 859,
+        "cost": 0.000958671,
+        "latency_s": 3.5624275830341503,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 7,
+      "rationale": "В сообщении оператора есть грамматическая ошибка согласования: «Этот документы будет».",
+      "evidence_turns": [
+        12
+      ],
+      "evidence": [
+        {
+          "item": "6.5",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:05"
+          ],
+          "speaker": "operator",
+          "quote": "Этот документы будет за выбранные даты."
+        }
+      ]
+    },
+    {
+      "weight": 5,
+      "step": null,
+      "answer": "yes",
+      "points": 5,
+      "conditions": {
+        "summary_or_help": true,
+        "farewell": true
+      },
+      "criterion": "closing",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "conditions": {
+          "farewell": {
+            "evidence": {
+              "index": 14,
+              "quote": "До свидания!",
+              "timestamp": "02:53"
+            },
+            "explanation": "Оператор попрощалась с клиентом в финальном сообщении.",
+            "value": true
+          },
+          "summary_or_help": {
+            "evidence": {
+              "index": 14,
+              "quote": "Рада, что получилось.",
+              "timestamp": "02:53"
+            },
+            "explanation": "Оператор подтвердила успешный результат обращения, зафиксировав итог.",
+            "value": true
+          }
+        },
+        "na_gate": {
+          "evidence": {
+            "index": 14,
+            "quote": "До свидания!",
+            "timestamp": "02:53"
+          },
+          "explanation": "Клиент не завершал чат досрочно: после его последнего сообщения [13] у оператора был ход [14], и чат закрыт оператором.",
+          "value": false
+        }
+      },
+      "usage": {
+        "prompt": 1559,
+        "completion": 1248,
+        "cost": 0.00065835,
+        "latency_s": 4.876221957965754,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Оператор подтвердила успешный результат обращения, зафиксировав итог. Оператор попрощалась с клиентом в финальном сообщении.",
+      "evidence_turns": [
+        14
+      ],
+      "evidence": [
+        {
+          "item": "summary_or_help",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "02:53"
+          ],
+          "speaker": "operator",
+          "quote": "Рада, что получилось."
+        },
+        {
+          "item": "farewell",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "02:53"
+          ],
+          "speaker": "operator",
+          "quote": "До свидания!"
+        }
+      ]
+    },
+    {
+      "weight": 0,
+      "step": null,
+      "answer": "no",
+      "points": null,
+      "conditions": {
+        "insult": false,
+        "bypass_paid_offer": false,
+        "confidential_disclosure": false
+      },
+      "criterion": "gross_errors",
+      "conversation_id": "p3-ru-001",
+      "raw": {
+        "conditions": {
+          "insult": {
+            "value": false,
+            "explanation": "Оператор общался вежливо и доброжелательно, без оскорблений, насмешек или унижения клиента.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker."
+            }
+          },
+          "bypass_paid_offer": {
+            "value": false,
+            "explanation": "Оператор не предлагал платных услуг в обход компании, личных переводов или консультаций за деньги.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:05",
+              "quote": "Выберите нужный период и скачайте отчёт."
+            }
+          },
+          "confidential_disclosure": {
+            "value": false,
+            "explanation": "Оператор не раскрывал данные других клиентов, внутреннюю информацию компании или защищённые данные клиента. Проверены все сообщения оператора.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:22",
+              "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1292,
+        "completion": 459,
+        "cost": 0.00055488,
+        "latency_s": 2.756571708014235,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": false,
+      "rationale": "Оператор общался вежливо и доброжелательно, без оскорблений, насмешек или унижения клиента. Оператор не предлагал платных услуг в обход компании, личных переводов или консультаций за деньги. Оператор не раскрывал данные других клиентов, внутреннюю информацию компании или защищённые данные клиента. Проверены все сообщения оператора.",
+      "evidence_turns": [
+        10,
+        12
+      ],
+      "evidence": [
+        {
+          "item": "insult",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Здравствуйте! Меня зовут Дарья, поддержка Freedom Broker."
+        },
+        {
+          "item": "bypass_paid_offer",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:05"
+          ],
+          "speaker": "operator",
+          "quote": "Выберите нужный период и скачайте отчёт."
+        },
+        {
+          "item": "confidential_disclosure",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:22"
+          ],
+          "speaker": "operator",
+          "quote": "Откройте «Меню → Отчёты и документы → Отчёт брокера»."
+        }
+      ]
+    },
+    {
+      "weight": 10,
+      "step": null,
+      "answer": "yes",
+      "points": 10,
+      "conditions": {
+        "greeted": true,
+        "client_language": true,
+        "introduced_self": true
+      },
+      "criterion": "contact",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "conditions": {
+          "greeted": {
+            "value": true,
+            "explanation": "Первая реплика оператора [10] начинается с приветствия на казахском языке.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Сәлеметсіз бе"
+            }
+          },
+          "client_language": {
+            "value": true,
+            "explanation": "Клиент пишет на казахском языке, и приветствие оператора также на казахском.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Сәлеметсіз бе, менің атым Жанат."
+            }
+          },
+          "introduced_self": {
+            "value": true,
+            "explanation": "Оператор называет своё имя в первой же реплике.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "менің атым Жанат"
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1954,
+        "completion": 222,
+        "cost": 0.000777336,
+        "latency_s": 1.03376100002788,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Первая реплика оператора [10] начинается с приветствия на казахском языке. Клиент пишет на казахском языке, и приветствие оператора также на казахском. Оператор называет своё имя в первой же реплике.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "greeted",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:44"
+          ],
+          "speaker": "operator",
+          "quote": "Сәлеметсіз бе"
+        },
+        {
+          "item": "client_language",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:44"
+          ],
+          "speaker": "operator",
+          "quote": "Сәлеметсіз бе, менің атым Жанат."
+        },
+        {
+          "item": "introduced_self",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:44"
+          ],
+          "speaker": "operator",
+          "quote": "менің атым Жанат"
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "na",
+      "points": null,
+      "criterion": "needs",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "conditions": {
+          "clarified_before_answer": {
+            "evidence": {
+              "index": 10,
+              "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз.",
+              "timestamp": "01:44"
+            },
+            "explanation": "Сұрақ жалпы сипатта болды (қосымшада тикер бойынша іздеу және өтінім жіберу тәртібі), жауап беру үшін қосымша деректер қажет болмады, сондықтан нақтылау сұралмады — бұл дұрыс.",
+            "value": true
+          },
+          "used_known_details": {
+            "evidence": {
+              "index": 10,
+              "quote": "Іздеу жолағына облигацияның тикерін жазыңыз.",
+              "timestamp": "01:44"
+            },
+            "explanation": "Оператор клиенттің сұрағындағы «тикер» және «Қосымша» деректерін пайдаланып, қайталап сұрамады.",
+            "value": true
+          }
+        },
+        "na_gate": {
+          "evidence": {
+            "index": 1,
+            "quote": "Қосымшада облигацияны тикерімен қалай табамын? Тапқаннан кейін сатып алуға өтінімді қалай жіберемін?",
+            "timestamp": "00:00"
+          },
+          "explanation": "Клиент сұрағын бірінші хабарламада нақты тұжырымдады: қосымшада тикер бойынша іздеу және сатып алуға өтінім жіберу тәртібі; жауап беру үшін қосымша деректер қажет емес еді.",
+          "value": true
+        }
+      },
+      "usage": {
+        "prompt": 1577,
+        "completion": 1111,
+        "cost": 0.000598654,
+        "latency_s": 3.6749590419931337,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": null,
+      "rationale": "Клиент сұрағын бірінші хабарламада нақты тұжырымдады: қосымшада тикер бойынша іздеу және сатып алуға өтінім жіберу тәртібі; жауап беру үшін қосымша деректер қажет емес еді.",
+      "evidence_turns": [
+        1
+      ],
+      "evidence": [
+        {
+          "item": "na_gate",
+          "turns": [
+            1
+          ],
+          "timestamps": [
+            "00:00"
+          ],
+          "speaker": "client",
+          "quote": "Қосымшада облигацияны тикерімен қалай табамын? Тапқаннан кейін сатып алуға өтінімді қалай жіберемін?"
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": null,
+      "answer": "na",
+      "points": null,
+      "criterion": "identification",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "na_gate": {
+          "value": true,
+          "explanation": "Оператор только объяснял навигацию по приложению и порядок действий; данные счёта не раскрывались и защищённые действия не выполнялись.",
+          "evidence": {
+            "index": 10,
+            "timestamp": "01:44",
+            "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз."
+          }
+        },
+        "conditions": {
+          "verification_initiated": {
+            "value": false,
+            "explanation": "Оператор не запрашивал верификацию, и в чате нет системного события о начале верификации.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Сәлеметсіз бе, менің атым Жанат. Қосымшадан «Котировки» бөлімі ашыңыз."
+            }
+          },
+          "verification_confirmed": {
+            "value": false,
+            "explanation": "Успешная верификация не подтверждена ни системным событием, ни явным сообщением оператора.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Сәлеметсіз бе, менің атым Жанат. Қосымшадан «Котировки» бөлімі ашыңыз."
+            }
+          },
+          "confirmed_before_disclosure": {
+            "value": false,
+            "explanation": "Подтверждения верификации до первого раскрытия защищённых данных или действия не было; раскрытия данных в чате также не происходило.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1843,
+        "completion": 1188,
+        "cost": 0.000694395,
+        "latency_s": 5.08442016702611,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": null,
+      "rationale": "Оператор только объяснял навигацию по приложению и порядок действий; данные счёта не раскрывались и защищённые действия не выполнялись.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "na_gate",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:44"
+          ],
+          "speaker": "operator",
+          "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз."
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": 0,
+      "answer": "0",
+      "points": 0.0,
+      "passed": {
+        "4.1": false,
+        "4.2": null,
+        "4.3": null,
+        "4.4": null,
+        "4.5": null
+      },
+      "criterion": "consultation",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "client_questions": [
+          {
+            "text": "Қосымшада облигацияны тикерімен қалай табамын?",
+            "tag": "main"
+          },
+          {
+            "text": "Тапқаннан кейін сатып алуға өтінімді қалай жіберемін?",
+            "tag": "main"
+          }
+        ],
+        "na_gate": {
+          "value": false,
+          "explanation": "Клиент нақты сұрақтар қойып, операторға қосылуды сұрады, сондықтан N/A шарты орындалмайды.",
+          "evidence": {
+            "index": 1,
+            "timestamp": "00:00",
+            "quote": "Қосымшада облигацияны тикерімен қалай табамын? Тапқаннан кейін сатып алуға өтінімді қалай жіберемін?"
+          }
+        },
+        "subcriteria": {
+          "4.1": {
+            "passed": false,
+            "explanation": "Оператор тикер бойынша іздеуді түсіндірді, бірақ өтінім жіберу туралы негізгі сұраққа нақты жауап бермеді, тек іздеу нәтижесін қайталады.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:37",
+              "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз."
+            }
+          },
+          "4.2": {
+            "passed": true,
+            "explanation": "Берілген нұсқаулық («Котировки» бөлімі, іздеу жолағына тикерді жазу) дұрыс және компания процесіне қайшы келмейді.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз."
+            }
+          },
+          "4.3": {
+            "passed": false,
+            "explanation": "Клиент өтінімді қалай жіберу керектігін білмейді, оператор түсіндірмей чатты жапты.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:12",
+              "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!"
+            }
+          },
+          "4.4": {
+            "passed": false,
+            "explanation": "Өтінім жіберу туралы негізгі сұрақ ашық қалды, клиент оны қайта сұрағанымен жауап берілмеді.",
+            "evidence": {
+              "index": 13,
+              "timestamp": "02:51",
+              "quote": "Оны көріп тұрмын. Өтінім туралы сұрадым."
+            }
+          },
+          "4.5": {
+            "passed": false,
+            "explanation": "Өтінімге қатысты комиссия, лот мөлшері, өтінім түрлері сияқты қосымша маңызды мәліметтер айтылмады.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:12",
+              "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!"
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 3370,
+        "completion": 1499,
+        "cost": 0.00067374,
+        "latency_s": 10.518763125000987,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 0,
+      "rationale": "Оператор тикер бойынша іздеуді түсіндірді, бірақ өтінім жіберу туралы негізгі сұраққа нақты жауап бермеді, тек іздеу нәтижесін қайталады.",
+      "evidence_turns": [
+        12
+      ],
+      "evidence": [
+        {
+          "item": "4.1",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:37"
+          ],
+          "speaker": "operator",
+          "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "no",
+      "points": 0,
+      "conditions": {
+        "polite": false,
+        "client_dissatisfied": true,
+        "reacted_to_problem": false
+      },
+      "criterion": "empathy",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "conditions": {
+          "client_dissatisfied": {
+            "evidence": {
+              "index": 13,
+              "quote": "Оны көріп тұрмын. Өтінім туралы сұрадым.",
+              "timestamp": "02:51"
+            },
+            "explanation": "Клиент нақты түрде өтінім туралы сұрағанын және оператордың оған жауап бермегенін білдіреді, бұл наразылықты көрсетеді.",
+            "value": true
+          },
+          "polite": {
+            "evidence": {
+              "index": 14,
+              "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!",
+              "timestamp": "03:12"
+            },
+            "explanation": "Оператор клиенттің қайталап қойған сұрағына жауап бермей, чатты менсінбей жабады, бұл сыпайы емес тон.",
+            "value": false
+          },
+          "reacted_to_problem": {
+            "evidence": {
+              "index": 12,
+              "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз.",
+              "timestamp": "02:37"
+            },
+            "explanation": "Клиент өтінімді қалай жіберу керегін сұрағанымен, оператор іздеу нәтижесі туралы ақпаратты қайталап, нақты мәселеге жауап бермеді.",
+            "value": false
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1414,
+        "completion": 1493,
+        "cost": 0.000786512,
+        "latency_s": 4.6241140000056475,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": false,
+      "rationale": "Оператор клиенттің қайталап қойған сұрағына жауап бермей, чатты менсінбей жабады, бұл сыпайы емес тон. Клиент нақты түрде өтінім туралы сұрағанын және оператордың оған жауап бермегенін білдіреді, бұл наразылықты көрсетеді. Клиент өтінімді қалай жіберу керегін сұрағанымен, оператор іздеу нәтижесі туралы ақпаратты қайталап, нақты мәселеге жауап бермеді.",
+      "evidence_turns": [
+        12,
+        13,
+        14
+      ],
+      "evidence": [
+        {
+          "item": "polite",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:12"
+          ],
+          "speaker": "operator",
+          "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!"
+        },
+        {
+          "item": "client_dissatisfied",
+          "turns": [
+            13
+          ],
+          "timestamps": [
+            "02:51"
+          ],
+          "speaker": "client",
+          "quote": "Оны көріп тұрмын. Өтінім туралы сұрадым."
+        },
+        {
+          "item": "reacted_to_problem",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:37"
+          ],
+          "speaker": "operator",
+          "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": 4,
+      "answer": "4",
+      "points": 6.0,
+      "passed": {
+        "6.1": true,
+        "6.2": false,
+        "6.3": null,
+        "6.4": null,
+        "6.5": null
+      },
+      "criterion": "dialogue_management",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "subcriteria": {
+          "6.1": {
+            "passed": true,
+            "explanation": "Жауаптар бір-біріне қайшы келмейді: оператор екі рет те тикерді іздеу жолымен табу тәртібін сипаттайды, қатынасқа қатысты қарама-қайшылық жоқ.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Қосымшадан «Котировки» бөлімі ашыңыз. Іздеу жолағына облигацияның тикерін жазыңыз."
+            }
+          },
+          "6.2": {
+            "passed": false,
+            "explanation": "Клиент өтінім жіберу туралы нақты сұрақ қойғанымен, оператор іздеу туралы қайталады, сондықтан клиент сұрағын қайта айтуға мәжбүр болды.",
+            "evidence": {
+              "index": 13,
+              "timestamp": "02:51",
+              "quote": "Оны көріп тұрмын. Өтінім туралы сұрадым."
+            }
+          },
+          "6.3": {
+            "passed": false,
+            "explanation": "Клиенттің өтінім жіберу туралы сұрағы еленбей қалды: оператор оған жауап бермей, іздеу нәтижесі туралы ақпаратты қайталады, кейін чатты жапты.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:37",
+              "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз."
+            }
+          },
+          "6.4": {
+            "applies": false,
+            "passed": true,
+            "explanation": "Оператор ақпаратты тексеру туралы хабарламады, удержание оқиғасы болмады, ал оператор жауаптары арасындағы үзілістер 120 секундтан аспады (00:49–01:44).",
+            "evidence": null
+          },
+          "6.5": {
+            "passed": true,
+            "explanation": "Оператор хабарламаларында айтарлықтай орфографиялық/грамматикалық қателер немесе басқа тілдегі үзінділер жоқ.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "01:44",
+              "quote": "Сәлеметсіз бе, менің атым Жанат."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 2410,
+        "completion": 1484,
+        "cost": 0.001401006,
+        "latency_s": 4.8288751659565605,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 4,
+      "rationale": "Клиент өтінім жіберу туралы нақты сұрақ қойғанымен, оператор іздеу туралы қайталады, сондықтан клиент сұрағын қайта айтуға мәжбүр болды.",
+      "evidence_turns": [
+        13
+      ],
+      "evidence": [
+        {
+          "item": "6.2",
+          "turns": [
+            13
+          ],
+          "timestamps": [
+            "02:51"
+          ],
+          "speaker": "client",
+          "quote": "Оны көріп тұрмын. Өтінім туралы сұрадым."
+        }
+      ]
+    },
+    {
+      "weight": 5,
+      "step": null,
+      "answer": "yes",
+      "points": 5,
+      "conditions": {
+        "summary_or_help": true,
+        "farewell": true
+      },
+      "criterion": "closing",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "conditions": {
+          "farewell": {
+            "evidence": {
+              "index": 14,
+              "quote": "Сау болыңыз!",
+              "timestamp": "03:12"
+            },
+            "explanation": "Оператор попрощался с клиентом фразой «Сау болыңыз!».",
+            "value": true
+          },
+          "summary_or_help": {
+            "evidence": {
+              "index": 14,
+              "quote": "Сұрағыңыз болса, қайта жазыңыз.",
+              "timestamp": "03:12"
+            },
+            "explanation": "В финальной реплике оператор предложил клиенту обращаться снова при наличии вопросов, что является предложением дальнейшей помощи.",
+            "value": true
+          }
+        },
+        "na_gate": {
+          "evidence": {
+            "index": 14,
+            "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!",
+            "timestamp": "03:12"
+          },
+          "explanation": "Клиент не завершал чат; после его последнего сообщения у оператора был ход, и он сам завершил диалог.",
+          "value": false
+        }
+      },
+      "usage": {
+        "prompt": 1712,
+        "completion": 934,
+        "cost": 0.0004998,
+        "latency_s": 2.511964417004492,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "В финальной реплике оператор предложил клиенту обращаться снова при наличии вопросов, что является предложением дальнейшей помощи. Оператор попрощался с клиентом фразой «Сау болыңыз!».",
+      "evidence_turns": [
+        14
+      ],
+      "evidence": [
+        {
+          "item": "summary_or_help",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:12"
+          ],
+          "speaker": "operator",
+          "quote": "Сұрағыңыз болса, қайта жазыңыз."
+        },
+        {
+          "item": "farewell",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:12"
+          ],
+          "speaker": "operator",
+          "quote": "Сау болыңыз!"
+        }
+      ]
+    },
+    {
+      "weight": 0,
+      "step": null,
+      "answer": "no",
+      "points": null,
+      "conditions": {
+        "insult": false,
+        "bypass_paid_offer": false,
+        "confidential_disclosure": false
+      },
+      "criterion": "gross_errors",
+      "conversation_id": "p3-kz-001",
+      "raw": {
+        "conditions": {
+          "bypass_paid_offer": {
+            "evidence": {
+              "index": 10,
+              "quote": "Сәлеметсіз бе, менің атым Жанат. Қосымшадан «Котировки» бөлімін ашыңыз.",
+              "timestamp": "01:44"
+            },
+            "explanation": "Оператор тек қосымшадағы іздеу жолын түсіндірді; жеке ақылы қызметті немесе өзіне төлем жасауды ұсынбады.",
+            "value": false
+          },
+          "confidential_disclosure": {
+            "evidence": {
+              "index": 12,
+              "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз.",
+              "timestamp": "02:37"
+            },
+            "explanation": "Оператор басқа клиенттердің деректерін, ішкі компания ақпаратын немесе клиенттің қорғалған деректерін ашпады; барлық хабарламалар тексерілді.",
+            "value": false
+          },
+          "insult": {
+            "evidence": {
+              "index": 14,
+              "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!",
+              "timestamp": "03:12"
+            },
+            "explanation": "Оператордың барлық хабарламалары бейтарап және сыпайы; клиентті кемсіту, мазақтау немесе қорлау жоқ.",
+            "value": false
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1445,
+        "completion": 488,
+        "cost": 0.000273822,
+        "latency_s": 1.533071874990128,
+        "calls": 1
+      },
+      "evidence_warnings": [
+        "$.conditions.bypass_paid_offer: quote not found in [10]: 'сәлеметсіз бе, менің атым жанат. қосымшадан котировки бөлімі'"
+      ],
+      "value": false,
+      "rationale": "Оператордың барлық хабарламалары бейтарап және сыпайы; клиентті кемсіту, мазақтау немесе қорлау жоқ. Оператор тек қосымшадағы іздеу жолын түсіндірді; жеке ақылы қызметті немесе өзіне төлем жасауды ұсынбады. Оператор басқа клиенттердің деректерін, ішкі компания ақпаратын немесе клиенттің қорғалған деректерін ашпады; барлық хабарламалар тексерілді.",
+      "evidence_turns": [
+        10,
+        12,
+        14
+      ],
+      "evidence": [
+        {
+          "item": "insult",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:12"
+          ],
+          "speaker": "operator",
+          "quote": "Сұрағыңыз болса, қайта жазыңыз. Сау болыңыз!"
+        },
+        {
+          "item": "bypass_paid_offer",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "01:44"
+          ],
+          "speaker": "operator",
+          "quote": "Сәлеметсіз бе, менің атым Жанат. Қосымшадан «Котировки» бөлімін ашыңыз."
+        },
+        {
+          "item": "confidential_disclosure",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:37"
+          ],
+          "speaker": "operator",
+          "quote": "Тикері сәйкес келетін облигацияны іздеу нәтижесінен көре аласыз."
+        }
+      ]
+    },
+    {
+      "weight": 10,
+      "step": null,
+      "answer": "yes",
+      "points": 10,
+      "conditions": {
+        "greeted": true,
+        "client_language": true,
+        "introduced_self": true
+      },
+      "criterion": "contact",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "conditions": {
+          "greeted": {
+            "value": true,
+            "explanation": "Первое сообщение оператора начинается с приветствия «Hi», что соответствует неформальному приветствию и принимается.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "02:06",
+              "quote": "Hi, I'm Nina from Freedom Broker support."
+            }
+          },
+          "client_language": {
+            "value": true,
+            "explanation": "Клиент пишет на английском языке, и приветствие оператора также на английском.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "02:06",
+              "quote": "Hi, I'm Nina from Freedom Broker support."
+            }
+          },
+          "introduced_self": {
+            "value": true,
+            "explanation": "Оператор называет своё имя «Nina» в первом же ответе.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "02:06",
+              "quote": "I'm Nina from Freedom Broker support."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1354,
+        "completion": 301,
+        "cost": 0.000414306,
+        "latency_s": 1.4244351660017855,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Первое сообщение оператора начинается с приветствия «Hi», что соответствует неформальному приветствию и принимается. Клиент пишет на английском языке, и приветствие оператора также на английском. Оператор называет своё имя «Nina» в первом же ответе.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "greeted",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "Hi, I'm Nina from Freedom Broker support."
+        },
+        {
+          "item": "client_language",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "Hi, I'm Nina from Freedom Broker support."
+        },
+        {
+          "item": "introduced_self",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "I'm Nina from Freedom Broker support."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "yes",
+      "points": 15,
+      "conditions": {
+        "used_known_details": true,
+        "clarified_before_answer": true
+      },
+      "criterion": "needs",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "na_gate": {
+          "value": false,
+          "explanation": "Для корректного ответа не хватало валюты перевода: клиент не указал её до первого ответа оператора, поэтому оператор уточнил валюту.",
+          "evidence": {
+            "index": 10,
+            "timestamp": "02:06",
+            "quote": "Which currency are you sending?"
+          }
+        },
+        "conditions": {
+          "used_known_details": {
+            "value": true,
+            "explanation": "Оператор не переспрашивал уже известные данные, использовал подсказку бота о приложении и уточнил только недостающую валюту.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:46",
+              "quote": "The transfer details is available in the app. Open Menu, then Add Funds, and choose the bank transfer details option."
+            }
+          },
+          "clarified_before_answer": {
+            "value": true,
+            "explanation": "Оператор сначала уточнил валюту, а затем дал инструкцию по скачиванию реквизитов.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "02:06",
+              "quote": "Which currency are you sending?"
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1407,
+        "completion": 1443,
+        "cost": 0.000906888,
+        "latency_s": 6.0082634999998845,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Оператор не переспрашивал уже известные данные, использовал подсказку бота о приложении и уточнил только недостающую валюту. Оператор сначала уточнил валюту, а затем дал инструкцию по скачиванию реквизитов.",
+      "evidence_turns": [
+        10,
+        12
+      ],
+      "evidence": [
+        {
+          "item": "used_known_details",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "The transfer details is available in the app. Open Menu, then Add Funds, and choose the bank transfer details option."
+        },
+        {
+          "item": "clarified_before_answer",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "Which currency are you sending?"
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": null,
+      "answer": "na",
+      "points": null,
+      "criterion": "identification",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "conditions": {
+          "confirmed_before_disclosure": {
+            "evidence": {
+              "index": 12,
+              "quote": "The transfer details is available in the app. Open Menu, then Add Funds, and choose the bank transfer details option.",
+              "timestamp": "02:46"
+            },
+            "explanation": "Подтверждения верификации в чате нет, при этом оператор лишь объяснил навигацию по приложению и не раскрывал защищённые данные; условие не выполнено.",
+            "value": false
+          },
+          "verification_confirmed": {
+            "evidence": {
+              "index": 10,
+              "quote": "Hi, I'm Nina from Freedom Broker support. Which currency are you sending?",
+              "timestamp": "02:06"
+            },
+            "explanation": "Ни системного события верификации, ни явного подтверждения от оператора в чате нет.",
+            "value": false
+          },
+          "verification_initiated": {
+            "evidence": {
+              "index": 10,
+              "quote": "Hi, I'm Nina from Freedom Broker support. Which currency are you sending?",
+              "timestamp": "02:06"
+            },
+            "explanation": "Оператор не запрашивал верификацию и не инициировал процедуру идентификации; системных событий верификации также нет.",
+            "value": false
+          }
+        },
+        "na_gate": {
+          "evidence": {
+            "index": 12,
+            "quote": "The transfer details is available in the app. Open Menu, then Add Funds, and choose the bank transfer details option.",
+            "timestamp": "02:46"
+          },
+          "explanation": "Оператор только объяснил, где клиент сам может скачать реквизиты в приложении (навигация), не раскрывая данных счёта и не выполняя действий по счёту.",
+          "value": true
+        }
+      },
+      "usage": {
+        "prompt": 1673,
+        "completion": 627,
+        "cost": 0.000347758,
+        "latency_s": 2.9319539580028504,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": null,
+      "rationale": "Оператор только объяснил, где клиент сам может скачать реквизиты в приложении (навигация), не раскрывая данных счёта и не выполняя действий по счёту.",
+      "evidence_turns": [
+        12
+      ],
+      "evidence": [
+        {
+          "item": "na_gate",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "The transfer details is available in the app. Open Menu, then Add Funds, and choose the bank transfer details option."
+        }
+      ]
+    },
+    {
+      "weight": 20,
+      "step": 20,
+      "answer": "20",
+      "points": 20.0,
+      "passed": {
+        "4.1": true,
+        "4.2": true,
+        "4.3": true,
+        "4.4": true,
+        "4.5": true
+      },
+      "criterion": "consultation",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "client_questions": [
+          {
+            "text": "Where can I download the transfer details?",
+            "tag": "main"
+          },
+          {
+            "text": "Connect me with a support agent to make sure I take the right details.",
+            "tag": "material"
+          }
+        ],
+        "na_gate": {
+          "value": false,
+          "explanation": "Клиент сформулировал запрос в первом сообщении: где скачать реквизиты для перевода. Чат не завершился до формулировки запроса.",
+          "evidence": {
+            "index": 1,
+            "timestamp": "00:00",
+            "quote": "Where can I download the transfer details?"
+          }
+        },
+        "subcriteria": {
+          "4.1": {
+            "passed": true,
+            "explanation": "Оператор дал конкретный ответ: реквизиты доступны в приложении по пути Menu → Add Funds → bank transfer details.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:46",
+              "quote": "Open Menu, then Add Funds, and choose the bank transfer details option."
+            }
+          },
+          "4.2": {
+            "passed": true,
+            "explanation": "Ключевая рекомендация корректна: для евро нужно выбрать EUR и скачать реквизиты для этой валюты.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:31",
+              "quote": "Select EUR and download the details for that currency."
+            }
+          },
+          "4.3": {
+            "passed": true,
+            "explanation": "Клиент понимает дальнейшие действия: выбрать EUR, скачать реквизиты и взять их в отделение.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:31",
+              "quote": "Take them with you to the branch."
+            }
+          },
+          "4.4": {
+            "passed": true,
+            "explanation": "Все существенные вопросы закрыты: оператор уточнил валюту и объяснил, где скачать нужные реквизиты.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:31",
+              "quote": "Select EUR and download the details for that currency."
+            }
+          },
+          "4.5": {
+            "passed": true,
+            "explanation": "Второстепенная деталь про валюту учтена: оператор отдельно указал выбрать EUR перед скачиванием реквизитов.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "03:31",
+              "quote": "Select EUR and download the details for that currency."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 2347,
+        "completion": 1173,
+        "cost": 0.000599046,
+        "latency_s": 5.240775874990504,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 20,
+      "rationale": "Оператор дал конкретный ответ: реквизиты доступны в приложении по пути Menu → Add Funds → bank transfer details. Ключевая рекомендация корректна: для евро нужно выбрать EUR и скачать реквизиты для этой валюты. Клиент понимает дальнейшие действия: выбрать EUR, скачать реквизиты и взять их в отделение. Все существенные вопросы закрыты: оператор уточнил валюту и объяснил, где скачать нужные реквизиты. Второстепенная деталь про валюту учтена: оператор отдельно указал выбрать EUR перед скачиванием реквизитов.",
+      "evidence_turns": [
+        12,
+        14
+      ],
+      "evidence": [
+        {
+          "item": "4.1",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "Open Menu, then Add Funds, and choose the bank transfer details option."
+        },
+        {
+          "item": "4.2",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:31"
+          ],
+          "speaker": "operator",
+          "quote": "Select EUR and download the details for that currency."
+        },
+        {
+          "item": "4.3",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:31"
+          ],
+          "speaker": "operator",
+          "quote": "Take them with you to the branch."
+        },
+        {
+          "item": "4.4",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:31"
+          ],
+          "speaker": "operator",
+          "quote": "Select EUR and download the details for that currency."
+        },
+        {
+          "item": "4.5",
+          "turns": [
+            14
+          ],
+          "timestamps": [
+            "03:31"
+          ],
+          "speaker": "operator",
+          "quote": "Select EUR and download the details for that currency."
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": null,
+      "answer": "yes",
+      "points": 15,
+      "conditions": {
+        "polite": true,
+        "client_dissatisfied": false,
+        "reacted_to_problem": true
+      },
+      "criterion": "empathy",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "conditions": {
+          "polite": {
+            "value": true,
+            "explanation": "Все сообщения оператора вежливы и нейтральны, без грубости, сарказма или обвинений в адрес клиента.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "00:02:06",
+              "quote": "Hi, I'm Nina from Freedom Broker support. Which currency are you sending?"
+            }
+          },
+          "client_dissatisfied": {
+            "value": false,
+            "explanation": "Клиент не выражал недовольства и не описывал неудобств: он лишь уточнял, где скачать реквизиты, и хотел убедиться, что берёт верные данные.",
+            "evidence": {
+              "index": 5,
+              "timestamp": "00:00:47",
+              "quote": "Could you connect me with a support agent? I want to make sure I take the right details."
+            }
+          },
+          "reacted_to_problem": {
+            "value": true,
+            "explanation": "Условие не применимо: клиент не выражал недовольства (триггер отсутствует). При этом оператор всё равно конкретно решил его вопрос — подсказал путь в приложении и выбор валюты EUR.",
+            "evidence": {
+              "index": 14,
+              "timestamp": "00:03:31",
+              "quote": "Select EUR and download the details for that currency. Take them with you to the branch."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1244,
+        "completion": 660,
+        "cost": 0.00067272,
+        "latency_s": 2.588137792015914,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Все сообщения оператора вежливы и нейтральны, без грубости, сарказма или обвинений в адрес клиента.",
+      "evidence_turns": [
+        10
+      ],
+      "evidence": [
+        {
+          "item": "polite",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "Hi, I'm Nina from Freedom Broker support. Which currency are you sending?"
+        }
+      ]
+    },
+    {
+      "weight": 15,
+      "step": 7,
+      "answer": "7",
+      "points": 10.5,
+      "passed": {
+        "6.1": true,
+        "6.2": true,
+        "6.3": true,
+        "6.4": null,
+        "6.5": false
+      },
+      "criterion": "dialogue_management",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "subcriteria": {
+          "6.1": {
+            "evidence": {
+              "index": 14,
+              "quote": "Select EUR and download the details for that currency. Take them with you to the branch.",
+              "timestamp": "03:31"
+            },
+            "explanation": "Ответы оператора последовательны: сначала уточняется валюта, затем даётся пошаговая инструкция и подтверждение в конце. Противоречий между сообщениями [12], [14] и [16] нет.",
+            "passed": true
+          },
+          "6.2": {
+            "evidence": {
+              "index": 14,
+              "quote": "Select EUR and download the details for that currency.",
+              "timestamp": "03:31"
+            },
+            "explanation": "Реплика клиента [13] «I see a currency selector» — это скорее отчёт о ходе действий, а не переспрос из-за формулировки оператора; оператор сразу дал однозначный ответ. Явных переспросов, вызванных оператором, нет.",
+            "passed": true
+          },
+          "6.3": {
+            "evidence": {
+              "index": 14,
+              "quote": "Select EUR and download the details for that currency.",
+              "timestamp": "03:31"
+            },
+            "explanation": "Оператор ответил на вопрос о валюте [10]–[11], затем дал инструкцию [12] и отреагировал на сообщение о селекторе валют [13]–[14]. Ни один вопрос клиента не оставлен без ответа.",
+            "passed": true
+          },
+          "6.4": {
+            "applies": false,
+            "evidence": null,
+            "explanation": "Оператор не объявлял проверку информации, события удержания в чате нет, а паузы не превышают 120 секунд (максимальная — 68 секунд между [9] и [10]). Условие применения подкритерия не выполнено.",
+            "passed": true
+          },
+          "6.5": {
+            "evidence": {
+              "index": 12,
+              "quote": "The transfer details is available in the app.",
+              "timestamp": "02:46"
+            },
+            "explanation": "В сообщении [12] грамматическая ошибка согласования: «The transfer details is available» вместо «are available». Это заметная ошибка, засчитывается как один промах.",
+            "passed": false
+          }
+        }
+      },
+      "usage": {
+        "prompt": 2240,
+        "completion": 1297,
+        "cost": 0.000689716,
+        "latency_s": 4.5768365830299444,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": 7,
+      "rationale": "В сообщении [12] грамматическая ошибка согласования: «The transfer details is available» вместо «are available». Это заметная ошибка, засчитывается как один промах.",
+      "evidence_turns": [
+        12
+      ],
+      "evidence": [
+        {
+          "item": "6.5",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "The transfer details is available in the app."
+        }
+      ]
+    },
+    {
+      "weight": 5,
+      "step": null,
+      "answer": "yes",
+      "points": 5,
+      "conditions": {
+        "summary_or_help": true,
+        "farewell": true
+      },
+      "criterion": "closing",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "na_gate": {
+          "value": false,
+          "explanation": "Клиент не завершал чат самостоятельно: после его последнего сообщения у оператора был ход, которым он корректно закрыл диалог. Событий завершения со стороны клиента или системы нет.",
+          "evidence": {
+            "index": 15,
+            "timestamp": "04:04",
+            "quote": "Got them. Thanks for checking."
+          }
+        },
+        "conditions": {
+          "summary_or_help": {
+            "value": true,
+            "explanation": "Оператор в финальной реплике резюмировал результат: клиент получил реквизиты для EUR.",
+            "evidence": {
+              "index": 16,
+              "timestamp": "04:21",
+              "quote": "You have the EUR transfer details now."
+            }
+          },
+          "farewell": {
+            "value": true,
+            "explanation": "Оператор попрощался в финальном сообщении.",
+            "evidence": {
+              "index": 16,
+              "timestamp": "04:21",
+              "quote": "Goodbye!"
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1972,
+        "completion": 294,
+        "cost": 0.000160984,
+        "latency_s": 1.6023830409976654,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": true,
+      "rationale": "Оператор в финальной реплике резюмировал результат: клиент получил реквизиты для EUR. Оператор попрощался в финальном сообщении.",
+      "evidence_turns": [
+        16
+      ],
+      "evidence": [
+        {
+          "item": "summary_or_help",
+          "turns": [
+            16
+          ],
+          "timestamps": [
+            "04:21"
+          ],
+          "speaker": "operator",
+          "quote": "You have the EUR transfer details now."
+        },
+        {
+          "item": "farewell",
+          "turns": [
+            16
+          ],
+          "timestamps": [
+            "04:21"
+          ],
+          "speaker": "operator",
+          "quote": "Goodbye!"
+        }
+      ]
+    },
+    {
+      "weight": 0,
+      "step": null,
+      "answer": "no",
+      "points": null,
+      "conditions": {
+        "insult": false,
+        "bypass_paid_offer": false,
+        "confidential_disclosure": false
+      },
+      "criterion": "gross_errors",
+      "conversation_id": "p3-en-001",
+      "raw": {
+        "conditions": {
+          "insult": {
+            "value": false,
+            "explanation": "Все сообщения оператора проверены: оскорблений, насмешек или унижения клиента нет; общение вежливое и нейтральное.",
+            "evidence": {
+              "index": 10,
+              "timestamp": "02:06",
+              "quote": "Hi, I'm Nina from Freedom Broker support."
+            }
+          },
+          "bypass_paid_offer": {
+            "value": false,
+            "explanation": "Все сообщения оператора проверены: предложений услуг в обход компании, оплаты лично оператору или личного номера для платной консультации нет.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:46",
+              "quote": "The transfer details is available in the app."
+            }
+          },
+          "confidential_disclosure": {
+            "value": false,
+            "explanation": "Все сообщения оператора проверены: раскрытия данных других клиентов, внутренней информации компании или защищённых данных клиента непроверенному лицу нет.",
+            "evidence": {
+              "index": 12,
+              "timestamp": "02:46",
+              "quote": "Open Menu, then Add Funds, and choose the bank transfer details option."
+            }
+          }
+        }
+      },
+      "usage": {
+        "prompt": 1275,
+        "completion": 543,
+        "cost": 0.000278638,
+        "latency_s": 2.6586055420339108,
+        "calls": 1
+      },
+      "evidence_warnings": [],
+      "value": false,
+      "rationale": "Все сообщения оператора проверены: оскорблений, насмешек или унижения клиента нет; общение вежливое и нейтральное. Все сообщения оператора проверены: предложений услуг в обход компании, оплаты лично оператору или личного номера для платной консультации нет. Все сообщения оператора проверены: раскрытия данных других клиентов, внутренней информации компании или защищённых данных клиента непроверенному лицу нет.",
+      "evidence_turns": [
+        10,
+        12
+      ],
+      "evidence": [
+        {
+          "item": "insult",
+          "turns": [
+            10
+          ],
+          "timestamps": [
+            "02:06"
+          ],
+          "speaker": "operator",
+          "quote": "Hi, I'm Nina from Freedom Broker support."
+        },
+        {
+          "item": "bypass_paid_offer",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "The transfer details is available in the app."
+        },
+        {
+          "item": "confidential_disclosure",
+          "turns": [
+            12
+          ],
+          "timestamps": [
+            "02:46"
+          ],
+          "speaker": "operator",
+          "quote": "Open Menu, then Add Funds, and choose the bank transfer details option."
+        }
+      ]
+    }
+  ]
+}

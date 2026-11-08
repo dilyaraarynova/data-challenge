@@ -1,0 +1,4 @@
+﻿model,conversation_id,channel,language,contact,needs,identification,consultation,empathy,dialogue_management,closing,gross_errors,total
+deepseek/deepseek-v4.1-flash-1017,p3-ru-001,agent chat,RU,yes,na,na,20,yes,7,yes,no,93.08
+deepseek/deepseek-v4.1-flash-1017,p3-kz-001,agent chat,KZ,yes,na,na,0,no,4,yes,no,32.31
+deepseek/deepseek-v4.1-flash-1017,p3-en-001,agent chat,EN,yes,yes,na,20,yes,7,yes,no,94.38
