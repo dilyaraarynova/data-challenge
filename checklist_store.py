@@ -307,6 +307,41 @@ def remap_scores(c, old_steps, new_steps):
             s["on_fail_score"] = snap(s["on_fail_score"])
 
 
+def merge_items(base, key, spec, resolve, name):
+    """Subcriteria (`conditions` or `subcriteria`) from the UI copy of the file, matched by id, not by position:
+    existing ones keep every field they have (their texts come from the UI), new ones (id null) get only the
+    question, removed ones disappear, the order of the UI list is kept. Returns (items, changed)."""
+    old_items = base[key]
+    ui_items = spec.get(key)
+    if not isinstance(ui_items, list):
+        return copy.deepcopy(old_items), False
+    by_id = {x.get("id"): x for x in old_items}
+    out, used = [], set()
+    for it in ui_items:
+        if not isinstance(it, dict):
+            continue
+        old = by_id.get(it.get("id"))
+        if old is not None and old["id"] not in used:
+            used.add(old["id"])
+            new = copy.deepcopy(old)
+            for path, en in prose_leaves(old):               # texts edited in the panel
+                ru = get_path(it, path)
+                if isinstance(ru, str):
+                    set_path(new, path, resolve(en, ru))
+            for path, _ in ru_leaves(old):
+                ru = get_path(it, path)
+                if isinstance(ru, str):
+                    set_path(new, path, ru.strip())
+            out.append(new)
+        else:
+            q = (it.get("question") or "").strip()
+            if q:
+                out.append({"id": None, "question": resolve(None, q)})
+    if not out:
+        raise ChecklistError(f"«{name}»: нужен хотя бы один субкритерий")
+    return out, [x.get("id") for x in out] != [x["id"] for x in old_items]
+
+
 def build(base, ui, order, sec_names, resolve):
     """One criterion file from the UI row. `base` = current (or standard) file, None for a new criterion.
     `resolve(en_old, ru_new)` -> English text for the Russian one (keeps en_old when the Russian is unchanged)."""
@@ -325,17 +360,38 @@ def build(base, ui, order, sec_names, resolve):
 
     if base:
         c = copy.deepcopy(base)
-        for path, en in prose_leaves(base):              # texts edited in the rules panel
-            if not managed(path):
+        key = "conditions" if base.get("conditions") else "subcriteria" if base.get("subcriteria") else None
+        for path, en in prose_leaves(base):              # texts edited in the rules panel (items: see merge_items)
+            if not managed(path) and path[0] != key:
                 ru = get_path(spec, path)
                 if isinstance(ru, str):
                     set_path(c, path, resolve(en, ru))
         for path, _ in ru_leaves(base):                  # native Russian fields (label_ru …)
-            if not managed(path):
+            if not managed(path) and path[0] != key:
                 ru = get_path(spec, path)
                 if isinstance(ru, str):
                     set_path(c, path, ru.strip())
         name_en = base.get("name_en") if base.get("name_ru") == name else resolve(None, name)
+        if key:
+            items, changed = merge_items(base, key, spec, resolve, name)
+            taken = {x["id"] for x in items if x.get("id")}
+            if key == "subcriteria" and changed and (base.get("decision_logic") or {}).get("type") != "na_gate_then_ordered_gates":
+                raise ChecklistError(f"«{name}»: у этого критерия нельзя менять список субкритериев")
+            steps = sorted({number(x) for x in (ui.get("scale_steps") or (base.get("scale") or {}).get("allowed_steps") or [0, 1])})
+            for i, it in enumerate(items):
+                if it.get("id") is None:                  # new subcriterion
+                    n = 1
+                    while f"{'check' if key == 'conditions' else 'gate'}_{n}" in taken:
+                        n += 1
+                    it["id"] = f"{'check' if key == 'conditions' else 'gate'}_{n}"
+                    taken.add(it["id"])
+                    if key == "subcriteria":
+                        it.update(pass_if="Yes.", fail_if="No.", on_fail_score=steps[min(i, max(len(steps) - 2, 0))])
+            c[key] = items
+            if key == "conditions" and changed:           # the list changed: "yes" = all hold (flag: any holds)
+                ids = [x["id"] for x in items]
+                c["decision"] = {**(c.get("decision") or {}), "yes_if": (" OR " if ui.get("answer_type") == "flag" else " AND ").join(ids)}
+                c["decision"].setdefault("else", "no")
     else:
         c = {"schema_version": "2.0", "criterion_id": None}
         name_en = resolve(None, name)

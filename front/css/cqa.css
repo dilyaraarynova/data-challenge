@@ -468,3 +468,72 @@ select.inp{cursor:pointer;min-width:150px}
 .sp-v .sp-group{grid-template-columns:1fr;gap:4px}
 .sp-v .sp-group > .sp-k{padding-top:2px}
 .sp-t{min-width:min(100%,560px)}
+
+/* ---------------- checklist editor: criterion cards ---------------- */
+@keyframes critflash{0%{background:var(--green-soft)}100%{background:var(--surface)}}
+.cl-sum{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:14px;color:var(--muted);padding:12px 16px;border-left:4px solid var(--green)}
+.cl-sum.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+.cl-sum .sum-main{font-size:16px;color:var(--ink)}
+.cl-sum .sum-main b{font-size:20px;font-variant-numeric:tabular-nums}
+.crit-list{display:flex;flex-direction:column;gap:10px}
+.crit-sec{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 2px 0}
+.crit-sec:first-child{margin-top:0}
+.crit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:14px 16px}
+.crit.dirty{box-shadow:inset 4px 0 0 var(--amber)}
+.crit.flash{animation:critflash 1.6s ease}
+.crit.off .crit-main,.crit.off .crit-badge{opacity:.5}
+.crit-head{display:flex;align-items:flex-start;gap:12px}
+.crit-n{color:var(--muted);font-variant-numeric:tabular-nums;width:22px;padding-top:8px;flex:none}
+.crit-main{flex:1;min-width:0}
+.crit-main .inp.name{font-size:15.5px;font-weight:600}
+.crit-side{display:flex;align-items:center;gap:12px;flex:none;padding-top:2px}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper .inp.w{width:56px;text-align:center}
+.stepper button{width:30px;height:32px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:17px;line-height:1;cursor:pointer}
+.stepper button:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.stepper button:disabled{cursor:not-allowed;opacity:.5}
+.stepper .unit{font-size:13px;color:var(--muted);margin-left:2px}
+.stepper .unit-l{margin:0 6px 0 0}
+.crit-sum{font-size:13.5px;color:var(--muted);padding:4px 9px 0}
+.crit-sum ul{margin:2px 0 0;padding-left:18px}
+.crit-sum li{margin:1px 0}
+.crit-sum .sum-lead{font-weight:600;color:var(--ink)}
+.crit-sum .sum-more,.crit-sum .sum-empty{font-style:italic}
+.crit-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 0 34px}
+.crit-badge{font-size:12.5px;background:var(--green-soft);color:var(--ink);border-radius:999px;padding:2px 10px}
+.crit-foot .muted-cell{color:var(--muted);font-size:13px}
+.crit-btns{margin-left:auto;display:flex;align-items:center;gap:14px}
+.crit-btns .btn.small{padding:5px 12px;font-size:13.5px}
+.crit-btns .chev{display:inline-block}
+.crit-how{margin:12px 0 0 34px;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:10px}
+.crit-how h3{margin:0;font-size:15px}
+.crit-how .help{margin:0;font-size:13px;color:var(--muted);font-weight:400}
+.crit-how textarea.rule{font-size:14px;resize:vertical;min-height:70px}
+.how-f{display:flex;flex-direction:column;gap:4px;font-size:13.5px;font-weight:600}
+.how-f textarea.inp{font-weight:400;font-size:14px;resize:vertical}
+.cond-list{display:flex;flex-direction:column;gap:8px}
+.cond{display:flex;align-items:flex-start;gap:8px}
+.cond-n{width:20px;padding-top:8px;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+.cond textarea{flex:1;min-width:0}
+.all-fields>summary{cursor:pointer;font-size:13.5px;color:var(--green);padding:4px 0}
+.params-h{margin-top:6px!important;padding-top:14px;border-top:1px dashed var(--line)}
+.crit-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px;align-items:start}
+.crit-details label{display:flex;flex-direction:column;gap:4px;font-size:13.5px;font-weight:600}
+.crit-details label .help{font-weight:400}
+.crit-details .del-wrap{display:flex;align-items:flex-end}
+.crit-details .del-wrap .btn{display:inline-flex;align-items:center;gap:6px;width:auto}
+.crit-details .del-wrap svg{width:16px;height:16px;flex:none}
+/* focus mode: the open card above a dim layer; the layer does not block scrolling */
+.cl-backdrop{position:fixed;inset:0;background:rgba(8,18,13,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .18s}
+.cl-backdrop.on{opacity:1}
+.crit.focus{position:relative;z-index:41;scroll-margin-top:16px;box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.crit.focus.dirty{box-shadow:inset 4px 0 0 var(--amber),0 16px 48px rgba(0,0,0,.4)}
+@media (max-width:760px){.crit-head{flex-wrap:wrap}.crit-side{width:calc(100% - 34px);justify-content:space-between;margin-left:34px}.crit-foot,.crit-how{margin-left:0}}
+/* list items in the rules panel have no label: let the text use the whole row, not the narrow label column */
+.sp-row > .sp-t:only-child,.sp-row > .sp-code:only-child{grid-column:1/-1}
+.sp-t{min-width:0}
+.spec > .sp-group{grid-template-columns:1fr}
+.spec > .sp-group > .sp-k{padding-top:2px}
+.cond-btns{display:flex;gap:4px;flex:none}
+.cond-btns .icon-btn{width:30px;height:32px}
+.add-sub{align-self:flex-start}

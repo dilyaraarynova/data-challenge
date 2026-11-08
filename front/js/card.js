@@ -521,6 +521,7 @@ function openDialogue(id){
 }
 function stopPlayback(){ if (state.playing) { state.playing = false; try { audio.pause(); } catch {} } }
 function showView(v){
+  if (v !== 'checklists') { try { closeFocus(); } catch (e) {} }     // checklist editor focus mode
   $('viewList').hidden = v !== 'list'; $('viewCard').hidden = v !== 'card'; $('viewChecklists').hidden = v !== 'checklists';
   const cl = v === 'checklists';
   $('navDialogs').toggleAttribute('aria-current', !cl); $('navChecklists').toggleAttribute('aria-current', cl);

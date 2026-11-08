@@ -70,30 +70,13 @@
         </div>
       </header>
       <div class="tr-err" id="clTrErr" hidden role="alert"></div>
-      <div class="card table-card">
-        <table class="dlg-table cl-table">
-          <thead><tr>
-            <th scope="col" data-csort="n" title="Исходный порядок">№</th>
-            <th scope="col" data-csort="name">Критерий и условие</th>
-            <th scope="col" data-csort="section">Категория</th>
-            <th scope="col" data-csort="type">Тип ответа</th>
-            <th scope="col" data-csort="scale">Шкала</th>
-            <th scope="col" data-csort="weight" class="num">Вес</th>
-            <th scope="col" data-csort="share" class="num" title="Сколько баллов из 100 даёт критерий, если все критерии применимы">Доля в итоге</th>
-            <th scope="col" data-csort="inc" class="inc-h">Включён</th>
-            <th scope="col"><span class="sr" style="position:absolute;left:-9999px">Удалить</span></th>
-          </tr></thead>
-          <tbody id="clBody"></tbody>
-        </table>
-        <div class="cl-bar">
-          <div class="cl-bar-actions">
-            <button class="btn primary" id="clAdd">+ Добавить критерий</button>
-            <button class="btn ghost" id="clCats">Категории</button>
-          </div>
-          <div class="cl-sum" id="clSum"></div>
-        </div>
+      <div class="cl-sum card" id="clSum"></div>
+      <div id="clBody" class="crit-list"></div>
+      <div class="cl-bar-actions">
+        <button class="btn primary" id="clAdd">+ Добавить критерий</button>
+        <button class="btn ghost" id="clCats">Категории</button>
       </div>
-      <details class="card shared-card">
+      <details class="card shared-card" hidden>   <!-- shared_rules.json editor, hidden from QA; remove `hidden` to show it -->
         <summary>Общие правила для модели <span class="muted-cell">shared_rules.json</span></summary>
         <div id="clShared"></div>
       </details>
