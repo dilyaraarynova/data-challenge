@@ -31,17 +31,25 @@ function sumHtml(c){
     + (q.length > 3 ? `<span class="sum-more">и ещё ${q.length - 3}</span>` : '');
 }
 const BADGE = {yes_no: 'Ответ: Да / Нет', yes_no_na: 'Ответ: Да / Нет / Не применимо', scale: 'Оценка по шагам', scale_na: 'Оценка по шагам или Не применимо', flag: 'Флаг нарушения, без баллов'};
+/* ordered gates: what a failed subcriterion does to the score */
+function failSelect(c, x, i, ro){
+  const st = (c.scale_steps || []).slice(0, -1);
+  const cur = st.includes(x.on_fail_score) ? x.on_fail_score : st[Math.min(i, Math.max(st.length - 1, 0))];
+  return `<label class="cond-fail">если «нет» →<select class="inp" data-sf="fail" aria-label="Что будет, если субкритерий не выполнен"${ro}>${st.map(v => `<option value="${v}"${v === cur ? ' selected' : ''}>ступень ${v}</option>`).join('')}</select></label>`;
+}
 function panelHtml(c, on, secOpts, typeOpts){
   const ro = on ? '' : ' disabled', scale = c.answer_type.startsWith('scale'), na = c.answer_type.endsWith('_na');
   const si = subInfo(c);
-  return `<h3>Правило оценки</h3>
+  return `${si ? '' : `<h3>Правило оценки</h3>
     <p class="help">Главное условие для модели: когда ставить «Да», «Нет» или какой шаг шкалы.</p>
-    <textarea class="inp rule" rows="3" data-f="description" placeholder="Добавьте условие: когда ставить «Да», «Нет» или Н/П" aria-label="Правило оценки"${ro}>${esc(c.description || '')}</textarea>
+    <textarea class="inp rule" rows="3" data-f="description" placeholder="Добавьте условие: когда ставить «Да», «Нет» или Н/П" aria-label="Правило оценки"${ro}>${esc(c.description || '')}</textarea>`}
     ${na ? `<label class="how-f">Когда ставить «Не применимо»<textarea class="inp" rows="2" data-f="na_condition" placeholder="Когда ставить Н/П (вопрос для модели)"${ro}>${esc(c.na_condition || '')}</textarea></label>` : ''}
     ${si ? `<h3>Субкритерии</h3><p class="help">Вопросы, на которые модель отвечает «да» или «нет». Итоговый ответ считает программа.</p>
-      <div class="cond-list">${si.list.map((x, i) => `<div class="cond" data-i="${i}"><span class="cond-n">${i + 1}</span><textarea class="inp sp-t" data-scope="crit" data-path="${esc(JSON.stringify([si.key, i, 'question']))}"${ro} placeholder="Вопрос для модели">${esc(x.question || '')}</textarea>${si.editable ? `<span class="cond-btns"><button class="icon-btn" data-act="sup" aria-label="Выше"${ro}${i ? '' : ' disabled'}>↑</button><button class="icon-btn" data-act="sdown" aria-label="Ниже"${ro}${i < si.list.length - 1 ? '' : ' disabled'}>↓</button><button class="icon-btn" data-act="sdel" aria-label="Удалить субкритерий"${ro}${si.list.length > 1 ? '' : ' disabled'}>×</button></span>` : ''}</div>`).join('')}</div>
+      <div class="cond-list">${si.list.map((x, i) => `<div class="cond" data-i="${i}"><span class="cond-n">${i + 1}</span><div class="cond-body"><textarea class="inp sp-t" data-scope="crit" data-path="${esc(JSON.stringify([si.key, i, 'question']))}"${ro} placeholder="Вопрос для модели">${esc(x.question || '')}</textarea>${scale && si.key === 'subcriteria' && si.editable ? failSelect(c, x, i, ro) : ''}</div>${si.editable ? `<span class="cond-btns"><button class="icon-btn" data-act="sup" aria-label="Выше"${ro}${i ? '' : ' disabled'}>↑</button><button class="icon-btn" data-act="sdown" aria-label="Ниже"${ro}${i < si.list.length - 1 ? '' : ' disabled'}>↓</button><button class="icon-btn" data-act="sdel" aria-label="Удалить субкритерий"${ro}${si.list.length > 1 ? '' : ' disabled'}>×</button></span>` : ''}</div>`).join('')}</div>
       ${si.editable ? `<button class="btn ghost small add-sub" data-act="sadd"${ro}>+ Добавить субкритерий</button>${subNote(c, si) ? `<p class="help">${subNote(c, si)}</p>` : ''}` : '<p class="help">Список субкритериев этого критерия фиксирован: его ступени зависят от числа сбоев. Тексты можно править.</p>'}` : ''}
-    <details class="all-fields"><summary>Все правила для модели (файл критерия)</summary>${specPanel(c, on)}</details>
+    ${scale && c.spec && c.spec.scale && !(si && si.editable && si.key === 'subcriteria') ? `<h3>Что значит каждая ступень</h3><p class="help">Описание для модели: что означает каждая оценка.</p>
+      <div class="step-list">${c.scale_steps.slice().reverse().map(v => `<label class="step-f"><b>${v}</b><textarea class="inp sp-t" data-scope="crit" data-path="${esc(JSON.stringify(['scale', 'step_descriptions', String(v)]))}"${ro}>${esc((c.spec.scale.step_descriptions || {})[String(v)] || '')}</textarea></label>`).join('')}</div>` : ''}
+    <details class="all-fields" hidden><summary>Все правила для модели (файл критерия)</summary>${specPanel(c, on)}</details>   <!-- expert view of the whole criterion file, hidden from QA -->
     <h3 class="params-h">Параметры критерия</h3>
     <div class="crit-details">
       <label>Категория<select class="inp" data-f="section"${ro}>${secOpts(c.section)}</select><span class="help">В какой блок попадает критерий в итоговой карточке.</span></label>
@@ -155,8 +163,12 @@ $('clBody').addEventListener('input', e => {
 });
 $('clBody').addEventListener('change', e => {
   const card = e.target.closest('.crit[data-id]'); if (!card) return;
-  const f = e.target.dataset.f; if (!f) return;
   const c = critById(card.dataset.id);
+  if (e.target.dataset.sf === 'fail') {                    // what a failed subcriterion does to the score
+    subInfo(c).list[+e.target.closest('.cond').dataset.i].on_fail_score = +e.target.value;
+    renderClStatus(); return;
+  }
+  const f = e.target.dataset.f; if (!f) return;
   if (f === 'name') { c.name = e.target.value.trim(); if (!c.name) e.target.classList.add('bad'); else e.target.classList.remove('bad'); renderCats(); return; }
   if (f === 'section') {
     if (e.target.value === '__new') { e.target.value = c.section; openCats(c.id); return; }
@@ -216,9 +228,18 @@ function parseSteps(s){
 }
 function setType(c, t){
   const wasFlag = c.answer_type === 'flag', fam = x => x.startsWith('scale') ? 'scale' : 'bool';
-  if (c.spec && fam(c.answer_type) !== fam(t))
-    toast(t.startsWith('scale') ? 'После сохранения модель будет сразу выбирать ступень шкалы по условию оценки; подкритерии заменятся описаниями ступеней'
-                                : 'После сохранения модель будет проверять одно условие оценки вместо ступеней шкалы');
+  if (fam(c.answer_type) !== fam(t)) {
+    const sp = c.spec;
+    if (sp && t.startsWith('scale') && sp.conditions) {                  // conditions -> ordered gates
+      sp.subcriteria = sp.conditions; delete sp.conditions;
+      sp.decision_logic = {type: 'na_gate_then_ordered_gates'}; sp.scale = sp.scale || {step_descriptions: {}};
+    } else if (sp && !t.startsWith('scale') && sp.subcriteria) {         // ordered gates -> conditions
+      sp.conditions = sp.subcriteria.map(x => ({id: x.id, question: x.question})); delete sp.subcriteria;
+      delete sp.decision_logic; delete sp.scale;
+    }
+    toast(t.startsWith('scale') ? 'Субкритерии станут последовательными проверками: первый невыполненный определит ступень шкалы'
+                                : 'Субкритерии станут условиями: «Да» ставится, если выполнены все');
+  }
   if (t.endsWith('_na') && !c.na_condition) setTimeout(() => toast('Укажите, когда ставить Н/П'), 2500);
   c.answer_type = t; c.na_allowed = t.endsWith('_na');
   if (t.startsWith('scale')) { if (!c.scale_steps) { c.scale_steps = [0, 5, 10]; c.scale_max = 10; } }
@@ -313,6 +334,8 @@ $('critForm').addEventListener('submit', e => {
     c.step_descriptions = {};
     $('ncSteps').querySelectorAll('input[data-step]').forEach(i => { if (i.value.trim()) c.step_descriptions[i.dataset.step] = i.value.trim(); });
   }
+  if (t.startsWith('scale')) c.spec = {subcriteria: [{id: null, question: c.description}], decision_logic: {type: 'na_gate_then_ordered_gates'}, scale: {step_descriptions: c.step_descriptions}};
+  else c.spec = {conditions: [{id: null, question: c.description}]};          // the typed rule is the first subcriterion
   if (!$('ncRedist').hidden && document.querySelector('input[name="redist"]:checked').value === 'prop') scaleWeights(others, target);
   draft.criteria.push(c);
   renderChecklists(c.id);

@@ -307,6 +307,26 @@ def remap_scores(c, old_steps, new_steps):
             s["on_fail_score"] = snap(s["on_fail_score"])
 
 
+def ui_items(spec, *keys):
+    """The first non-empty list of subcriteria in the UI copy (items with a question), looking at `keys` in order."""
+    for k in keys:
+        lst = (spec or {}).get(k)
+        if isinstance(lst, list):
+            items = [x for x in lst if isinstance(x, dict) and (x.get("question") or "").strip()]
+            if items:
+                return items
+    return []
+
+
+def rule_text(c):
+    """official_rule of a criterion made in the UI: generated from its structure (its questions say the rest)."""
+    if c.get("subcriteria"):
+        return "Evaluate the subcriteria in order; the first failed one fixes the score; if all pass, the score is the maximum."
+    if c["answer_type"] == "flag":
+        return "Yes (flag raised) if ANY of the listed conditions holds; otherwise No."
+    return "Yes only if ALL of the listed conditions hold; otherwise No."
+
+
 def merge_items(base, key, spec, resolve, name):
     """Subcriteria (`conditions` or `subcriteria`) from the UI copy of the file, matched by id, not by position:
     existing ones keep every field they have (their texts come from the UI), new ones (id null) get only the
@@ -332,11 +352,14 @@ def merge_items(base, key, spec, resolve, name):
                 ru = get_path(it, path)
                 if isinstance(ru, str):
                     set_path(new, path, ru.strip())
+            if "on_fail_score" in old and isinstance(it.get("on_fail_score"), (int, float)) and not isinstance(it.get("on_fail_score"), bool):
+                new["on_fail_score"] = it["on_fail_score"]              # «если нет → ступень N», chosen in the UI
             out.append(new)
         else:
             q = (it.get("question") or "").strip()
             if q:
-                out.append({"id": None, "question": resolve(None, q)})
+                out.append({"id": None, "question": resolve(None, q),
+                            **({"on_fail_score": it["on_fail_score"]} if isinstance(it.get("on_fail_score"), (int, float)) else {})})
     if not out:
         raise ChecklistError(f"«{name}»: нужен хотя бы один субкритерий")
     return out, [x.get("id") for x in out] != [x["id"] for x in old_items]
@@ -386,7 +409,8 @@ def build(base, ui, order, sec_names, resolve):
                     it["id"] = f"{'check' if key == 'conditions' else 'gate'}_{n}"
                     taken.add(it["id"])
                     if key == "subcriteria":
-                        it.update(pass_if="Yes.", fail_if="No.", on_fail_score=steps[min(i, max(len(steps) - 2, 0))])
+                        it.update(pass_if="Yes.", fail_if="No.")
+                        it.setdefault("on_fail_score", steps[min(i, max(len(steps) - 2, 0))])
             c[key] = items
             if key == "conditions" and changed:           # the list changed: "yes" = all hold (flag: any holds)
                 ids = [x["id"] for x in items]
@@ -408,11 +432,18 @@ def build(base, ui, order, sec_names, resolve):
     na = t.endswith("_na")
     if t in ("yes_no", "yes_no_na", "flag"):
         if not (c.get("conditions") and c.get("decision")):       # new, or was a scale criterion
+            old_q = {x["id"]: x["question"] for x in ((base or {}).get("subcriteria") or (base or {}).get("conditions") or [])}
+            items = ui_items(spec, "conditions", "subcriteria")
             for k in ("scale", "subcriteria", "decision_logic", "preparation_step", "na", "parameters"):
                 c.pop(k, None)
-            cid = "violation_found" if t == "flag" else "rule_met"
-            c["conditions"] = [{"id": cid, "question": FLAG_QUESTION if t == "flag" else RULE_QUESTION}]
-            c["decision"] = {"yes_if": cid, "else": "no"}
+            if items:
+                c["conditions"] = [{"id": f"check_{i + 1}", "question": resolve(old_q.get(x.get("id")), x["question"])}
+                                   for i, x in enumerate(items)]
+            elif rule:
+                c["conditions"] = [{"id": "violation_found" if t == "flag" else "rule_met", "question": rule}]
+            else:
+                raise ChecklistError(f"«{name}»: добавьте хотя бы один субкритерий")
+            c["decision"] = {"yes_if": (" OR " if t == "flag" else " AND ").join(x["id"] for x in c["conditions"]), "else": "no"}
         c["allowed_answers"] = ["yes", "no"] + (["na"] if na else [])
         if t == "flag":
             c["affects_score"] = False
@@ -424,16 +455,44 @@ def build(base, ui, order, sec_names, resolve):
         steps = sorted({number(s) for s in ui.get("scale_steps") or []})
         if len(steps) < 2 or steps[0] < 0:
             raise ChecklistError(f"«{name}»: шкала — минимум две неотрицательные ступени")
-        if not c.get("decision_logic"):                          # new, or was a yes/no criterion
+        if not c.get("decision_logic"):                          # new, or was a yes/no criterion: ordered gates
+            old_q = {x["id"]: x["question"] for x in ((base or {}).get("conditions") or (base or {}).get("subcriteria") or [])}
+            items = ui_items(spec, "subcriteria", "conditions")
             for k in ("conditions", "decision", "allowed_answers", "affects_score", "scoring"):
                 c.pop(k, None)
-            c["decision_logic"] = copy.deepcopy(DIRECT_SCALE)
+            if not items and not rule:
+                raise ChecklistError(f"«{name}»: добавьте хотя бы один субкритерий")
+            subs = []
+            for i, x in enumerate(items or [{"question": None}]):
+                f = x.get("on_fail_score")
+                subs.append({"id": f"gate_{i + 1}",
+                             "question": resolve(old_q.get(x.get("id")), x["question"]) if items else rule,
+                             "pass_if": "Yes.", "fail_if": "No.",
+                             "on_fail_score": f if f in steps[:-1] else steps[min(i, max(len(steps) - 2, 0))]})
+            c["subcriteria"] = subs
+            c["decision_logic"] = {"type": "na_gate_then_ordered_gates", "all_pass_score": steps[-1]}
         old = c.get("scale") or {}
         if old.get("allowed_steps") and old["allowed_steps"] != steps:
             remap_scores(c, old["allowed_steps"], steps)
+        if (c.get("decision_logic") or {}).get("type") == "na_gate_then_ordered_gates":
+            for x in c.get("subcriteria", []):
+                if x.get("on_fail_score", steps[0]) not in steps[:-1]:
+                    raise ChecklistError(f"«{name}»: балл при невыполнении субкритерия должен быть одной из ступеней шкалы, кроме максимальной")
         descs = dict(old.get("step_descriptions") or {})
+        for k0, ru in ((spec.get("scale") or {}).get("step_descriptions") or {}).items():       # edited in the card
+            k = str(number(k0))
+            if isinstance(ru, str) and ru.strip() and number(k0) in steps:
+                descs[k] = resolve(descs.get(k), ru)
         for s, ru in (ui.get("step_descriptions") or {}).items():   # new-criterion form
             descs[str(number(s))] = resolve(None, ru)
+        if (c.get("decision_logic") or {}).get("type") == "na_gate_then_ordered_gates":
+            descs = {}                                    # generated: which subcriterion fails when this step is given
+            for st in steps:
+                if st == steps[-1]:
+                    descs[str(st)] = "All subcriteria passed."
+                else:
+                    qs = [x["question"] for x in c.get("subcriteria", []) if x.get("on_fail_score") == st]
+                    descs[str(st)] = ("The first failed subcriterion is: " + " / ".join(qs)) if qs else ""
         c["scale"] = {"min": steps[0], "max": steps[-1], "allowed_steps": steps,
                       "step_descriptions": {str(s): descs.get(str(s), "") for s in reversed(steps)}}
         new = not c.get("scoring")
@@ -473,6 +532,8 @@ def build(base, ui, order, sec_names, resolve):
         if not c.get("subcriteria"):
             c.pop("na", None)
     c.setdefault("evidence", copy.deepcopy(DEFAULT_EVIDENCE))
+    if base is None and (c.get("conditions") or c.get("subcriteria")):
+        c["official_rule"] = rule_text(c)          # the typed rule became the first subcriterion
     return c
 
 
