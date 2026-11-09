@@ -1,105 +1,119 @@
 # CQA — Conversation Quality Analytics
 
-**Team NU IoT Lab · Freedom Broker CQA Hackathon**
+Scores customer-support dialogues (chats and voice-call transcripts, RU / KZ / EN) against an editable quality checklist using an LLM judge. Includes a web app for evaluating, reviewing the evidence and handling appeals.
 
-An LLM judge scores support-operator dialogues (chats and voice calls, RU / KZ / EN) against an editable checklist. The web UI covers the checklist editor, the evaluation, the evidence, and the appeal and review flow.
+Built at the Freedom Broker CQA Hackathon.
 
----
-
-## Quick start
-
-Requires Python 3.10+ (tested on 3.12) and an [OpenRouter](https://openrouter.ai) API key.
+## How to start
 
 ```bash
-pip install openai python-dotenv
-echo "OPENROUTER_API_KEY=sk-or-..." > .env
-python server.py
+pip install -r requirements.txt
+cp .env.example .env          # add your OpenRouter key
+python server.py              # http://127.0.0.1:8000
 ```
 
-Open **http://127.0.0.1:8000**.
+The sample data in `data/` already includes evaluations, so the UI opens with results. The key is only needed to run new evaluations or save checklist edits.
 
-All dialogue sets are already in [`dialogues/`](dialogues/) (`dev.json`, `prod.json`, `swap.json`: the organisers' API responses saved as is), so there's nothing to download. The UI shows every set; filter by **Набор**. The browser talks only to our local server, so there are no CORS issues.
+## How it works
 
----
+1. **Preparation (code).** Repeated bot boilerplate is dropped. In calls, fragments from the same speaker are merged, and speech while the client is on hold is marked as internal. Turns keep their original numbers so that evidence can be traced.
+2. **Judging (LLM).** Each criterion is a separate request with its own prompt built from its checklist file. The 8 requests for a dialogue run in parallel. The model returns only yes/no answers to the criterion's sub-questions (or a scale step), each citing a turn and a quote. Every reply is checked against a strict JSON schema and retried on failure.
+3. **Scoring (code).** The criterion file's rules turn those answers into Yes / No / N/A or a scale step. Weights, N/A weight redistribution and rounding are applied in code. Critical errors are a separate flag, not points.
 
-## Submitted results
+The LLM never outputs a score directly, so scores are reproducible and every one can be traced back to a quote.
 
-| File | Set | Records |
-|---|---|---|
-| [`results/dev/results.json`](results/dev/results.json) | DEV | 65 (60 chats + 5 calls) |
-| [`results/prod/results.json`](results/prod/results.json) | Control set | 10 |
+With `deepseek/deepseek-v4.1-flash-1017`, one dialogue costs ~$0.0066 and takes ~10 s (median; all 8 criteria in parallel).
 
-Both files follow format JSON 1.0 from the results appendix. Field names, criterion codes and value types are unchanged. We **added** a few extra fields after the required ones; they can be ignored:
+## Checklist
 
-- per dialogue: `channel`, `language`
-- per criterion: `weight`, `points` (weighted points), `evidence` (each cited turn with its original timestamp and a verbatim quote)
+`checklists/` holds one JSON file per criterion, plus `shared_rules.json` (rules added to every prompt) and `checklist.json` (name, sections, version history). `checklists/standard/` is the original checklist, which **Вернуть стандартный** in the UI restores.
 
-To regenerate them:
+A criterion is one of four shapes:
+
+| Shape                          | Decided by                                                       |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `conditions` + `decision`      | boolean expression over yes/no conditions (`a AND (b OR NOT c)`) |
+| `subcriteria`, ordered gates   | first failed gate sets the score                                 |
+| `subcriteria`, severity ladder | critical / major failures and the count of minor lapses          |
+| `direct_scale`                 | the model picks a step (criteria created in the UI)              |
+
+Any of them can have an N/A gate. Files are in English, since that's what the model sees. The UI edits them in Russian: changed texts are translated by a small LLM (`translator.py`, cached in `translations_ru.json`). Each saved checklist gets a version number, and every evaluation keeps the version it was made with.
+
+## Data
+
+`data/dialogues/<set>.json` holds one file per dataset (`dev`, `prod`, `swap`). Each file is either an API response `{"data": {"records": [...]}}` or a plain list of records:
+
+```json
+{
+  "conversation_id": "p1-ru-001",
+  "channel": "agent chat | voice call",
+  "language": "RU | KZ | EN",
+  "transcript": [
+    {
+      "timestamp": "00:02",
+      "speaker": "client | operator | bot | system",
+      "text": "..."
+    }
+  ]
+}
+```
+
+Chat timestamps are `MM:SS`; call timestamps are ISO 8601. Recording URLs for calls go in `data/audio_urls.json`. To add a dataset, drop a new file into the folder and restart the server.
+
+## Command line
 
 ```bash
-python judge.py --submit dev  --team-name "NU IoT Lab"                    # -> results/dev/results.json
-python judge.py --submit prod --team-name "NU IoT Lab"                    # -> results/prod/results.json
+python judge.py --set swap --ui                      # evaluate a whole set and show it in the UI
+python judge.py --set dev --ids p1-ru-010 --criteria contact
+python judge.py --models <model-a> <model-b>         # compare models (reports only)
+python judge.py --dry-run --ids p1-ru-010            # print prompts, no API calls
+python judge.py --submit dev --team-name "<team>"    # results/dev/results.json (hackathon format)
 ```
 
-Each command reads `dialogues/<set>.json`. Before writing a file, `judge.py` checks that every dialogue is present exactly once, that the values are allowed, that evidence turns are in range, and that `critical_flag` equals the `critical` value. A dialogue that could not be scored gets `status: "error"`, never a zero score.
+Every run writes `reports/<timestamp>/`: a summary, a CSV, token/cost/latency stats and the raw model replies. Stop or restart `server.py` around `--ui` runs: a running server keeps its own copy of `judge_results.json` and will overwrite it on its next save.
 
----
+## Frontend
 
-## Model and cost
+Plain HTML, CSS and JavaScript: no framework, no build step. `server.py` serves `front/` and a small JSON API from the same origin.
 
-| | |
-|---|---|
-| Judge | `deepseek/deepseek-v4.1-flash-1017` via OpenRouter (`external_api`), temperature 0 |
-| Translator (checklist RU ↔ EN only) | `google/gemma-3-12b-it` via OpenRouter, results cached |
-| **Cost of one dialogue evaluation** (all 8 calls) | **≈ $0.0066** (chat $0.0064, call $0.0095) |
-| Time per dialogue (8 calls in parallel) | median 9.8 s, p95 25.8 s |
-| Full DEV set (65 dialogues) | 9 min, $0.43 |
+| File                        | Role                                                                                               |
+| --------------------------- | -------------------------------------------------------------------------------------------------- |
+| `index.html`, `css/cqa.css` | Markup and styles; scripts load as classic `<script>` tags in order                                |
+| `js/config.js`              | `window.CQA_CONFIG`: `apiBase` (API URL), `openParam` (query param that opens a dialogue)          |
+| `js/api.js`                 | **The only file that talks to the backend.** Replace it to use another backend                     |
+| `js/core.js`, `js/model.js` | State, transcript preparation and scoring (same rules as `judge.py`); checklist model and versions |
+| `js/list.js`                | Dialogue list: filters by set, channel, language and status; bulk evaluation                       |
+| `js/card.js`                | Dialogue card: transcript, verdicts, evidence links, audio player with evidence markers, appeals   |
+| `js/assess.js`              | Starts evaluation jobs and polls their progress                                                    |
+| `js/checklists.js`          | Checklist editor                                                                                   |
+| `js/forms.js`, `js/main.js` | Form handling for sandboxed hosts; hash routing (`#<conversation_id>`, `#checklists`)              |
 
-The translator runs only when someone saves checklist changes, not per dialogue.
+The sidebar's two modes, **Оператор** (files appeals) and **Проверяющий** (decides appeals, edits the checklist), stand in for user roles; there is no login. The UI text is in Russian.
 
----
+To embed the UI elsewhere (e.g. as a Dynamics 365 HTML web resource), host `front/`, set `CQA_CONFIG` before `config.js`, and reimplement the functions in `api.js` with the same return shapes.
 
-## How the judge works
+**API**
 
-1. **One request per criterion, all in parallel.** Each criterion gets its own prompt, built from its own file in [`checklists/`](checklists/), so the 8 criteria of one dialogue run as 8 concurrent requests.
-2. **The LLM answers questions; the code computes the score.** For each criterion the model answers its yes/no sub-questions (or picks a scale step) and cites a turn number with a quote. The criterion file's rules turn those answers into Yes / No / N/A or a scale step. Weights, N/A redistribution and rounding then follow the checklist exactly. `critical` is reported as a separate flag.
-3. **Strict output.** Every reply is checked against a JSON schema and retried up to 3 times. Quotes are also checked against the cited turn.
-4. **Transcript preparation.** Turn numbers are the original 1-based indices, counting client, bot and system turns. Bot and system turns are kept as context. Repeated bot boilerplate is dropped. In voice calls, fragments from the same speaker are merged, and speech while the client is on hold is marked as internal (the client did not hear it).
-5. **Languages.** One checklist serves RU, KZ and EN. Prompts are in English; rationales are written in Russian; quotes stay in the original language.
+| Method    | Path                             |                                                          |
+| --------- | -------------------------------- | -------------------------------------------------------- |
+| GET       | `/api/bootstrap`                 | dialogues, checklist, evaluations, reviews, running jobs |
+| GET / PUT | `/api/checklist`                 | current checklist; save it (rewrites `checklists/`)      |
+| GET       | `/api/checklist/standard`        | original checklist                                       |
+| GET       | `/api/evaluations`               | all evaluations                                          |
+| POST      | `/api/evaluate` `{"ids": [...]}` | start an evaluation job                                  |
+| GET       | `/api/jobs/<id>`                 | job progress                                             |
+| PUT       | `/api/reviews/<conversation_id>` | save appeals and reviewer decisions                      |
 
----
+## Layout
 
-## Using the interface
-
-The two modes in the sidebar, **Оператор** and **Проверяющий**, stand in for the two roles (no login, as the guide allows).
-
-| Guide step | In the UI |
-|---|---|
-| **01 Create a checklist** | **Чек-листы**: add or edit criteria, wording, weight, answer type (yes/no or scale with its steps), N/A on/off and N/A condition, category. **Сохранить чек-лист** saves a new version. **Вернуть стандартный** restores the organisers' checklist. |
-| **02 Evaluate a dialogue** | **Диалоги**: filter by channel or language, open a dialogue → **Оценить диалог**, or tick several → **Оценить выбранные**. The saved checklist is used. |
-| **03 Show the result** | Each criterion shows its answer, points, weight, rationale and evidence. For a failed item the rationale cites where the action was expected; for N/A it states which condition was met. The card also shows section results, the total, and the critical-error flag. |
-| **04 Open the card** | Clicking an evidence link scrolls to that message. For calls, the player and its timeline jump to that fragment, with markers for every cited turn. |
-| **05 Appeal** | Mode **Оператор** → **Оспорить оценку** → comment → **Отправить апелляцию**. |
-| **06 Decide** | Mode **Проверяющий**: the reviewer sees the disputed score, the comment and the dialogue fragment, picks the final value, enters the reason (required), then clicks **Подтвердить оценку** or **Изменить оценку**. A preview shows the new total first. The card keeps the original score, the decision and the final result. |
-
-**Replacing a criterion (control check):** in **Чек-листы**, edit or replace the criterion → **Сохранить чек-лист** → in **Диалоги**, filter the set, tick the dialogues → **Оценить выбранные**. Russian edits are translated to English for the judge automatically.
-
-**Dynamics 365:** the UI is plain HTML, CSS and JS with no build step. All data access lives in [`front/js/api.js`](front/js/api.js); to embed the UI as a D365 HTML web resource, only that file has to be replaced (e.g. with `Xrm.WebApi`).
-
----
-
-## Repository map
-
-| Path | What it is |
-|---|---|
-| `judge.py` | LLM judge and scoring; CLI for runs (`--set swap --ui` evaluates a whole set for the UI) and submission files |
-| `server.py` | Local backend: serves `front/` and a small JSON API |
-| `checklist_store.py` | Converts between the UI checklist (RU) and the criterion files (EN), with versioning |
-| `translator.py` | RU ↔ EN translation of checklist texts (cached in `checklists/translations_ru.json`) |
-| `checklists/` | Active checklist: one JSON file per criterion + `shared_rules.json`; `standard/` holds the organisers' version |
-| `front/` | Web UI (`index.html`, `js/`, `css/`) |
-| `dialogues/` | Dialogue sets `dev`, `prod`, `swap` (API responses as is); `audio_urls.json` holds the call recordings |
-| `judge_results.json`, `reviews.json` | Evaluations shown in the UI, and appeals with reviewer decisions |
-| `results/` | Submission files |
-| `reports/` | Per-run reports: summary, CSV, token/cost/latency stats, raw model replies |
-| `baseline/` | Early single-prompt experiment, not used by the solution |
+```
+judge.py            LLM judge, scoring, CLI
+server.py           web server + JSON API
+checklist_store.py  checklist files <-> UI shape, versioning
+translator.py       RU <-> EN translation of checklist texts
+checklists/         active checklist (one file per criterion), standard/ = original
+front/              web UI
+data/               dialogues/, audio_urls.json, judge_results.json (evaluations), reviews.json (appeals), dev_eval_cases.json (notes for prompt testing)
+results/            hackathon submission files (JSON 1.0)
+reports/            per-run reports
+```

@@ -5,11 +5,11 @@
     python server.py --port 8080 --workers 8
 
 Files it reads and writes
-  dialogues/<set>.json      dialogues of every set: dev, prod, swap, ... (read only; each record gets `dataset`)
-  audio_urls.json           audio link per voice call (read only)
-  checklists/*.json    criteria the judge runs           (checklist_store.py; translations_ru.json = RU cache)
-  judge_results.json        judge.py results per dialogue     (runs[model].results + evaluations index)
-  reviews.json              appeals and reviewer decisions
+  data/dialogues/<set>.json dialogues of every set: dev, prod, swap, ... (read only; each record gets `dataset`)
+  data/audio_urls.json      audio link per voice call (read only)
+  checklists/*.json         criteria the judge runs           (checklist_store.py; translations_ru.json = RU cache)
+  data/judge_results.json   judge.py results per dialogue     (runs[model].results + evaluations index)
+  data/reviews.json         appeals and reviewer decisions
 
 API (all JSON)
   GET  /api/bootstrap                 everything the UI needs at start
@@ -41,9 +41,9 @@ import judge
 
 ROOT = Path(__file__).parent
 FRONT = ROOT / "front"
-RESULTS_PATH = ROOT / "judge_results.json"
-REVIEWS_PATH = ROOT / "reviews.json"
-AUDIO_PATH = ROOT / "audio_urls.json"
+RESULTS_PATH = judge.DATA_DIR / "judge_results.json"
+REVIEWS_PATH = judge.DATA_DIR / "reviews.json"
+AUDIO_PATH = judge.DATA_DIR / "audio_urls.json"
 
 
 def now():
@@ -65,7 +65,7 @@ def write(path, obj):
 
 # --------------------------------------------------------------------------- dialogues
 def load_dialogues():
-    """All records of dialogues/*.json, each tagged with its set name. A conversation_id present in two sets is
+    """All records of data/dialogues/*.json, each tagged with its set name. A conversation_id present in two sets is
     kept once (first set wins: dev, then alphabetical) and reported."""
     out, seen = [], {}
     for name, recs in judge.load_all_records().items():

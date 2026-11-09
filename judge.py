@@ -14,7 +14,7 @@ A per-dialogue total (0-100) is computed over the criteria that were run, redist
 Transcript turns are numbered from 1 over the ORIGINAL transcript array (client, bot and system turns included),
 as the results appendix (CQA_Student_Guide_Appendix_Results.pdf) requires for `evidence_turns`.
 
-Datasets: dialogues/<set>.json (organisers' API responses saved as is), e.g. dev, prod, swap. `--set` picks one.
+Datasets: data/dialogues/<set>.json (organisers' API responses saved as is), e.g. dev, prod, swap. `--set` picks one.
 
 Usage:
     python judge.py --set swap --ui         # whole swap set, all enabled criteria, results shown in the web UI
@@ -22,14 +22,14 @@ Usage:
     python judge.py --subset some_ids.json  # only the dialogues listed in {"dialogues": [{"conversation_id": ...}]}
     python judge.py --dry-run --ids p1-ru-010   # print prompts, no API calls
 
-  --ui also stores the results in judge_results.json (what the web UI shows). Restart server.py afterwards:
+  --ui also stores the results in data/judge_results.json (what the web UI shows). Restart server.py afterwards:
   a running server keeps its own copy of that file in memory.
 
 Submission files (format JSON 1.0, one record per dialogue of the whole set, exactly one model):
     python judge.py --submit dev --team-name "<team>"     [--models <model>]
-        -> results/dev/results.json  (all 65 records of dialogues/dev.json)
+        -> results/dev/results.json  (all 65 records of data/dialogues/dev.json)
     python judge.py --submit prod --team-name "<team>"
-        -> results/prod/results.json (the 10 control chats of dialogues/prod.json)
+        -> results/prod/results.json (the 10 control chats of data/dialogues/prod.json)
   Each record follows the appendix exactly (schema_version, team_name, model{mode,name}, results[{conversation_id,
   status, criteria[{criterion_id, value, rationale, evidence_turns}], score{final_score, critical_flag}}]);
   extra fields are only ADDED: record.channel/language, criterion.weight/points/evidence[{item, turns, timestamps,
@@ -106,11 +106,12 @@ ALLOWED_VALUES = {  # None = N/A
 
 
 # --------------------------------------------------------------------------- data
-DIALOGUES_DIR = ROOT / "dialogues"
+DATA_DIR = ROOT / "data"
+DIALOGUES_DIR = DATA_DIR / "dialogues"
 
 
 def dataset_names():
-    """Dataset names = file stems in dialogues/ (dev, prod, swap, ...), dev first."""
+    """Dataset names = file stems in data/dialogues/ (dev, prod, swap, ...), dev first."""
     return sorted((p.stem for p in DIALOGUES_DIR.glob("*.json")), key=lambda n: (n != "dev", n))
 
 
@@ -132,13 +133,13 @@ def load_records(path=None):
 
 
 def load_all_records():
-    """{set name: records} of every dataset in dialogues/. Empty or unreadable files are skipped with a warning."""
+    """{set name: records} of every dataset in data/dialogues/. Empty or unreadable files are skipped with a warning."""
     out = {}
     for name in dataset_names():
         try:
             out[name] = load_records(dataset_path(name))
         except (SystemExit, Exception) as e:  # noqa: BLE001 - one bad file must not hide the others
-            print(f"WARNING: dialogues/{name}.json skipped: {e}", file=sys.stderr)
+            print(f"WARNING: data/dialogues/{name}.json skipped: {e}", file=sys.stderr)
     return out
 
 
@@ -892,7 +893,7 @@ def save_to_ui(model, crits, ids, table):
     import checklist_store as cs  # noqa: PLC0415
     unknown = [cid for cid in ids if cid not in server.BY_ID]
     if unknown:
-        print(f"WARNING: not in dialogues/, not shown in the UI: {unknown}", file=sys.stderr)
+        print(f"WARNING: not in data/dialogues/, not shown in the UI: {unknown}", file=sys.stderr)
     results, reviews, version = server.Results(), server.Reviews(), cs.current_version()
     order = {c["criterion_id"]: i for i, c in enumerate(crits)}
     for cid in ids:
@@ -908,7 +909,7 @@ def save_to_ui(model, crits, ids, table):
 # --------------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--set", default="dev", help=f"dataset in dialogues/ (now: {', '.join(dataset_names())})")
+    ap.add_argument("--set", default="dev", help=f"dataset in data/dialogues/ (now: {', '.join(dataset_names())})")
     ap.add_argument("--subset", default=None, help='optional {"dialogues": [{"conversation_id": ...}]} file: '
                                                    "run only these dialogues of the set")
     ap.add_argument("--ids", nargs="*", help="override: only these conversation_ids")
@@ -917,9 +918,9 @@ def main():
     ap.add_argument("--models", nargs="*", default=None,
                     help="OpenRouter model ids; several allowed, each is run and reported separately "
                          "(default: $OPENROUTER_MODEL or " + DEFAULT_MODEL + ")")
-    ap.add_argument("--input", default=None, help="dataset file outside dialogues/ (overrides --set)")
+    ap.add_argument("--input", default=None, help="dataset file outside data/dialogues/ (overrides --set)")
     ap.add_argument("--submit", choices=["dev", "prod"],
-                    help="write results/<set>/results.json (appendix format) for dialogues/<set>.json. Runs the "
+                    help="write results/<set>/results.json (appendix format) for data/dialogues/<set>.json. Runs the "
                          "WHOLE set, all 8 criteria and exactly one model")
     ap.add_argument("--ui", action="store_true",
                     help="also store the results in judge_results.json so the web UI shows them (one model only)")
@@ -952,7 +953,7 @@ def main():
     if args.ui and len(models) != 1:
         sys.exit("--ui needs exactly one model (the UI shows one evaluation per dialogue).")
     if not args.input and args.set not in dataset_names():
-        sys.exit(f"Unknown set {args.set!r}: dialogues/ has {', '.join(dataset_names())}.")
+        sys.exit(f"Unknown set {args.set!r}: data/dialogues/ has {', '.join(dataset_names())}.")
 
     input_path = Path(args.input) if args.input else dataset_path(args.set)
     records = load_records(input_path)
