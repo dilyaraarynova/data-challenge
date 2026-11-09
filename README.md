@@ -4,6 +4,12 @@ Scores customer-support dialogues (chats and voice-call transcripts, RU / KZ / E
 
 Built at the Freedom Broker CQA Hackathon.
 
+| Dialogue list | Call: evidence timeline and verdicts |
+|---|---|
+| ![Dialogue list with filters by set, channel, language and status](interface/list.png) | ![Call card with evidence markers on the timeline, transcript and per-criterion scores](interface/call.png) |
+| **Why a score was lowered, with a link to the turn** | **Chat with per-turn evidence tags** |
+| ![Criterion verdict with rationale, cited turn and appeal button](interface/verdict.png) | ![Chat transcript with criterion tags under the cited messages](interface/chat.png) |
+
 ## How to start
 
 ```bash
